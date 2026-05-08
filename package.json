@@ -1,0 +1,5 @@
+{
+	"dependencies": {
+		"@better-auth/prisma-adapter": "^1.6.9"
+	}
+}
