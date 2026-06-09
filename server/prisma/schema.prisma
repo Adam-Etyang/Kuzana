@@ -19,7 +19,8 @@ model User {
   email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
-  role          Role      @default(STUDENT)
+  role          Role      @default(MENTEE)
+  institutionRole InstitutionRole @default(STUDENT)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -29,10 +30,15 @@ model User {
   accounts      Account[]
 }
 
-
-enum Role {
+enum InstitutionRole {
   STUDENT
   FACULTY
+}
+
+enum Role {
+  MENTOR
+  MENTEE
+  FACULTY_MENTOR
   ADMIN
 }
 

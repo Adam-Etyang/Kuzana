@@ -1,6 +1,8 @@
 import { Controller, Body, Post, Get, Req } from '@nestjs/common';
+import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 import {auth} from '../../lib/auth.js'
 
+@AllowAnonymous()
 @Controller('users')
 export class UsersController {
 
@@ -21,6 +23,16 @@ export class UsersController {
   });
   return data;
   }
+
+  @Get('me')
+  async me(@Req() req: any) {
+    const session = await auth.api.getSession({
+      headers: req.headers,
+      asResponse: true,
+    });
+    return session;
+  }
+
 /*
   @Get('profile')
   async getProfile(@Req() req) {
