@@ -20,7 +20,7 @@ model User {
   emailVerified Boolean   @default(false)
   image         String?
   role          Role      @default(MENTEE)
-  institutionRole InstitutionRole @default(STUDENT)
+  institutionRole InstitutionRole? @default(STUDENT)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -46,6 +46,7 @@ model Profile {
   id            String      @id @default(uuid())
   userId        String      @unique
   user          User        @relation(fields: [userId], references: [id])
+  yearOfStudy  Int?
 
   firstName     String
   lastName      String
