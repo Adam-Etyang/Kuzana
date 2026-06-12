@@ -1,4 +1,13 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { MatchingService } from './matching.service.js';
 
 @Controller('matching')
-export class MatchingController {}
+export class MatchingController {
+  constructor(private readonly matchingService: MatchingService) {}
+
+  @Post('score')
+  async scorePair(@Body() body: { targetUserId: string; viewerUserId: string }) {
+    return this.matchingService.scorePair(body.targetUserId, body.viewerUserId);
+  }
+
+}
