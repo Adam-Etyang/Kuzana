@@ -41,7 +41,7 @@ async submitProfile(@Req() req: any, @Body() body: any) {
 
 }
 
-@Controller('profile/internal')
+@Controller('/profile/internal')
 @UseGuards(InternalGuard)
 export class InternalProfileController{
     constructor(private readonly profileService: ProfileService) {}
