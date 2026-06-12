@@ -8,7 +8,7 @@ import { Injectable } from '@nestjs/common';
 let InternalGuard = class InternalGuard {
     canActivate(context) {
         const request = context.switchToHttp().getRequest();
-        return request.headers['x-internal-secret'] === process.env.INTERNAL_SECRET;
+        return request.headers['x-internal-secret'] === process.env.INTERNAL_API_KEY;
     }
 };
 InternalGuard = __decorate([
