@@ -76,7 +76,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], InternalProfileController.prototype, "getProfile", null);
 InternalProfileController = __decorate([
-    Controller('profile/internal'),
+    Controller('/profile/internal'),
     UseGuards(InternalGuard),
     __metadata("design:paramtypes", [ProfileService])
 ], InternalProfileController);
