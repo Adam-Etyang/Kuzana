@@ -19,7 +19,7 @@ async def score_compatibility(
     if not target_user_id or not viewer_user_id:
         raise HTTPException(status_code=400, detail="Missing user ids")
 
-    scorer = scoring(model=None)
+    scorer = scoring()
     target_profile = await scorer.getProfile(target_user_id)
     viewer_profile = await scorer.getProfile(viewer_user_id)
     return await scorer.scoreProfiles(target_profile, viewer_profile)
