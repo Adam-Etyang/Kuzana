@@ -1,11 +1,12 @@
 import httpx
 import os
 import re
+from embedding.main import getEmbeddings
+import numpy as np
 
-class scoring :
-    def __init__(self, model):
-        self.model = model
-    
+class Scoring :
+    def __init__(self):
+        pass
     async def Jaccard(self, set1, set2):
         intersection = len(set(set1).intersection(set(set2)))
         union = len(set(set1).union(set(set2)))
@@ -13,13 +14,17 @@ class scoring :
             return 0.0
         return intersection / union
 
+
+# Note that the Cosine simiarity is calculated as Inner product/(Magnitude of vec1 * Magnitude of vec2)
     async def CosineSimilarity(self, vec1, vec2):
-        dot_product = sum(a * b for a, b in zip(vec1, vec2))
-        magnitude_vec1 = sum(a ** 2 for a in vec1) ** 0.5
-        magnitude_vec2 = sum(b ** 2 for b in vec2) ** 0.5
-        if magnitude_vec1 == 0 or magnitude_vec2 == 0:
+        dot_product = np.dot(vec1, vec2)
+        magnitude1 = np.linalg.norm(vec1)
+        magnitude2 = np.linalg.norm(vec2)
+
+        if magnitude1 == 0 or magnitude2 == 0:
             return 0.0
-        return dot_product / (magnitude_vec1 * magnitude_vec2)
+
+        return dot_product / (magnitude1 * magnitude2)
 
     async def OverlapRatio(self, set1, set2):
         intersection = len(set(set1).intersection(set(set2)))
@@ -52,16 +57,22 @@ class scoring :
         target_days = [item["dayOfWeek"] for item in profile.get("availability", [])]
         viewer_days = [item["dayOfWeek"] for item in viewer_profile.get("availability", [])]
 
-        target_goal = set(re.findall(r"\w+", (profile.get("goalStatement") or "").lower()))
-        viewer_goal = set(re.findall(r"\w+", (viewer_profile.get("goalStatement") or "").lower()))
+        target_goal = profile.get("goalStatement")
+        target_goal_vec = await getEmbeddings(target_goal)
+        viewer_goal = viewer_profile.get("goalStatement")
+        viewer_goal_vec = await getEmbeddings(viewer_goal)
 
         skill_score = await self.Jaccard(target_skills, viewer_skills)
         interest_score = await self.Jaccard(target_interests, viewer_interests)
-        goal_score = await self.Jaccard(target_goal, viewer_goal)
+        goal_score = await self.CosineSimilarity(target_goal_vec, viewer_goal_vec)
+
+        #This would need fixing if we have more than just faculty and department in the future, but for now it should work
         field_score = 1.0 if profile.get("faculty") == viewer_profile.get("faculty") and profile.get("department") == viewer_profile.get("department") else 0.5 if profile.get("faculty") == viewer_profile.get("faculty") else 0.0
+
         availability_score = await self.OverlapRatio(target_days, viewer_days)
         year_score = await self.NormalisedDistance(profile.get("yearOfStudy") or 0, viewer_profile.get("yearOfStudy") or 0)
 
+        #Fine tune the weights
         total_score = (
             (skill_score * 0.30)
             + (interest_score * 0.20)
