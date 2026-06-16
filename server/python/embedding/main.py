@@ -1,11 +1,13 @@
+import os
 from google import genai
 
-client = genai.Client()
+client = genai.Client(api_key = os.getenv("Embedding_API_Key"))
 
-response = client.models.generate_content(
-    model="gemini-3.5-flash",
-    contents="Explain how AI works in a few words"
-)
+async def getEmbeddings(text:str):
+    embedding = client.models.embed_content(
+            model='gemini-embedding-2',
+            contents=text
+            )
+    return embedding 
 
-print(response.text)
 
