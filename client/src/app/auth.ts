@@ -5,6 +5,7 @@ export const { data, error } = await authClient.signUp.email({
         password, // user password -> min 8 characters by default
         name, // user display name
         image, 
+        role,//role when signing up
         callbackURL: "/" 
     }, {
         onRequest: (ctx) => {

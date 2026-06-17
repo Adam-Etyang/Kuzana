@@ -6,6 +6,7 @@ export default function Home() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [role,setRole]  = useState<"Mentee | Mentor">("Mentee");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -100,6 +101,16 @@ export default function Home() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none ring-0 placeholder:text-zinc-600 focus:border-white/30"
               placeholder="••••••••"
+            />
+          </label>
+
+          <label className="block space-y-2 text-sm">
+            <span className="text-zinc-300">Role</span>
+            <input
+              type="text"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none ring-0 placeholder:text-zinc-600 focus:border-white/30"
             />
           </label>
 
