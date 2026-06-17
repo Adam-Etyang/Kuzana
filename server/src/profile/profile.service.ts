@@ -6,25 +6,34 @@ import { PrismaClient,DayOfWeek } from '../../generated/prisma/client.js';
 export class ProfileService {
   constructor(@Inject('PRISMA') private prisma: PrismaClient) {}
 
-  async submitProfile(userId:string, data:{
-    firstName: string;
-    lastName: string;
-    yearOfStudy: number;
-    faculty: string;
-    department: string;
-    goalStatement: string;
-    skills: string[];       // skill IDs
-    interests: string[];    // interest IDs
-    availability: {
-      dayOfWeek: DayOfWeek;
-      startTime: string;
-      endTime: string;
-    }[];
-  }){
-        const existing = await this.prisma.profile.findUnique({ where: { userId } });
-    if (existing) throw new ConflictException('Profile already exists');
+  async submitProfile(userId: string, data: {
+  firstName: string;
+  lastName: string;
+  yearOfStudy: number;
+  faculty: string;
+  department: string;
+  goalStatement: string;
+  skills: string[];
+  interests: string[];
+  availability: {
+    dayOfWeek: DayOfWeek;
+    startTime: string;
+    endTime: string;
+  }[];
+  role: Role;
+  bio?: string;
+  maxMentees?: number;
+}) {
+  const existing = await this.prisma.profile.findUnique({ where: { userId } });
+  if (existing) throw new ConflictException('Profile already exists');
 
-    return this.prisma.profile.create({
+  return this.prisma.$transaction(async (tx) => {
+    await tx.user.update({
+      where: { id: userId },
+      data: { role: data.role }
+    });
+
+    const profile = await tx.profile.create({
       data: {
         userId,
         firstName: data.firstName,
@@ -33,7 +42,7 @@ export class ProfileService {
         faculty: data.faculty,
         department: data.department,
         goalStatement: data.goalStatement,
-        goalVector: [],   // populated later when embedding service runs
+        goalVector: [],
         skills: {
           create: data.skills.map(skillId => ({ skillId }))
         },
@@ -44,10 +53,27 @@ export class ProfileService {
           create: data.availability
         }
       },
-      include: { skills: true, interests: true, availability: true }
+      include: {
+        skills: true,
+        interests: true,
+        availability: true
+      }
     });
 
-  }
+    if (data.role === Role.MENTOR || data.role === Role.FACULTY_MENTOR) {
+      if (!data.bio) throw new BadRequestException('Bio is required for mentors');
+      await tx.mentorProfile.create({
+        data: {
+          userId,
+          bio: data.bio,
+          maxMentees: data.maxMentees ?? 2,
+        }
+      });
+    }
+
+    return profile;
+  });
+}
 
   async updateProfile(userId:string, data:Partial<{
         firstName: string;
