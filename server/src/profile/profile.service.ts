@@ -1,5 +1,5 @@
-import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaClient,DayOfWeek } from '../../generated/prisma/client.js';
+import { BadRequestException, ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaClient,DayOfWeek,Role } from '../../generated/prisma/client.js';
 
 
 @Injectable()
@@ -60,7 +60,7 @@ export class ProfileService {
       }
     });
 
-    if (data.role === Role.MENTOR || data.role === Role.FACULTY_MENTOR) {
+    if (data.role === Role.MENTOR) {
       if (!data.bio) throw new BadRequestException('Bio is required for mentors');
       await tx.mentorProfile.create({
         data: {
