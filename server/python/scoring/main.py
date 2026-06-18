@@ -1,8 +1,9 @@
 import httpx
 import os
-import re
 from embedding.main import getEmbeddings
 import numpy as np
+
+#cache embeddings 
 
 class Scoring :
     def __init__(self):
