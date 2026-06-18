@@ -23,7 +23,7 @@ class DefferedAcceptance:
 
         unmacted_mentees = list(mentee['id']for mentee in mentees)
 
-        while unmacted_mentees:
+        while unmatched_mentees:
             mentee_id = unmatched_mentees.pop(0)
             prefs = mentee_preferences[mentee_id]
 
