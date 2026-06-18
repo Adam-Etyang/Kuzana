@@ -460,6 +460,14 @@ export type MentorProfileUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MentorProfileUpdateToOneWithWhereWithoutUserInput, Prisma.MentorProfileUpdateWithoutUserInput>, Prisma.MentorProfileUncheckedUpdateWithoutUserInput>
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type MentorProfileCreateWithoutUserInput = {
   id?: string
   maxMentees?: number

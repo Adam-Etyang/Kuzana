@@ -178,7 +178,7 @@ export type UserGroupByOutputType = {
   emailVerified: boolean
   image: string | null
   role: $Enums.Role
-  institutionRole: $Enums.InstitutionRole
+  institutionRole: $Enums.InstitutionRole | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -211,7 +211,7 @@ export type UserWhereInput = {
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFilter<"User"> | $Enums.InstitutionRole
+  institutionRole?: Prisma.EnumInstitutionRoleNullableFilter<"User"> | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
@@ -227,7 +227,7 @@ export type UserOrderByWithRelationInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
-  institutionRole?: Prisma.SortOrder
+  institutionRole?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   profile?: Prisma.ProfileOrderByWithRelationInput
@@ -246,7 +246,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFilter<"User"> | $Enums.InstitutionRole
+  institutionRole?: Prisma.EnumInstitutionRoleNullableFilter<"User"> | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
@@ -262,7 +262,7 @@ export type UserOrderByWithAggregationInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
-  institutionRole?: Prisma.SortOrder
+  institutionRole?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -280,7 +280,7 @@ export type UserScalarWhereWithAggregatesInput = {
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleWithAggregatesFilter<"User"> | $Enums.InstitutionRole
+  institutionRole?: Prisma.EnumInstitutionRoleNullableWithAggregatesFilter<"User"> | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -292,7 +292,7 @@ export type UserCreateInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
@@ -308,7 +308,7 @@ export type UserUncheckedCreateInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
@@ -324,7 +324,7 @@ export type UserUpdateInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
@@ -340,7 +340,7 @@ export type UserUncheckedUpdateInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -356,7 +356,7 @@ export type UserCreateManyInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -368,7 +368,7 @@ export type UserUpdateManyMutationInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -380,7 +380,7 @@ export type UserUncheckedUpdateManyInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -442,8 +442,8 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
-export type EnumInstitutionRoleFieldUpdateOperationsInput = {
-  set?: $Enums.InstitutionRole
+export type NullableEnumInstitutionRoleFieldUpdateOperationsInput = {
+  set?: $Enums.InstitutionRole | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -513,7 +513,7 @@ export type UserCreateWithoutProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
@@ -528,7 +528,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
@@ -559,7 +559,7 @@ export type UserUpdateWithoutProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
@@ -574,7 +574,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -589,7 +589,7 @@ export type UserCreateWithoutMentorProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
@@ -604,7 +604,7 @@ export type UserUncheckedCreateWithoutMentorProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
@@ -635,7 +635,7 @@ export type UserUpdateWithoutMentorProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
@@ -650,7 +650,7 @@ export type UserUncheckedUpdateWithoutMentorProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -665,7 +665,7 @@ export type UserCreateWithoutSessionsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
@@ -680,7 +680,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
@@ -711,7 +711,7 @@ export type UserUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
@@ -726,7 +726,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -741,7 +741,7 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
@@ -756,7 +756,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole
+  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
@@ -787,7 +787,7 @@ export type UserUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
@@ -802,7 +802,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole
+  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -929,7 +929,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emailVerified: boolean
     image: string | null
     role: $Enums.Role
-    institutionRole: $Enums.InstitutionRole
+    institutionRole: $Enums.InstitutionRole | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>

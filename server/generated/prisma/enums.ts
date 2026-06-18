@@ -20,7 +20,6 @@ export type InstitutionRole = (typeof InstitutionRole)[keyof typeof InstitutionR
 export const Role = {
   MENTOR: 'MENTOR',
   MENTEE: 'MENTEE',
-  FACULTY_MENTOR: 'FACULTY_MENTOR',
   ADMIN: 'ADMIN'
 } as const
 
