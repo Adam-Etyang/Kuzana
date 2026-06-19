@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export default function Home() {
+  const router = useRouter();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [role,setRole]  = useState<"Mentee | Mentor">("Mentee");
+  const [role, setRole] = useState<"Mentee" | "Mentor">("Mentee");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -18,26 +21,33 @@ export default function Home() {
     setError(null);
     setMessage(null);
 
-    try {
-      const endpoint = mode === "signup" ? "/users/register" : "/users/login";
-      const response = await fetch(`http://localhost:3001${endpoint}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(
-          mode === "signup"
-            ? { email, password, name }
-            : { email, password }
-        ),
+    if (mode === "signup") {
+      const { error: signUpError } = await authClient.signUp.email({
+        email,
+        password,
+        name,
+        role, // only relevant here
+        callbackURL: "/",
       });
-
-      if (!response.ok) {
-        throw new Error(`Request failed (${response.status})`);
+      if (signUpError) {
+        setError(signUpError.message ?? "Signup failed");
+      } else {
+        setMessage("Check your email to verify your account.");
       }
-
-      setMessage(mode === "signup" ? "Signup request sent." : "Login request sent.");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Request failed");
+    } else {
+      // role is never read or sent during login
+      const { error: signInError } = await authClient.signIn.email({
+        email,
+        password,
+        rememberMe: true,
+        callbackURL: "/",
+      });
+      if (signInError) {
+        setError(signInError.message ?? "Login failed");
+      } else {
+        setMessage("Login successful.");
+        router.push("/");
+      }
     }
 
     setLoading(false);
@@ -71,15 +81,29 @@ export default function Home() {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           {mode === "signup" && (
-            <label className="block space-y-2 text-sm">
-              <span className="text-zinc-300">Name</span>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none ring-0 placeholder:text-zinc-600 focus:border-white/30"
-                placeholder="Ada Lovelace"
-              />
-            </label>
+            <>
+              <label className="block space-y-2 text-sm">
+                <span className="text-zinc-300">Name</span>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none placeholder:text-zinc-600 focus:border-white/30"
+                  placeholder="Ada Lovelace"
+                />
+              </label>
+
+              <label className="block space-y-2 text-sm">
+                <span className="text-zinc-300">Role</span>
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value as "Mentee" | "Mentor")}
+                  className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none focus:border-white/30"
+                >
+                  <option value="Mentee">Mentee</option>
+                  <option value="Mentor">Mentor</option>
+                </select>
+              </label>
+            </>
           )}
 
           <label className="block space-y-2 text-sm">
@@ -88,7 +112,7 @@ export default function Home() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none ring-0 placeholder:text-zinc-600 focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none placeholder:text-zinc-600 focus:border-white/30"
               placeholder="you@example.com"
             />
           </label>
@@ -99,18 +123,8 @@ export default function Home() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none ring-0 placeholder:text-zinc-600 focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none placeholder:text-zinc-600 focus:border-white/30"
               placeholder="••••••••"
-            />
-          </label>
-
-          <label className="block space-y-2 text-sm">
-            <span className="text-zinc-300">Role</span>
-            <input
-              type="text"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none ring-0 placeholder:text-zinc-600 focus:border-white/30"
             />
           </label>
 
