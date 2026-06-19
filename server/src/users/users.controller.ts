@@ -7,9 +7,14 @@ import {auth} from '../../lib/auth.js'
 export class UsersController {
 
   @Post('register')
-  async register(@Body() body:{ email: string; password: string; name: string }) {
+  async register(@Body() body:{ email: string; password: string; name: string,role: "Mentee" | "Mentor" }) {
   const data = await auth.api.signUpEmail({
-    body:{ email: body.email, password: body.password, name: body.name },
+    body:{ 
+      email: body.email,
+      password: body.password,
+      name: body.name,
+    role:body.role
+    },
     asResponse:true
     });
     return data;
