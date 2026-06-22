@@ -10,8 +10,8 @@ export class MatchingController {
     return this.matchingService.scorePair(body.targetUserId, body.viewerUserId);
   }
   @Post('run')
-  async runMatching(@Body() body: { mentees: any[]; mentors: any[] }) {
-    return this.matchingService.runMatching(body.mentees, body.mentors);
+  async runMatching() {
+    return this.matchingService.runMatching();
   }
 
 }
