@@ -2,15 +2,27 @@ from fastapi import FastAPI, Header, HTTPException
 from dotenv import load_dotenv
 load_dotenv()
 import os
+from contextlib import asynccontextmanager
 from scoring.main import Scoring
 from matching.main import Matching
 from matching.DA_alg import DefferedAcceptance
+from scheduler.main import Scheduler 
 
 
-app = FastAPI()
+scheduler = Scheduler()
+@asynccontextmanager
+async def lifespan(app:FastAPI):
+    scheduler.start()
+    yield
+    scheduler.shutdown()
+
+app = FastAPI(lifespan=lifespan)
 scoring = Scoring()
 matching = Matching()
 da = DefferedAcceptance()
+
+
+
 
 @app.post("/scoring/compatibility")
 async def score_compatibility(
