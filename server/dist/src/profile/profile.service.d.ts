@@ -1,4 +1,4 @@
-import { PrismaClient, DayOfWeek } from '../../generated/prisma/client.js';
+import { PrismaClient, DayOfWeek, Role } from '../../generated/prisma/client.js';
 export declare class ProfileService {
     private prisma;
     constructor(prisma: PrismaClient);
@@ -16,6 +16,9 @@ export declare class ProfileService {
             startTime: string;
             endTime: string;
         }[];
+        role: Role;
+        bio?: string;
+        maxMentees?: number;
     }): Promise<{
         skills: {
             profileId: string;
@@ -39,7 +42,7 @@ export declare class ProfileService {
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;
@@ -82,7 +85,7 @@ export declare class ProfileService {
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;
@@ -90,7 +93,7 @@ export declare class ProfileService {
     }>;
     getProfile(userId: string): Promise<{
         user: {
-            role: import("../../generated/prisma/enums.js").Role;
+            role: Role;
             mentorProfile: {
                 id: string;
                 createdAt: Date;
@@ -124,7 +127,7 @@ export declare class ProfileService {
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;

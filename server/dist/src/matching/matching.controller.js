@@ -20,6 +20,9 @@ let MatchingController = class MatchingController {
     async scorePair(body) {
         return this.matchingService.scorePair(body.targetUserId, body.viewerUserId);
     }
+    async runMatching() {
+        return this.matchingService.runMatching();
+    }
 };
 __decorate([
     Post('score'),
@@ -28,6 +31,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], MatchingController.prototype, "scorePair", null);
+__decorate([
+    Post('run'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], MatchingController.prototype, "runMatching", null);
 MatchingController = __decorate([
     Controller('matching'),
     __metadata("design:paramtypes", [MatchingService])

@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaClient } from '../../generated/prisma/client.js';
+import { BadRequestException, ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaClient, Role } from '../../generated/prisma/client.js';
 let ProfileService = class ProfileService {
     prisma;
     constructor(prisma) {
@@ -21,27 +21,49 @@ let ProfileService = class ProfileService {
         const existing = await this.prisma.profile.findUnique({ where: { userId } });
         if (existing)
             throw new ConflictException('Profile already exists');
-        return this.prisma.profile.create({
-            data: {
-                userId,
-                firstName: data.firstName,
-                lastName: data.lastName,
-                yearOfStudy: data.yearOfStudy,
-                faculty: data.faculty,
-                department: data.department,
-                goalStatement: data.goalStatement,
-                goalVector: [],
-                skills: {
-                    create: data.skills.map(skillId => ({ skillId }))
+        return this.prisma.$transaction(async (tx) => {
+            await tx.user.update({
+                where: { id: userId },
+                data: { role: data.role }
+            });
+            const profile = await tx.profile.create({
+                data: {
+                    userId,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    yearOfStudy: data.yearOfStudy,
+                    faculty: data.faculty,
+                    department: data.department,
+                    goalStatement: data.goalStatement,
+                    goalVector: [],
+                    skills: {
+                        create: data.skills.map(skillId => ({ skillId }))
+                    },
+                    interests: {
+                        create: data.interests.map(interestId => ({ interestId }))
+                    },
+                    availability: {
+                        create: data.availability
+                    }
                 },
-                interests: {
-                    create: data.interests.map(interestId => ({ interestId }))
-                },
-                availability: {
-                    create: data.availability
+                include: {
+                    skills: true,
+                    interests: true,
+                    availability: true
                 }
-            },
-            include: { skills: true, interests: true, availability: true }
+            });
+            if (data.role === Role.MENTOR) {
+                if (!data.bio)
+                    throw new BadRequestException('Bio is required for mentors');
+                await tx.mentorProfile.create({
+                    data: {
+                        userId,
+                        bio: data.bio,
+                        maxMentees: data.maxMentees ?? 2,
+                    }
+                });
+            }
+            return profile;
         });
     }
     async updateProfile(userId, data) {

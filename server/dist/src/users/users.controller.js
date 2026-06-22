@@ -10,23 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Controller, Body, Post, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, Param } from '@nestjs/common';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 import { auth } from '../../lib/auth.js';
+import { UsersService } from './users.service.js';
 let UsersController = class UsersController {
-    async register(body) {
-        const data = await auth.api.signUpEmail({
-            body: { email: body.email, password: body.password, name: body.name },
-            asResponse: true
-        });
-        return data;
+    usersService;
+    constructor(usersService) {
+        this.usersService = usersService;
     }
-    async login(body) {
-        const data = await auth.api.signInEmail({
-            body: { email: body.email, password: body.password },
-            asResponse: true,
-        });
-        return data;
+    async getUser(id) {
+        return await this.usersService.getUser(id);
     }
     async me(req) {
         const session = await auth.api.getSession({
@@ -37,19 +31,12 @@ let UsersController = class UsersController {
     }
 };
 __decorate([
-    Post('register'),
-    __param(0, Body()),
+    Get('user'),
+    __param(0, Param('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "register", null);
-__decorate([
-    Post('login'),
-    __param(0, Body()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "login", null);
+], UsersController.prototype, "getUser", null);
 __decorate([
     Get('me'),
     __param(0, Req()),
@@ -59,7 +46,8 @@ __decorate([
 ], UsersController.prototype, "me", null);
 UsersController = __decorate([
     AllowAnonymous(),
-    Controller('users')
+    Controller('users'),
+    __metadata("design:paramtypes", [UsersService])
 ], UsersController);
 export { UsersController };
 //# sourceMappingURL=users.controller.js.map

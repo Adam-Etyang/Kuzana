@@ -6,7 +6,6 @@ export type InstitutionRole = (typeof InstitutionRole)[keyof typeof InstitutionR
 export declare const Role: {
     readonly MENTOR: "MENTOR";
     readonly MENTEE: "MENTEE";
-    readonly FACULTY_MENTOR: "FACULTY_MENTOR";
     readonly ADMIN: "ADMIN";
 };
 export type Role = (typeof Role)[keyof typeof Role];

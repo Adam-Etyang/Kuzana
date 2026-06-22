@@ -6,4 +6,5 @@ export declare class MatchingController {
         targetUserId: string;
         viewerUserId: string;
     }): Promise<any>;
+    runMatching(): Promise<any>;
 }

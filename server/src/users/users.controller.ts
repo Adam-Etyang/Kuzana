@@ -8,7 +8,7 @@ import { UsersService } from './users.service.js';
 export class UsersController {
   // Inject the service via constructor
   constructor(private readonly usersService: UsersService) {}
-
+/*
   @Post('register')
   async register(@Body() body: { email: string; password: string; name: string; role: "MENTEE" | "MENTOR" | "ADMIN" }) {
     const data = await auth.api.signUpEmail({
@@ -31,7 +31,7 @@ export class UsersController {
     });
     return data;
   }
-
+*/
   @Get('user')
   async getUser(@Param('id') id: string) {  // also need @Query() here
     return await this.usersService.getUser(id)

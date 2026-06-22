@@ -5,7 +5,6 @@ export const InstitutionRole = {
 export const Role = {
     MENTOR: 'MENTOR',
     MENTEE: 'MENTEE',
-    FACULTY_MENTOR: 'FACULTY_MENTOR',
     ADMIN: 'ADMIN'
 };
 export const ProjectStatus = {

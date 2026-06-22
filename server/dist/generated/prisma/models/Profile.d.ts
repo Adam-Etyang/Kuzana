@@ -133,7 +133,7 @@ export type ProfileGroupByOutputType = {
     userId: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -157,7 +157,7 @@ export type ProfileWhereInput = {
     userId?: Prisma.StringFilter<"Profile"> | string;
     firstName?: Prisma.StringFilter<"Profile"> | string;
     lastName?: Prisma.StringFilter<"Profile"> | string;
-    yearOfStudy?: Prisma.IntFilter<"Profile"> | number;
+    yearOfStudy?: Prisma.IntNullableFilter<"Profile"> | number | null;
     faculty?: Prisma.StringFilter<"Profile"> | string;
     department?: Prisma.StringFilter<"Profile"> | string;
     goalStatement?: Prisma.StringFilter<"Profile"> | string;
@@ -174,7 +174,7 @@ export type ProfileOrderByWithRelationInput = {
     userId?: Prisma.SortOrder;
     firstName?: Prisma.SortOrder;
     lastName?: Prisma.SortOrder;
-    yearOfStudy?: Prisma.SortOrder;
+    yearOfStudy?: Prisma.SortOrderInput | Prisma.SortOrder;
     faculty?: Prisma.SortOrder;
     department?: Prisma.SortOrder;
     goalStatement?: Prisma.SortOrder;
@@ -194,7 +194,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.ProfileWhereInput | Prisma.ProfileWhereInput[];
     firstName?: Prisma.StringFilter<"Profile"> | string;
     lastName?: Prisma.StringFilter<"Profile"> | string;
-    yearOfStudy?: Prisma.IntFilter<"Profile"> | number;
+    yearOfStudy?: Prisma.IntNullableFilter<"Profile"> | number | null;
     faculty?: Prisma.StringFilter<"Profile"> | string;
     department?: Prisma.StringFilter<"Profile"> | string;
     goalStatement?: Prisma.StringFilter<"Profile"> | string;
@@ -211,7 +211,7 @@ export type ProfileOrderByWithAggregationInput = {
     userId?: Prisma.SortOrder;
     firstName?: Prisma.SortOrder;
     lastName?: Prisma.SortOrder;
-    yearOfStudy?: Prisma.SortOrder;
+    yearOfStudy?: Prisma.SortOrderInput | Prisma.SortOrder;
     faculty?: Prisma.SortOrder;
     department?: Prisma.SortOrder;
     goalStatement?: Prisma.SortOrder;
@@ -232,7 +232,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
     userId?: Prisma.StringWithAggregatesFilter<"Profile"> | string;
     firstName?: Prisma.StringWithAggregatesFilter<"Profile"> | string;
     lastName?: Prisma.StringWithAggregatesFilter<"Profile"> | string;
-    yearOfStudy?: Prisma.IntWithAggregatesFilter<"Profile"> | number;
+    yearOfStudy?: Prisma.IntNullableWithAggregatesFilter<"Profile"> | number | null;
     faculty?: Prisma.StringWithAggregatesFilter<"Profile"> | string;
     department?: Prisma.StringWithAggregatesFilter<"Profile"> | string;
     goalStatement?: Prisma.StringWithAggregatesFilter<"Profile"> | string;
@@ -244,7 +244,7 @@ export type ProfileCreateInput = {
     id?: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -261,7 +261,7 @@ export type ProfileUncheckedCreateInput = {
     userId: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -276,7 +276,7 @@ export type ProfileUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -293,7 +293,7 @@ export type ProfileUncheckedUpdateInput = {
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -309,7 +309,7 @@ export type ProfileCreateManyInput = {
     userId: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -321,7 +321,7 @@ export type ProfileUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -334,7 +334,7 @@ export type ProfileUncheckedUpdateManyInput = {
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -433,8 +433,8 @@ export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
 export type ProfileCreategoalVectorInput = {
     set: number[];
 };
-export type IntFieldUpdateOperationsInput = {
-    set?: number;
+export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null;
     increment?: number;
     decrement?: number;
     multiply?: number;
@@ -484,7 +484,7 @@ export type ProfileCreateWithoutUserInput = {
     id?: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -499,7 +499,7 @@ export type ProfileUncheckedCreateWithoutUserInput = {
     id?: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -527,7 +527,7 @@ export type ProfileUpdateWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -542,7 +542,7 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -557,7 +557,7 @@ export type ProfileCreateWithoutSkillsInput = {
     id?: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -573,7 +573,7 @@ export type ProfileUncheckedCreateWithoutSkillsInput = {
     userId: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -600,7 +600,7 @@ export type ProfileUpdateWithoutSkillsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -616,7 +616,7 @@ export type ProfileUncheckedUpdateWithoutSkillsInput = {
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -630,7 +630,7 @@ export type ProfileCreateWithoutInterestsInput = {
     id?: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -646,7 +646,7 @@ export type ProfileUncheckedCreateWithoutInterestsInput = {
     userId: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -673,7 +673,7 @@ export type ProfileUpdateWithoutInterestsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -689,7 +689,7 @@ export type ProfileUncheckedUpdateWithoutInterestsInput = {
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -703,7 +703,7 @@ export type ProfileCreateWithoutAvailabilityInput = {
     id?: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -719,7 +719,7 @@ export type ProfileUncheckedCreateWithoutAvailabilityInput = {
     userId: string;
     firstName: string;
     lastName: string;
-    yearOfStudy: number;
+    yearOfStudy?: number | null;
     faculty: string;
     department: string;
     goalStatement: string;
@@ -746,7 +746,7 @@ export type ProfileUpdateWithoutAvailabilityInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -762,7 +762,7 @@ export type ProfileUncheckedUpdateWithoutAvailabilityInput = {
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     firstName?: Prisma.StringFieldUpdateOperationsInput | string;
     lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    yearOfStudy?: Prisma.IntFieldUpdateOperationsInput | number;
+    yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     faculty?: Prisma.StringFieldUpdateOperationsInput | string;
     department?: Prisma.StringFieldUpdateOperationsInput | string;
     goalStatement?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -880,7 +880,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;

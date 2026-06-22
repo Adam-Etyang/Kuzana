@@ -26,7 +26,7 @@ export declare class ProfileController {
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;
@@ -55,7 +55,7 @@ export declare class ProfileController {
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;
@@ -97,7 +97,7 @@ export declare class ProfileController {
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;
@@ -143,7 +143,7 @@ export declare class InternalProfileController {
         userId: string;
         firstName: string;
         lastName: string;
-        yearOfStudy: number;
+        yearOfStudy: number | null;
         faculty: string;
         department: string;
         goalStatement: string;
