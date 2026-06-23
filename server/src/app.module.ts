@@ -6,6 +6,7 @@ import { auth } from '../lib/auth.js';
 import { UsersModule } from './users/users.module.js';
 import { ProfileModule } from './profile/profile.module.js';
 import { MatchingModule } from './matching/matching.module.js';
+import { MessagingModule } from './messaging/messaging.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { MatchingModule } from './matching/matching.module.js';
     UsersModule,
     ProfileModule,
     MatchingModule,
+    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

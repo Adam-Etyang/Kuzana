@@ -4,7 +4,7 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider            = "prisma-client"
+  provider            = "prisma-client-js" // FIXED: was "prisma-client", the correct provider is "prisma-client-js"
   output              = "../generated/prisma"
   moduleFormat        = "esm"
   importFileExtension = "js"
@@ -23,14 +23,47 @@ model User {
   role          Role     @default(MENTEE)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  matches       Match[]   @relation("MenteeMatches", fields: [id], references: [menteeId])
+
+  mentorMatches Match[] @relation("MentorMatches")
+  menteeMatches Match[] @relation("MenteeMatches")
+
+  conversations ConversationParticipant[]
+  sentMessages  Message[]                 @relation("SentMessages")
 
   profile       Profile?
   mentorProfile MentorProfile?
   sessions      Session[]
   accounts      Account[]
 }
-model Ma
+
+model Conversation {
+  id           String                    @id @default(cuid())
+  participants ConversationParticipant[]
+  messages     Message[]
+  createdAt    DateTime                  @default(now())
+}
+
+model ConversationParticipant {
+  userId         String
+  conversationId String
+
+  user         User         @relation(fields: [userId], references: [id])
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+
+  @@id([userId, conversationId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  senderId       String
+  conversationId String
+
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id])
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+}
 
 enum Role {
   MENTOR
@@ -201,7 +234,9 @@ model CompatibilityScore {
 model Match {
   id          String      @id @default(uuid())
   menteeId    String
+  mentee      User        @relation("MenteeMatches", fields: [menteeId], references: [id])
   mentorId    String
+  mentor      User        @relation("MentorMatches", fields: [mentorId], references: [id])
   status      MatchStatus @default(ACTIVE)
   matchedAt   DateTime    @default(now())
   dissolvedAt DateTime?
