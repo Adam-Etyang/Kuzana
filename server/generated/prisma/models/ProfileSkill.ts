@@ -198,7 +198,7 @@ export type ProfileSkillScalarWhereWithAggregatesInput = {
 
 export type ProfileSkillCreateInput = {
   profile: Prisma.ProfileCreateNestedOneWithoutSkillsInput
-  skill: Prisma.SkillCreateNestedOneWithoutProfilesInput
+  skill: Prisma.SkillCreateNestedOneWithoutProfileSkillsInput
 }
 
 export type ProfileSkillUncheckedCreateInput = {
@@ -208,7 +208,7 @@ export type ProfileSkillUncheckedCreateInput = {
 
 export type ProfileSkillUpdateInput = {
   profile?: Prisma.ProfileUpdateOneRequiredWithoutSkillsNestedInput
-  skill?: Prisma.SkillUpdateOneRequiredWithoutProfilesNestedInput
+  skill?: Prisma.SkillUpdateOneRequiredWithoutProfileSkillsNestedInput
 }
 
 export type ProfileSkillUncheckedUpdateInput = {
@@ -345,7 +345,7 @@ export type ProfileSkillUncheckedUpdateManyWithoutSkillNestedInput = {
 }
 
 export type ProfileSkillCreateWithoutProfileInput = {
-  skill: Prisma.SkillCreateNestedOneWithoutProfilesInput
+  skill: Prisma.SkillCreateNestedOneWithoutProfileSkillsInput
 }
 
 export type ProfileSkillUncheckedCreateWithoutProfileInput = {
@@ -425,7 +425,7 @@ export type ProfileSkillCreateManyProfileInput = {
 }
 
 export type ProfileSkillUpdateWithoutProfileInput = {
-  skill?: Prisma.SkillUpdateOneRequiredWithoutProfilesNestedInput
+  skill?: Prisma.SkillUpdateOneRequiredWithoutProfileSkillsNestedInput
 }
 
 export type ProfileSkillUncheckedUpdateWithoutProfileInput = {

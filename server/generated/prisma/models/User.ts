@@ -31,7 +31,6 @@ export type UserMinAggregateOutputType = {
   emailVerified: boolean | null
   image: string | null
   role: $Enums.Role | null
-  institutionRole: $Enums.InstitutionRole | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -43,7 +42,6 @@ export type UserMaxAggregateOutputType = {
   emailVerified: boolean | null
   image: string | null
   role: $Enums.Role | null
-  institutionRole: $Enums.InstitutionRole | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -55,7 +53,6 @@ export type UserCountAggregateOutputType = {
   emailVerified: number
   image: number
   role: number
-  institutionRole: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -69,7 +66,6 @@ export type UserMinAggregateInputType = {
   emailVerified?: true
   image?: true
   role?: true
-  institutionRole?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -81,7 +77,6 @@ export type UserMaxAggregateInputType = {
   emailVerified?: true
   image?: true
   role?: true
-  institutionRole?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -93,7 +88,6 @@ export type UserCountAggregateInputType = {
   emailVerified?: true
   image?: true
   role?: true
-  institutionRole?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -178,7 +172,6 @@ export type UserGroupByOutputType = {
   emailVerified: boolean
   image: string | null
   role: $Enums.Role
-  institutionRole: $Enums.InstitutionRole | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -211,9 +204,12 @@ export type UserWhereInput = {
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleNullableFilter<"User"> | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  mentorMatches?: Prisma.MatchListRelationFilter
+  menteeMatches?: Prisma.MatchListRelationFilter
+  conversations?: Prisma.ConversationParticipantListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   mentorProfile?: Prisma.XOR<Prisma.MentorProfileNullableScalarRelationFilter, Prisma.MentorProfileWhereInput> | null
   sessions?: Prisma.SessionListRelationFilter
@@ -227,9 +223,12 @@ export type UserOrderByWithRelationInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
-  institutionRole?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  mentorMatches?: Prisma.MatchOrderByRelationAggregateInput
+  menteeMatches?: Prisma.MatchOrderByRelationAggregateInput
+  conversations?: Prisma.ConversationParticipantOrderByRelationAggregateInput
+  sentMessages?: Prisma.MessageOrderByRelationAggregateInput
   profile?: Prisma.ProfileOrderByWithRelationInput
   mentorProfile?: Prisma.MentorProfileOrderByWithRelationInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
@@ -246,9 +245,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleNullableFilter<"User"> | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  mentorMatches?: Prisma.MatchListRelationFilter
+  menteeMatches?: Prisma.MatchListRelationFilter
+  conversations?: Prisma.ConversationParticipantListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   mentorProfile?: Prisma.XOR<Prisma.MentorProfileNullableScalarRelationFilter, Prisma.MentorProfileWhereInput> | null
   sessions?: Prisma.SessionListRelationFilter
@@ -262,7 +264,6 @@ export type UserOrderByWithAggregationInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
-  institutionRole?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -280,7 +281,6 @@ export type UserScalarWhereWithAggregatesInput = {
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
-  institutionRole?: Prisma.EnumInstitutionRoleNullableWithAggregatesFilter<"User"> | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -292,9 +292,12 @@ export type UserCreateInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -308,9 +311,12 @@ export type UserUncheckedCreateInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -324,9 +330,12 @@ export type UserUpdateInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -340,9 +349,12 @@ export type UserUncheckedUpdateInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -356,7 +368,6 @@ export type UserCreateManyInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -368,7 +379,6 @@ export type UserUpdateManyMutationInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -380,7 +390,6 @@ export type UserUncheckedUpdateManyInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -392,7 +401,6 @@ export type UserCountOrderByAggregateInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  institutionRole?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -404,7 +412,6 @@ export type UserMaxOrderByAggregateInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  institutionRole?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -416,7 +423,6 @@ export type UserMinOrderByAggregateInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  institutionRole?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -442,12 +448,36 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
-export type NullableEnumInstitutionRoleFieldUpdateOperationsInput = {
-  set?: $Enums.InstitutionRole | null
-}
-
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedOneWithoutConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  upsert?: Prisma.UserUpsertWithoutConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsInput, Prisma.UserUpdateWithoutConversationsInput>, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserCreateNestedOneWithoutSentMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  upsert?: Prisma.UserUpsertWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
 }
 
 export type UserCreateNestedOneWithoutProfileInput = {
@@ -506,6 +536,210 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
+export type UserCreateNestedOneWithoutMenteeMatchesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMenteeMatchesInput, Prisma.UserUncheckedCreateWithoutMenteeMatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMenteeMatchesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutMentorMatchesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMentorMatchesInput, Prisma.UserUncheckedCreateWithoutMentorMatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMentorMatchesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMenteeMatchesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMenteeMatchesInput, Prisma.UserUncheckedCreateWithoutMenteeMatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMenteeMatchesInput
+  upsert?: Prisma.UserUpsertWithoutMenteeMatchesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMenteeMatchesInput, Prisma.UserUpdateWithoutMenteeMatchesInput>, Prisma.UserUncheckedUpdateWithoutMenteeMatchesInput>
+}
+
+export type UserUpdateOneRequiredWithoutMentorMatchesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMentorMatchesInput, Prisma.UserUncheckedCreateWithoutMentorMatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMentorMatchesInput
+  upsert?: Prisma.UserUpsertWithoutMentorMatchesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMentorMatchesInput, Prisma.UserUpdateWithoutMentorMatchesInput>, Prisma.UserUncheckedUpdateWithoutMentorMatchesInput>
+}
+
+export type UserCreateWithoutConversationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+}
+
+export type UserUpsertWithoutConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSentMessagesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSentMessagesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSentMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+}
+
+export type UserUpsertWithoutSentMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserUpdateWithoutSentMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   name?: string | null
@@ -513,9 +747,12 @@ export type UserCreateWithoutProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -528,9 +765,12 @@ export type UserUncheckedCreateWithoutProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -559,9 +799,12 @@ export type UserUpdateWithoutProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -574,9 +817,12 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -589,9 +835,12 @@ export type UserCreateWithoutMentorProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -604,9 +853,12 @@ export type UserUncheckedCreateWithoutMentorProfileInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -635,9 +887,12 @@ export type UserUpdateWithoutMentorProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -650,9 +905,12 @@ export type UserUncheckedUpdateWithoutMentorProfileInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -665,9 +923,12 @@ export type UserCreateWithoutSessionsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -680,9 +941,12 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -711,9 +975,12 @@ export type UserUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -726,9 +993,12 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -741,9 +1011,12 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -756,9 +1029,12 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified?: boolean
   image?: string | null
   role?: $Enums.Role
-  institutionRole?: $Enums.InstitutionRole | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -787,9 +1063,12 @@ export type UserUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -802,12 +1081,191 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  institutionRole?: Prisma.NullableEnumInstitutionRoleFieldUpdateOperationsInput | $Enums.InstitutionRole | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMenteeMatchesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchCreateNestedManyWithoutMentorInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMenteeMatchesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mentorMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMentorInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMenteeMatchesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMenteeMatchesInput, Prisma.UserUncheckedCreateWithoutMenteeMatchesInput>
+}
+
+export type UserCreateWithoutMentorMatchesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  menteeMatches?: Prisma.MatchCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMentorMatchesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  menteeMatches?: Prisma.MatchUncheckedCreateNestedManyWithoutMenteeInput
+  conversations?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMentorMatchesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMentorMatchesInput, Prisma.UserUncheckedCreateWithoutMentorMatchesInput>
+}
+
+export type UserUpsertWithoutMenteeMatchesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMenteeMatchesInput, Prisma.UserUncheckedUpdateWithoutMenteeMatchesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMenteeMatchesInput, Prisma.UserUncheckedCreateWithoutMenteeMatchesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMenteeMatchesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMenteeMatchesInput, Prisma.UserUncheckedUpdateWithoutMenteeMatchesInput>
+}
+
+export type UserUpdateWithoutMenteeMatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUpdateManyWithoutMentorNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMenteeMatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mentorMatches?: Prisma.MatchUncheckedUpdateManyWithoutMentorNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutMentorMatchesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMentorMatchesInput, Prisma.UserUncheckedUpdateWithoutMentorMatchesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMentorMatchesInput, Prisma.UserUncheckedCreateWithoutMentorMatchesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMentorMatchesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMentorMatchesInput, Prisma.UserUncheckedUpdateWithoutMentorMatchesInput>
+}
+
+export type UserUpdateWithoutMentorMatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  menteeMatches?: Prisma.MatchUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMentorMatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  menteeMatches?: Prisma.MatchUncheckedUpdateManyWithoutMenteeNestedInput
+  conversations?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -816,11 +1274,19 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
  */
 
 export type UserCountOutputType = {
+  mentorMatches: number
+  menteeMatches: number
+  conversations: number
+  sentMessages: number
   sessions: number
   accounts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mentorMatches?: boolean | UserCountOutputTypeCountMentorMatchesArgs
+  menteeMatches?: boolean | UserCountOutputTypeCountMenteeMatchesArgs
+  conversations?: boolean | UserCountOutputTypeCountConversationsArgs
+  sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
 }
@@ -833,6 +1299,34 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMentorMatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MatchWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMenteeMatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MatchWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationParticipantWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
 }
 
 /**
@@ -857,9 +1351,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   emailVerified?: boolean
   image?: boolean
   role?: boolean
-  institutionRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  mentorMatches?: boolean | Prisma.User$mentorMatchesArgs<ExtArgs>
+  menteeMatches?: boolean | Prisma.User$menteeMatchesArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   mentorProfile?: boolean | Prisma.User$mentorProfileArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -874,7 +1371,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emailVerified?: boolean
   image?: boolean
   role?: boolean
-  institutionRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -886,7 +1382,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emailVerified?: boolean
   image?: boolean
   role?: boolean
-  institutionRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -898,13 +1393,16 @@ export type UserSelectScalar = {
   emailVerified?: boolean
   image?: boolean
   role?: boolean
-  institutionRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "role" | "institutionRole" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mentorMatches?: boolean | Prisma.User$mentorMatchesArgs<ExtArgs>
+  menteeMatches?: boolean | Prisma.User$menteeMatchesArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   mentorProfile?: boolean | Prisma.User$mentorProfileArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -917,6 +1415,10 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    mentorMatches: Prisma.$MatchPayload<ExtArgs>[]
+    menteeMatches: Prisma.$MatchPayload<ExtArgs>[]
+    conversations: Prisma.$ConversationParticipantPayload<ExtArgs>[]
+    sentMessages: Prisma.$MessagePayload<ExtArgs>[]
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     mentorProfile: Prisma.$MentorProfilePayload<ExtArgs> | null
     sessions: Prisma.$SessionPayload<ExtArgs>[]
@@ -929,7 +1431,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emailVerified: boolean
     image: string | null
     role: $Enums.Role
-    institutionRole: $Enums.InstitutionRole | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1326,6 +1827,10 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  mentorMatches<T extends Prisma.User$mentorMatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mentorMatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  menteeMatches<T extends Prisma.User$menteeMatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$menteeMatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversations<T extends Prisma.User$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   mentorProfile<T extends Prisma.User$mentorProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mentorProfileArgs<ExtArgs>>): Prisma.Prisma__MentorProfileClient<runtime.Types.Result.GetResult<Prisma.$MentorProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1365,7 +1870,6 @@ export interface UserFieldRefs {
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
-  readonly institutionRole: Prisma.FieldRef<"User", 'InstitutionRole'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -1758,6 +2262,102 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.mentorMatches
+ */
+export type User$mentorMatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Match
+   */
+  select?: Prisma.MatchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Match
+   */
+  omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
+  where?: Prisma.MatchWhereInput
+  orderBy?: Prisma.MatchOrderByWithRelationInput | Prisma.MatchOrderByWithRelationInput[]
+  cursor?: Prisma.MatchWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MatchScalarFieldEnum | Prisma.MatchScalarFieldEnum[]
+}
+
+/**
+ * User.menteeMatches
+ */
+export type User$menteeMatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Match
+   */
+  select?: Prisma.MatchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Match
+   */
+  omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
+  where?: Prisma.MatchWhereInput
+  orderBy?: Prisma.MatchOrderByWithRelationInput | Prisma.MatchOrderByWithRelationInput[]
+  cursor?: Prisma.MatchWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MatchScalarFieldEnum | Prisma.MatchScalarFieldEnum[]
+}
+
+/**
+ * User.conversations
+ */
+export type User$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConversationParticipant
+   */
+  select?: Prisma.ConversationParticipantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConversationParticipant
+   */
+  omit?: Prisma.ConversationParticipantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationParticipantInclude<ExtArgs> | null
+  where?: Prisma.ConversationParticipantWhereInput
+  orderBy?: Prisma.ConversationParticipantOrderByWithRelationInput | Prisma.ConversationParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationParticipantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationParticipantScalarFieldEnum | Prisma.ConversationParticipantScalarFieldEnum[]
+}
+
+/**
+ * User.sentMessages
+ */
+export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
 }
 
 /**

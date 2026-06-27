@@ -9,14 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const InstitutionRole = {
-  STUDENT: 'STUDENT',
-  FACULTY: 'FACULTY'
-} as const
-
-export type InstitutionRole = (typeof InstitutionRole)[keyof typeof InstitutionRole]
-
-
 export const Role = {
   MENTOR: 'MENTOR',
   MENTEE: 'MENTEE',
@@ -24,24 +16,6 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
-
-
-export const ProjectStatus = {
-  OPEN: 'OPEN',
-  CLOSED: 'CLOSED',
-  COMPLETED: 'COMPLETED'
-} as const
-
-export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
-
-
-export const ApplicationStatus = {
-  PENDING: 'PENDING',
-  ACCEPTED: 'ACCEPTED',
-  DECLINED: 'DECLINED'
-} as const
-
-export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
 
 
 export const DayOfWeek = {

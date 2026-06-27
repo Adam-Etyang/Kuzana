@@ -158,13 +158,13 @@ export type InterestWhereInput = {
   NOT?: Prisma.InterestWhereInput | Prisma.InterestWhereInput[]
   id?: Prisma.StringFilter<"Interest"> | string
   name?: Prisma.StringFilter<"Interest"> | string
-  profiles?: Prisma.ProfileInterestListRelationFilter
+  profileInterests?: Prisma.ProfileInterestListRelationFilter
 }
 
 export type InterestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  profiles?: Prisma.ProfileInterestOrderByRelationAggregateInput
+  profileInterests?: Prisma.ProfileInterestOrderByRelationAggregateInput
 }
 
 export type InterestWhereUniqueInput = Prisma.AtLeast<{
@@ -173,7 +173,7 @@ export type InterestWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InterestWhereInput | Prisma.InterestWhereInput[]
   OR?: Prisma.InterestWhereInput[]
   NOT?: Prisma.InterestWhereInput | Prisma.InterestWhereInput[]
-  profiles?: Prisma.ProfileInterestListRelationFilter
+  profileInterests?: Prisma.ProfileInterestListRelationFilter
 }, "id" | "name">
 
 export type InterestOrderByWithAggregationInput = {
@@ -195,25 +195,25 @@ export type InterestScalarWhereWithAggregatesInput = {
 export type InterestCreateInput = {
   id?: string
   name: string
-  profiles?: Prisma.ProfileInterestCreateNestedManyWithoutInterestInput
+  profileInterests?: Prisma.ProfileInterestCreateNestedManyWithoutInterestInput
 }
 
 export type InterestUncheckedCreateInput = {
   id?: string
   name: string
-  profiles?: Prisma.ProfileInterestUncheckedCreateNestedManyWithoutInterestInput
+  profileInterests?: Prisma.ProfileInterestUncheckedCreateNestedManyWithoutInterestInput
 }
 
 export type InterestUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  profiles?: Prisma.ProfileInterestUpdateManyWithoutInterestNestedInput
+  profileInterests?: Prisma.ProfileInterestUpdateManyWithoutInterestNestedInput
 }
 
 export type InterestUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  profiles?: Prisma.ProfileInterestUncheckedUpdateManyWithoutInterestNestedInput
+  profileInterests?: Prisma.ProfileInterestUncheckedUpdateManyWithoutInterestNestedInput
 }
 
 export type InterestCreateManyInput = {
@@ -251,52 +251,52 @@ export type InterestScalarRelationFilter = {
   isNot?: Prisma.InterestWhereInput
 }
 
-export type InterestCreateNestedOneWithoutProfilesInput = {
-  create?: Prisma.XOR<Prisma.InterestCreateWithoutProfilesInput, Prisma.InterestUncheckedCreateWithoutProfilesInput>
-  connectOrCreate?: Prisma.InterestCreateOrConnectWithoutProfilesInput
+export type InterestCreateNestedOneWithoutProfileInterestsInput = {
+  create?: Prisma.XOR<Prisma.InterestCreateWithoutProfileInterestsInput, Prisma.InterestUncheckedCreateWithoutProfileInterestsInput>
+  connectOrCreate?: Prisma.InterestCreateOrConnectWithoutProfileInterestsInput
   connect?: Prisma.InterestWhereUniqueInput
 }
 
-export type InterestUpdateOneRequiredWithoutProfilesNestedInput = {
-  create?: Prisma.XOR<Prisma.InterestCreateWithoutProfilesInput, Prisma.InterestUncheckedCreateWithoutProfilesInput>
-  connectOrCreate?: Prisma.InterestCreateOrConnectWithoutProfilesInput
-  upsert?: Prisma.InterestUpsertWithoutProfilesInput
+export type InterestUpdateOneRequiredWithoutProfileInterestsNestedInput = {
+  create?: Prisma.XOR<Prisma.InterestCreateWithoutProfileInterestsInput, Prisma.InterestUncheckedCreateWithoutProfileInterestsInput>
+  connectOrCreate?: Prisma.InterestCreateOrConnectWithoutProfileInterestsInput
+  upsert?: Prisma.InterestUpsertWithoutProfileInterestsInput
   connect?: Prisma.InterestWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.InterestUpdateToOneWithWhereWithoutProfilesInput, Prisma.InterestUpdateWithoutProfilesInput>, Prisma.InterestUncheckedUpdateWithoutProfilesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InterestUpdateToOneWithWhereWithoutProfileInterestsInput, Prisma.InterestUpdateWithoutProfileInterestsInput>, Prisma.InterestUncheckedUpdateWithoutProfileInterestsInput>
 }
 
-export type InterestCreateWithoutProfilesInput = {
+export type InterestCreateWithoutProfileInterestsInput = {
   id?: string
   name: string
 }
 
-export type InterestUncheckedCreateWithoutProfilesInput = {
+export type InterestUncheckedCreateWithoutProfileInterestsInput = {
   id?: string
   name: string
 }
 
-export type InterestCreateOrConnectWithoutProfilesInput = {
+export type InterestCreateOrConnectWithoutProfileInterestsInput = {
   where: Prisma.InterestWhereUniqueInput
-  create: Prisma.XOR<Prisma.InterestCreateWithoutProfilesInput, Prisma.InterestUncheckedCreateWithoutProfilesInput>
+  create: Prisma.XOR<Prisma.InterestCreateWithoutProfileInterestsInput, Prisma.InterestUncheckedCreateWithoutProfileInterestsInput>
 }
 
-export type InterestUpsertWithoutProfilesInput = {
-  update: Prisma.XOR<Prisma.InterestUpdateWithoutProfilesInput, Prisma.InterestUncheckedUpdateWithoutProfilesInput>
-  create: Prisma.XOR<Prisma.InterestCreateWithoutProfilesInput, Prisma.InterestUncheckedCreateWithoutProfilesInput>
+export type InterestUpsertWithoutProfileInterestsInput = {
+  update: Prisma.XOR<Prisma.InterestUpdateWithoutProfileInterestsInput, Prisma.InterestUncheckedUpdateWithoutProfileInterestsInput>
+  create: Prisma.XOR<Prisma.InterestCreateWithoutProfileInterestsInput, Prisma.InterestUncheckedCreateWithoutProfileInterestsInput>
   where?: Prisma.InterestWhereInput
 }
 
-export type InterestUpdateToOneWithWhereWithoutProfilesInput = {
+export type InterestUpdateToOneWithWhereWithoutProfileInterestsInput = {
   where?: Prisma.InterestWhereInput
-  data: Prisma.XOR<Prisma.InterestUpdateWithoutProfilesInput, Prisma.InterestUncheckedUpdateWithoutProfilesInput>
+  data: Prisma.XOR<Prisma.InterestUpdateWithoutProfileInterestsInput, Prisma.InterestUncheckedUpdateWithoutProfileInterestsInput>
 }
 
-export type InterestUpdateWithoutProfilesInput = {
+export type InterestUpdateWithoutProfileInterestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type InterestUncheckedUpdateWithoutProfilesInput = {
+export type InterestUncheckedUpdateWithoutProfileInterestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -307,11 +307,11 @@ export type InterestUncheckedUpdateWithoutProfilesInput = {
  */
 
 export type InterestCountOutputType = {
-  profiles: number
+  profileInterests: number
 }
 
 export type InterestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  profiles?: boolean | InterestCountOutputTypeCountProfilesArgs
+  profileInterests?: boolean | InterestCountOutputTypeCountProfileInterestsArgs
 }
 
 /**
@@ -327,7 +327,7 @@ export type InterestCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
 /**
  * InterestCountOutputType without action
  */
-export type InterestCountOutputTypeCountProfilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InterestCountOutputTypeCountProfileInterestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProfileInterestWhereInput
 }
 
@@ -335,7 +335,7 @@ export type InterestCountOutputTypeCountProfilesArgs<ExtArgs extends runtime.Typ
 export type InterestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  profiles?: boolean | Prisma.Interest$profilesArgs<ExtArgs>
+  profileInterests?: boolean | Prisma.Interest$profileInterestsArgs<ExtArgs>
   _count?: boolean | Prisma.InterestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["interest"]>
 
@@ -356,7 +356,7 @@ export type InterestSelectScalar = {
 
 export type InterestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["interest"]>
 export type InterestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  profiles?: boolean | Prisma.Interest$profilesArgs<ExtArgs>
+  profileInterests?: boolean | Prisma.Interest$profileInterestsArgs<ExtArgs>
   _count?: boolean | Prisma.InterestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InterestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -365,7 +365,7 @@ export type InterestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type $InterestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Interest"
   objects: {
-    profiles: Prisma.$ProfileInterestPayload<ExtArgs>[]
+    profileInterests: Prisma.$ProfileInterestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -764,7 +764,7 @@ readonly fields: InterestFieldRefs;
  */
 export interface Prisma__InterestClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  profiles<T extends Prisma.Interest$profilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Interest$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profileInterests<T extends Prisma.Interest$profileInterestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Interest$profileInterestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1189,9 +1189,9 @@ export type InterestDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * Interest.profiles
+ * Interest.profileInterests
  */
-export type Interest$profilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Interest$profileInterestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ProfileInterest
    */

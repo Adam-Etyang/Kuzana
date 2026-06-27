@@ -190,6 +190,8 @@ export type MatchWhereInput = {
   status?: Prisma.EnumMatchStatusFilter<"Match"> | $Enums.MatchStatus
   matchedAt?: Prisma.DateTimeFilter<"Match"> | Date | string
   dissolvedAt?: Prisma.DateTimeNullableFilter<"Match"> | Date | string | null
+  mentee?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  mentor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type MatchOrderByWithRelationInput = {
@@ -199,6 +201,8 @@ export type MatchOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   matchedAt?: Prisma.SortOrder
   dissolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  mentee?: Prisma.UserOrderByWithRelationInput
+  mentor?: Prisma.UserOrderByWithRelationInput
 }
 
 export type MatchWhereUniqueInput = Prisma.AtLeast<{
@@ -212,6 +216,8 @@ export type MatchWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumMatchStatusFilter<"Match"> | $Enums.MatchStatus
   matchedAt?: Prisma.DateTimeFilter<"Match"> | Date | string
   dissolvedAt?: Prisma.DateTimeNullableFilter<"Match"> | Date | string | null
+  mentee?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  mentor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "menteeId_mentorId">
 
 export type MatchOrderByWithAggregationInput = {
@@ -240,11 +246,11 @@ export type MatchScalarWhereWithAggregatesInput = {
 
 export type MatchCreateInput = {
   id?: string
-  menteeId: string
-  mentorId: string
   status?: $Enums.MatchStatus
   matchedAt?: Date | string
   dissolvedAt?: Date | string | null
+  mentee: Prisma.UserCreateNestedOneWithoutMenteeMatchesInput
+  mentor: Prisma.UserCreateNestedOneWithoutMentorMatchesInput
 }
 
 export type MatchUncheckedCreateInput = {
@@ -258,11 +264,11 @@ export type MatchUncheckedCreateInput = {
 
 export type MatchUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  menteeId?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
   matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentee?: Prisma.UserUpdateOneRequiredWithoutMenteeMatchesNestedInput
+  mentor?: Prisma.UserUpdateOneRequiredWithoutMentorMatchesNestedInput
 }
 
 export type MatchUncheckedUpdateInput = {
@@ -285,8 +291,6 @@ export type MatchCreateManyInput = {
 
 export type MatchUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  menteeId?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
   matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -299,6 +303,16 @@ export type MatchUncheckedUpdateManyInput = {
   status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
   matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type MatchListRelationFilter = {
+  every?: Prisma.MatchWhereInput
+  some?: Prisma.MatchWhereInput
+  none?: Prisma.MatchWhereInput
+}
+
+export type MatchOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type MatchMenteeIdMentorIdCompoundUniqueInput = {
@@ -333,8 +347,252 @@ export type MatchMinOrderByAggregateInput = {
   dissolvedAt?: Prisma.SortOrder
 }
 
+export type MatchCreateNestedManyWithoutMentorInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMentorInput, Prisma.MatchUncheckedCreateWithoutMentorInput> | Prisma.MatchCreateWithoutMentorInput[] | Prisma.MatchUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMentorInput | Prisma.MatchCreateOrConnectWithoutMentorInput[]
+  createMany?: Prisma.MatchCreateManyMentorInputEnvelope
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+}
+
+export type MatchCreateNestedManyWithoutMenteeInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMenteeInput, Prisma.MatchUncheckedCreateWithoutMenteeInput> | Prisma.MatchCreateWithoutMenteeInput[] | Prisma.MatchUncheckedCreateWithoutMenteeInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMenteeInput | Prisma.MatchCreateOrConnectWithoutMenteeInput[]
+  createMany?: Prisma.MatchCreateManyMenteeInputEnvelope
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+}
+
+export type MatchUncheckedCreateNestedManyWithoutMentorInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMentorInput, Prisma.MatchUncheckedCreateWithoutMentorInput> | Prisma.MatchCreateWithoutMentorInput[] | Prisma.MatchUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMentorInput | Prisma.MatchCreateOrConnectWithoutMentorInput[]
+  createMany?: Prisma.MatchCreateManyMentorInputEnvelope
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+}
+
+export type MatchUncheckedCreateNestedManyWithoutMenteeInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMenteeInput, Prisma.MatchUncheckedCreateWithoutMenteeInput> | Prisma.MatchCreateWithoutMenteeInput[] | Prisma.MatchUncheckedCreateWithoutMenteeInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMenteeInput | Prisma.MatchCreateOrConnectWithoutMenteeInput[]
+  createMany?: Prisma.MatchCreateManyMenteeInputEnvelope
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+}
+
+export type MatchUpdateManyWithoutMentorNestedInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMentorInput, Prisma.MatchUncheckedCreateWithoutMentorInput> | Prisma.MatchCreateWithoutMentorInput[] | Prisma.MatchUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMentorInput | Prisma.MatchCreateOrConnectWithoutMentorInput[]
+  upsert?: Prisma.MatchUpsertWithWhereUniqueWithoutMentorInput | Prisma.MatchUpsertWithWhereUniqueWithoutMentorInput[]
+  createMany?: Prisma.MatchCreateManyMentorInputEnvelope
+  set?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  disconnect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  delete?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  update?: Prisma.MatchUpdateWithWhereUniqueWithoutMentorInput | Prisma.MatchUpdateWithWhereUniqueWithoutMentorInput[]
+  updateMany?: Prisma.MatchUpdateManyWithWhereWithoutMentorInput | Prisma.MatchUpdateManyWithWhereWithoutMentorInput[]
+  deleteMany?: Prisma.MatchScalarWhereInput | Prisma.MatchScalarWhereInput[]
+}
+
+export type MatchUpdateManyWithoutMenteeNestedInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMenteeInput, Prisma.MatchUncheckedCreateWithoutMenteeInput> | Prisma.MatchCreateWithoutMenteeInput[] | Prisma.MatchUncheckedCreateWithoutMenteeInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMenteeInput | Prisma.MatchCreateOrConnectWithoutMenteeInput[]
+  upsert?: Prisma.MatchUpsertWithWhereUniqueWithoutMenteeInput | Prisma.MatchUpsertWithWhereUniqueWithoutMenteeInput[]
+  createMany?: Prisma.MatchCreateManyMenteeInputEnvelope
+  set?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  disconnect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  delete?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  update?: Prisma.MatchUpdateWithWhereUniqueWithoutMenteeInput | Prisma.MatchUpdateWithWhereUniqueWithoutMenteeInput[]
+  updateMany?: Prisma.MatchUpdateManyWithWhereWithoutMenteeInput | Prisma.MatchUpdateManyWithWhereWithoutMenteeInput[]
+  deleteMany?: Prisma.MatchScalarWhereInput | Prisma.MatchScalarWhereInput[]
+}
+
+export type MatchUncheckedUpdateManyWithoutMentorNestedInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMentorInput, Prisma.MatchUncheckedCreateWithoutMentorInput> | Prisma.MatchCreateWithoutMentorInput[] | Prisma.MatchUncheckedCreateWithoutMentorInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMentorInput | Prisma.MatchCreateOrConnectWithoutMentorInput[]
+  upsert?: Prisma.MatchUpsertWithWhereUniqueWithoutMentorInput | Prisma.MatchUpsertWithWhereUniqueWithoutMentorInput[]
+  createMany?: Prisma.MatchCreateManyMentorInputEnvelope
+  set?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  disconnect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  delete?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  update?: Prisma.MatchUpdateWithWhereUniqueWithoutMentorInput | Prisma.MatchUpdateWithWhereUniqueWithoutMentorInput[]
+  updateMany?: Prisma.MatchUpdateManyWithWhereWithoutMentorInput | Prisma.MatchUpdateManyWithWhereWithoutMentorInput[]
+  deleteMany?: Prisma.MatchScalarWhereInput | Prisma.MatchScalarWhereInput[]
+}
+
+export type MatchUncheckedUpdateManyWithoutMenteeNestedInput = {
+  create?: Prisma.XOR<Prisma.MatchCreateWithoutMenteeInput, Prisma.MatchUncheckedCreateWithoutMenteeInput> | Prisma.MatchCreateWithoutMenteeInput[] | Prisma.MatchUncheckedCreateWithoutMenteeInput[]
+  connectOrCreate?: Prisma.MatchCreateOrConnectWithoutMenteeInput | Prisma.MatchCreateOrConnectWithoutMenteeInput[]
+  upsert?: Prisma.MatchUpsertWithWhereUniqueWithoutMenteeInput | Prisma.MatchUpsertWithWhereUniqueWithoutMenteeInput[]
+  createMany?: Prisma.MatchCreateManyMenteeInputEnvelope
+  set?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  disconnect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  delete?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  connect?: Prisma.MatchWhereUniqueInput | Prisma.MatchWhereUniqueInput[]
+  update?: Prisma.MatchUpdateWithWhereUniqueWithoutMenteeInput | Prisma.MatchUpdateWithWhereUniqueWithoutMenteeInput[]
+  updateMany?: Prisma.MatchUpdateManyWithWhereWithoutMenteeInput | Prisma.MatchUpdateManyWithWhereWithoutMenteeInput[]
+  deleteMany?: Prisma.MatchScalarWhereInput | Prisma.MatchScalarWhereInput[]
+}
+
 export type EnumMatchStatusFieldUpdateOperationsInput = {
   set?: $Enums.MatchStatus
+}
+
+export type MatchCreateWithoutMentorInput = {
+  id?: string
+  status?: $Enums.MatchStatus
+  matchedAt?: Date | string
+  dissolvedAt?: Date | string | null
+  mentee: Prisma.UserCreateNestedOneWithoutMenteeMatchesInput
+}
+
+export type MatchUncheckedCreateWithoutMentorInput = {
+  id?: string
+  menteeId: string
+  status?: $Enums.MatchStatus
+  matchedAt?: Date | string
+  dissolvedAt?: Date | string | null
+}
+
+export type MatchCreateOrConnectWithoutMentorInput = {
+  where: Prisma.MatchWhereUniqueInput
+  create: Prisma.XOR<Prisma.MatchCreateWithoutMentorInput, Prisma.MatchUncheckedCreateWithoutMentorInput>
+}
+
+export type MatchCreateManyMentorInputEnvelope = {
+  data: Prisma.MatchCreateManyMentorInput | Prisma.MatchCreateManyMentorInput[]
+  skipDuplicates?: boolean
+}
+
+export type MatchCreateWithoutMenteeInput = {
+  id?: string
+  status?: $Enums.MatchStatus
+  matchedAt?: Date | string
+  dissolvedAt?: Date | string | null
+  mentor: Prisma.UserCreateNestedOneWithoutMentorMatchesInput
+}
+
+export type MatchUncheckedCreateWithoutMenteeInput = {
+  id?: string
+  mentorId: string
+  status?: $Enums.MatchStatus
+  matchedAt?: Date | string
+  dissolvedAt?: Date | string | null
+}
+
+export type MatchCreateOrConnectWithoutMenteeInput = {
+  where: Prisma.MatchWhereUniqueInput
+  create: Prisma.XOR<Prisma.MatchCreateWithoutMenteeInput, Prisma.MatchUncheckedCreateWithoutMenteeInput>
+}
+
+export type MatchCreateManyMenteeInputEnvelope = {
+  data: Prisma.MatchCreateManyMenteeInput | Prisma.MatchCreateManyMenteeInput[]
+  skipDuplicates?: boolean
+}
+
+export type MatchUpsertWithWhereUniqueWithoutMentorInput = {
+  where: Prisma.MatchWhereUniqueInput
+  update: Prisma.XOR<Prisma.MatchUpdateWithoutMentorInput, Prisma.MatchUncheckedUpdateWithoutMentorInput>
+  create: Prisma.XOR<Prisma.MatchCreateWithoutMentorInput, Prisma.MatchUncheckedCreateWithoutMentorInput>
+}
+
+export type MatchUpdateWithWhereUniqueWithoutMentorInput = {
+  where: Prisma.MatchWhereUniqueInput
+  data: Prisma.XOR<Prisma.MatchUpdateWithoutMentorInput, Prisma.MatchUncheckedUpdateWithoutMentorInput>
+}
+
+export type MatchUpdateManyWithWhereWithoutMentorInput = {
+  where: Prisma.MatchScalarWhereInput
+  data: Prisma.XOR<Prisma.MatchUpdateManyMutationInput, Prisma.MatchUncheckedUpdateManyWithoutMentorInput>
+}
+
+export type MatchScalarWhereInput = {
+  AND?: Prisma.MatchScalarWhereInput | Prisma.MatchScalarWhereInput[]
+  OR?: Prisma.MatchScalarWhereInput[]
+  NOT?: Prisma.MatchScalarWhereInput | Prisma.MatchScalarWhereInput[]
+  id?: Prisma.StringFilter<"Match"> | string
+  menteeId?: Prisma.StringFilter<"Match"> | string
+  mentorId?: Prisma.StringFilter<"Match"> | string
+  status?: Prisma.EnumMatchStatusFilter<"Match"> | $Enums.MatchStatus
+  matchedAt?: Prisma.DateTimeFilter<"Match"> | Date | string
+  dissolvedAt?: Prisma.DateTimeNullableFilter<"Match"> | Date | string | null
+}
+
+export type MatchUpsertWithWhereUniqueWithoutMenteeInput = {
+  where: Prisma.MatchWhereUniqueInput
+  update: Prisma.XOR<Prisma.MatchUpdateWithoutMenteeInput, Prisma.MatchUncheckedUpdateWithoutMenteeInput>
+  create: Prisma.XOR<Prisma.MatchCreateWithoutMenteeInput, Prisma.MatchUncheckedCreateWithoutMenteeInput>
+}
+
+export type MatchUpdateWithWhereUniqueWithoutMenteeInput = {
+  where: Prisma.MatchWhereUniqueInput
+  data: Prisma.XOR<Prisma.MatchUpdateWithoutMenteeInput, Prisma.MatchUncheckedUpdateWithoutMenteeInput>
+}
+
+export type MatchUpdateManyWithWhereWithoutMenteeInput = {
+  where: Prisma.MatchScalarWhereInput
+  data: Prisma.XOR<Prisma.MatchUpdateManyMutationInput, Prisma.MatchUncheckedUpdateManyWithoutMenteeInput>
+}
+
+export type MatchCreateManyMentorInput = {
+  id?: string
+  menteeId: string
+  status?: $Enums.MatchStatus
+  matchedAt?: Date | string
+  dissolvedAt?: Date | string | null
+}
+
+export type MatchCreateManyMenteeInput = {
+  id?: string
+  mentorId: string
+  status?: $Enums.MatchStatus
+  matchedAt?: Date | string
+  dissolvedAt?: Date | string | null
+}
+
+export type MatchUpdateWithoutMentorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+  matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentee?: Prisma.UserUpdateOneRequiredWithoutMenteeMatchesNestedInput
+}
+
+export type MatchUncheckedUpdateWithoutMentorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  menteeId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+  matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type MatchUncheckedUpdateManyWithoutMentorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  menteeId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+  matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type MatchUpdateWithoutMenteeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+  matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentor?: Prisma.UserUpdateOneRequiredWithoutMentorMatchesNestedInput
+}
+
+export type MatchUncheckedUpdateWithoutMenteeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  mentorId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+  matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type MatchUncheckedUpdateManyWithoutMenteeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  mentorId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+  matchedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dissolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -346,6 +604,8 @@ export type MatchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   status?: boolean
   matchedAt?: boolean
   dissolvedAt?: boolean
+  mentee?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mentor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["match"]>
 
 export type MatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -355,6 +615,8 @@ export type MatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   matchedAt?: boolean
   dissolvedAt?: boolean
+  mentee?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mentor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["match"]>
 
 export type MatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -364,6 +626,8 @@ export type MatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   matchedAt?: boolean
   dissolvedAt?: boolean
+  mentee?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mentor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["match"]>
 
 export type MatchSelectScalar = {
@@ -376,10 +640,25 @@ export type MatchSelectScalar = {
 }
 
 export type MatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "menteeId" | "mentorId" | "status" | "matchedAt" | "dissolvedAt", ExtArgs["result"]["match"]>
+export type MatchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mentee?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mentor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type MatchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mentee?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mentor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type MatchIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mentee?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  mentor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $MatchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Match"
-  objects: {}
+  objects: {
+    mentee: Prisma.$UserPayload<ExtArgs>
+    mentor: Prisma.$UserPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     menteeId: string
@@ -781,6 +1060,8 @@ readonly fields: MatchFieldRefs;
  */
 export interface Prisma__MatchClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  mentee<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  mentor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -833,6 +1114,10 @@ export type MatchFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
+  /**
    * Filter, which Match to fetch.
    */
   where: Prisma.MatchWhereUniqueInput
@@ -851,6 +1136,10 @@ export type MatchFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
+  /**
    * Filter, which Match to fetch.
    */
   where: Prisma.MatchWhereUniqueInput
@@ -868,6 +1157,10 @@ export type MatchFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Match
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
   /**
    * Filter, which Match to fetch.
    */
@@ -917,6 +1210,10 @@ export type MatchFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
+  /**
    * Filter, which Match to fetch.
    */
   where?: Prisma.MatchWhereInput
@@ -964,6 +1261,10 @@ export type MatchFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Match
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
   /**
    * Filter, which Matches to fetch.
    */
@@ -1013,6 +1314,10 @@ export type MatchCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
+  /**
    * The data needed to create a Match.
    */
   data: Prisma.XOR<Prisma.MatchCreateInput, Prisma.MatchUncheckedCreateInput>
@@ -1046,6 +1351,10 @@ export type MatchCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    */
   data: Prisma.MatchCreateManyInput | Prisma.MatchCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1060,6 +1369,10 @@ export type MatchUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Match
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
   /**
    * The data needed to update a Match.
    */
@@ -1112,6 +1425,10 @@ export type MatchUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many Matches to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1126,6 +1443,10 @@ export type MatchUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Match
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
   /**
    * The filter to search for the Match to update in case it exists.
    */
@@ -1152,6 +1473,10 @@ export type MatchDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Match
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
   /**
    * Filter which Match to delete.
    */
@@ -1184,4 +1509,8 @@ export type MatchDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Match
    */
   omit?: Prisma.MatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MatchInclude<ExtArgs> | null
 }

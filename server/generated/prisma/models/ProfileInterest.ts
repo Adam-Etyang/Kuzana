@@ -198,7 +198,7 @@ export type ProfileInterestScalarWhereWithAggregatesInput = {
 
 export type ProfileInterestCreateInput = {
   profile: Prisma.ProfileCreateNestedOneWithoutInterestsInput
-  interest: Prisma.InterestCreateNestedOneWithoutProfilesInput
+  interest: Prisma.InterestCreateNestedOneWithoutProfileInterestsInput
 }
 
 export type ProfileInterestUncheckedCreateInput = {
@@ -208,7 +208,7 @@ export type ProfileInterestUncheckedCreateInput = {
 
 export type ProfileInterestUpdateInput = {
   profile?: Prisma.ProfileUpdateOneRequiredWithoutInterestsNestedInput
-  interest?: Prisma.InterestUpdateOneRequiredWithoutProfilesNestedInput
+  interest?: Prisma.InterestUpdateOneRequiredWithoutProfileInterestsNestedInput
 }
 
 export type ProfileInterestUncheckedUpdateInput = {
@@ -345,7 +345,7 @@ export type ProfileInterestUncheckedUpdateManyWithoutInterestNestedInput = {
 }
 
 export type ProfileInterestCreateWithoutProfileInput = {
-  interest: Prisma.InterestCreateNestedOneWithoutProfilesInput
+  interest: Prisma.InterestCreateNestedOneWithoutProfileInterestsInput
 }
 
 export type ProfileInterestUncheckedCreateWithoutProfileInput = {
@@ -425,7 +425,7 @@ export type ProfileInterestCreateManyProfileInput = {
 }
 
 export type ProfileInterestUpdateWithoutProfileInput = {
-  interest?: Prisma.InterestUpdateOneRequiredWithoutProfilesNestedInput
+  interest?: Prisma.InterestUpdateOneRequiredWithoutProfileInterestsNestedInput
 }
 
 export type ProfileInterestUncheckedUpdateWithoutProfileInput = {

@@ -158,15 +158,13 @@ export type SkillWhereInput = {
   NOT?: Prisma.SkillWhereInput | Prisma.SkillWhereInput[]
   id?: Prisma.StringFilter<"Skill"> | string
   name?: Prisma.StringFilter<"Skill"> | string
-  profiles?: Prisma.ProfileSkillListRelationFilter
-  projects?: Prisma.ProjectSkillListRelationFilter
+  profileSkills?: Prisma.ProfileSkillListRelationFilter
 }
 
 export type SkillOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  profiles?: Prisma.ProfileSkillOrderByRelationAggregateInput
-  projects?: Prisma.ProjectSkillOrderByRelationAggregateInput
+  profileSkills?: Prisma.ProfileSkillOrderByRelationAggregateInput
 }
 
 export type SkillWhereUniqueInput = Prisma.AtLeast<{
@@ -175,8 +173,7 @@ export type SkillWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SkillWhereInput | Prisma.SkillWhereInput[]
   OR?: Prisma.SkillWhereInput[]
   NOT?: Prisma.SkillWhereInput | Prisma.SkillWhereInput[]
-  profiles?: Prisma.ProfileSkillListRelationFilter
-  projects?: Prisma.ProjectSkillListRelationFilter
+  profileSkills?: Prisma.ProfileSkillListRelationFilter
 }, "id" | "name">
 
 export type SkillOrderByWithAggregationInput = {
@@ -198,29 +195,25 @@ export type SkillScalarWhereWithAggregatesInput = {
 export type SkillCreateInput = {
   id?: string
   name: string
-  profiles?: Prisma.ProfileSkillCreateNestedManyWithoutSkillInput
-  projects?: Prisma.ProjectSkillCreateNestedManyWithoutSkillInput
+  profileSkills?: Prisma.ProfileSkillCreateNestedManyWithoutSkillInput
 }
 
 export type SkillUncheckedCreateInput = {
   id?: string
   name: string
-  profiles?: Prisma.ProfileSkillUncheckedCreateNestedManyWithoutSkillInput
-  projects?: Prisma.ProjectSkillUncheckedCreateNestedManyWithoutSkillInput
+  profileSkills?: Prisma.ProfileSkillUncheckedCreateNestedManyWithoutSkillInput
 }
 
 export type SkillUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  profiles?: Prisma.ProfileSkillUpdateManyWithoutSkillNestedInput
-  projects?: Prisma.ProjectSkillUpdateManyWithoutSkillNestedInput
+  profileSkills?: Prisma.ProfileSkillUpdateManyWithoutSkillNestedInput
 }
 
 export type SkillUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  profiles?: Prisma.ProfileSkillUncheckedUpdateManyWithoutSkillNestedInput
-  projects?: Prisma.ProjectSkillUncheckedUpdateManyWithoutSkillNestedInput
+  profileSkills?: Prisma.ProfileSkillUncheckedUpdateManyWithoutSkillNestedInput
 }
 
 export type SkillCreateManyInput = {
@@ -258,112 +251,54 @@ export type SkillScalarRelationFilter = {
   isNot?: Prisma.SkillWhereInput
 }
 
-export type SkillCreateNestedOneWithoutProfilesInput = {
-  create?: Prisma.XOR<Prisma.SkillCreateWithoutProfilesInput, Prisma.SkillUncheckedCreateWithoutProfilesInput>
-  connectOrCreate?: Prisma.SkillCreateOrConnectWithoutProfilesInput
+export type SkillCreateNestedOneWithoutProfileSkillsInput = {
+  create?: Prisma.XOR<Prisma.SkillCreateWithoutProfileSkillsInput, Prisma.SkillUncheckedCreateWithoutProfileSkillsInput>
+  connectOrCreate?: Prisma.SkillCreateOrConnectWithoutProfileSkillsInput
   connect?: Prisma.SkillWhereUniqueInput
 }
 
-export type SkillUpdateOneRequiredWithoutProfilesNestedInput = {
-  create?: Prisma.XOR<Prisma.SkillCreateWithoutProfilesInput, Prisma.SkillUncheckedCreateWithoutProfilesInput>
-  connectOrCreate?: Prisma.SkillCreateOrConnectWithoutProfilesInput
-  upsert?: Prisma.SkillUpsertWithoutProfilesInput
+export type SkillUpdateOneRequiredWithoutProfileSkillsNestedInput = {
+  create?: Prisma.XOR<Prisma.SkillCreateWithoutProfileSkillsInput, Prisma.SkillUncheckedCreateWithoutProfileSkillsInput>
+  connectOrCreate?: Prisma.SkillCreateOrConnectWithoutProfileSkillsInput
+  upsert?: Prisma.SkillUpsertWithoutProfileSkillsInput
   connect?: Prisma.SkillWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SkillUpdateToOneWithWhereWithoutProfilesInput, Prisma.SkillUpdateWithoutProfilesInput>, Prisma.SkillUncheckedUpdateWithoutProfilesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SkillUpdateToOneWithWhereWithoutProfileSkillsInput, Prisma.SkillUpdateWithoutProfileSkillsInput>, Prisma.SkillUncheckedUpdateWithoutProfileSkillsInput>
 }
 
-export type SkillCreateNestedOneWithoutProjectsInput = {
-  create?: Prisma.XOR<Prisma.SkillCreateWithoutProjectsInput, Prisma.SkillUncheckedCreateWithoutProjectsInput>
-  connectOrCreate?: Prisma.SkillCreateOrConnectWithoutProjectsInput
-  connect?: Prisma.SkillWhereUniqueInput
-}
-
-export type SkillUpdateOneRequiredWithoutProjectsNestedInput = {
-  create?: Prisma.XOR<Prisma.SkillCreateWithoutProjectsInput, Prisma.SkillUncheckedCreateWithoutProjectsInput>
-  connectOrCreate?: Prisma.SkillCreateOrConnectWithoutProjectsInput
-  upsert?: Prisma.SkillUpsertWithoutProjectsInput
-  connect?: Prisma.SkillWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SkillUpdateToOneWithWhereWithoutProjectsInput, Prisma.SkillUpdateWithoutProjectsInput>, Prisma.SkillUncheckedUpdateWithoutProjectsInput>
-}
-
-export type SkillCreateWithoutProfilesInput = {
+export type SkillCreateWithoutProfileSkillsInput = {
   id?: string
   name: string
-  projects?: Prisma.ProjectSkillCreateNestedManyWithoutSkillInput
 }
 
-export type SkillUncheckedCreateWithoutProfilesInput = {
+export type SkillUncheckedCreateWithoutProfileSkillsInput = {
   id?: string
   name: string
-  projects?: Prisma.ProjectSkillUncheckedCreateNestedManyWithoutSkillInput
 }
 
-export type SkillCreateOrConnectWithoutProfilesInput = {
+export type SkillCreateOrConnectWithoutProfileSkillsInput = {
   where: Prisma.SkillWhereUniqueInput
-  create: Prisma.XOR<Prisma.SkillCreateWithoutProfilesInput, Prisma.SkillUncheckedCreateWithoutProfilesInput>
+  create: Prisma.XOR<Prisma.SkillCreateWithoutProfileSkillsInput, Prisma.SkillUncheckedCreateWithoutProfileSkillsInput>
 }
 
-export type SkillUpsertWithoutProfilesInput = {
-  update: Prisma.XOR<Prisma.SkillUpdateWithoutProfilesInput, Prisma.SkillUncheckedUpdateWithoutProfilesInput>
-  create: Prisma.XOR<Prisma.SkillCreateWithoutProfilesInput, Prisma.SkillUncheckedCreateWithoutProfilesInput>
+export type SkillUpsertWithoutProfileSkillsInput = {
+  update: Prisma.XOR<Prisma.SkillUpdateWithoutProfileSkillsInput, Prisma.SkillUncheckedUpdateWithoutProfileSkillsInput>
+  create: Prisma.XOR<Prisma.SkillCreateWithoutProfileSkillsInput, Prisma.SkillUncheckedCreateWithoutProfileSkillsInput>
   where?: Prisma.SkillWhereInput
 }
 
-export type SkillUpdateToOneWithWhereWithoutProfilesInput = {
+export type SkillUpdateToOneWithWhereWithoutProfileSkillsInput = {
   where?: Prisma.SkillWhereInput
-  data: Prisma.XOR<Prisma.SkillUpdateWithoutProfilesInput, Prisma.SkillUncheckedUpdateWithoutProfilesInput>
+  data: Prisma.XOR<Prisma.SkillUpdateWithoutProfileSkillsInput, Prisma.SkillUncheckedUpdateWithoutProfileSkillsInput>
 }
 
-export type SkillUpdateWithoutProfilesInput = {
+export type SkillUpdateWithoutProfileSkillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  projects?: Prisma.ProjectSkillUpdateManyWithoutSkillNestedInput
 }
 
-export type SkillUncheckedUpdateWithoutProfilesInput = {
+export type SkillUncheckedUpdateWithoutProfileSkillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  projects?: Prisma.ProjectSkillUncheckedUpdateManyWithoutSkillNestedInput
-}
-
-export type SkillCreateWithoutProjectsInput = {
-  id?: string
-  name: string
-  profiles?: Prisma.ProfileSkillCreateNestedManyWithoutSkillInput
-}
-
-export type SkillUncheckedCreateWithoutProjectsInput = {
-  id?: string
-  name: string
-  profiles?: Prisma.ProfileSkillUncheckedCreateNestedManyWithoutSkillInput
-}
-
-export type SkillCreateOrConnectWithoutProjectsInput = {
-  where: Prisma.SkillWhereUniqueInput
-  create: Prisma.XOR<Prisma.SkillCreateWithoutProjectsInput, Prisma.SkillUncheckedCreateWithoutProjectsInput>
-}
-
-export type SkillUpsertWithoutProjectsInput = {
-  update: Prisma.XOR<Prisma.SkillUpdateWithoutProjectsInput, Prisma.SkillUncheckedUpdateWithoutProjectsInput>
-  create: Prisma.XOR<Prisma.SkillCreateWithoutProjectsInput, Prisma.SkillUncheckedCreateWithoutProjectsInput>
-  where?: Prisma.SkillWhereInput
-}
-
-export type SkillUpdateToOneWithWhereWithoutProjectsInput = {
-  where?: Prisma.SkillWhereInput
-  data: Prisma.XOR<Prisma.SkillUpdateWithoutProjectsInput, Prisma.SkillUncheckedUpdateWithoutProjectsInput>
-}
-
-export type SkillUpdateWithoutProjectsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  profiles?: Prisma.ProfileSkillUpdateManyWithoutSkillNestedInput
-}
-
-export type SkillUncheckedUpdateWithoutProjectsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  profiles?: Prisma.ProfileSkillUncheckedUpdateManyWithoutSkillNestedInput
 }
 
 
@@ -372,13 +307,11 @@ export type SkillUncheckedUpdateWithoutProjectsInput = {
  */
 
 export type SkillCountOutputType = {
-  profiles: number
-  projects: number
+  profileSkills: number
 }
 
 export type SkillCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  profiles?: boolean | SkillCountOutputTypeCountProfilesArgs
-  projects?: boolean | SkillCountOutputTypeCountProjectsArgs
+  profileSkills?: boolean | SkillCountOutputTypeCountProfileSkillsArgs
 }
 
 /**
@@ -394,23 +327,15 @@ export type SkillCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * SkillCountOutputType without action
  */
-export type SkillCountOutputTypeCountProfilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SkillCountOutputTypeCountProfileSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProfileSkillWhereInput
-}
-
-/**
- * SkillCountOutputType without action
- */
-export type SkillCountOutputTypeCountProjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectSkillWhereInput
 }
 
 
 export type SkillSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  profiles?: boolean | Prisma.Skill$profilesArgs<ExtArgs>
-  projects?: boolean | Prisma.Skill$projectsArgs<ExtArgs>
+  profileSkills?: boolean | Prisma.Skill$profileSkillsArgs<ExtArgs>
   _count?: boolean | Prisma.SkillCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["skill"]>
 
@@ -431,8 +356,7 @@ export type SkillSelectScalar = {
 
 export type SkillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["skill"]>
 export type SkillInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  profiles?: boolean | Prisma.Skill$profilesArgs<ExtArgs>
-  projects?: boolean | Prisma.Skill$projectsArgs<ExtArgs>
+  profileSkills?: boolean | Prisma.Skill$profileSkillsArgs<ExtArgs>
   _count?: boolean | Prisma.SkillCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SkillIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -441,8 +365,7 @@ export type SkillIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $SkillPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Skill"
   objects: {
-    profiles: Prisma.$ProfileSkillPayload<ExtArgs>[]
-    projects: Prisma.$ProjectSkillPayload<ExtArgs>[]
+    profileSkills: Prisma.$ProfileSkillPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -841,8 +764,7 @@ readonly fields: SkillFieldRefs;
  */
 export interface Prisma__SkillClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  profiles<T extends Prisma.Skill$profilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Skill$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  projects<T extends Prisma.Skill$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Skill$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profileSkills<T extends Prisma.Skill$profileSkillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Skill$profileSkillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1267,9 +1189,9 @@ export type SkillDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Skill.profiles
+ * Skill.profileSkills
  */
-export type Skill$profilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Skill$profileSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ProfileSkill
    */
@@ -1288,30 +1210,6 @@ export type Skill$profilesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ProfileSkillScalarFieldEnum | Prisma.ProfileSkillScalarFieldEnum[]
-}
-
-/**
- * Skill.projects
- */
-export type Skill$projectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectSkill
-   */
-  select?: Prisma.ProjectSkillSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectSkill
-   */
-  omit?: Prisma.ProjectSkillOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectSkillInclude<ExtArgs> | null
-  where?: Prisma.ProjectSkillWhereInput
-  orderBy?: Prisma.ProjectSkillOrderByWithRelationInput | Prisma.ProjectSkillOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectSkillWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectSkillScalarFieldEnum | Prisma.ProjectSkillScalarFieldEnum[]
 }
 
 /**

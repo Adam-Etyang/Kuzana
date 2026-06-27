@@ -23,6 +23,21 @@ export * from './enums.js';
  */
 export type User = Prisma.UserModel
 /**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model ConversationParticipant
+ * 
+ */
+export type ConversationParticipant = Prisma.ConversationParticipantModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
  * Model Profile
  * 
  */
@@ -48,15 +63,15 @@ export type Account = Prisma.AccountModel
  */
 export type Verification = Prisma.VerificationModel
 /**
- * Model Skill
- * 
- */
-export type Skill = Prisma.SkillModel
-/**
  * Model Interest
  * 
  */
 export type Interest = Prisma.InterestModel
+/**
+ * Model Skill
+ * 
+ */
+export type Skill = Prisma.SkillModel
 /**
  * Model ProfileSkill
  * 
@@ -67,21 +82,6 @@ export type ProfileSkill = Prisma.ProfileSkillModel
  * 
  */
 export type ProfileInterest = Prisma.ProfileInterestModel
-/**
- * Model Project
- * 
- */
-export type Project = Prisma.ProjectModel
-/**
- * Model ProjectSkill
- * 
- */
-export type ProjectSkill = Prisma.ProjectSkillModel
-/**
- * Model ProjectApplication
- * 
- */
-export type ProjectApplication = Prisma.ProjectApplicationModel
 /**
  * Model Availability
  * 

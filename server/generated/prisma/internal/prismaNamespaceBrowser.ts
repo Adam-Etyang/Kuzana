@@ -52,18 +52,18 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Conversation: 'Conversation',
+  ConversationParticipant: 'ConversationParticipant',
+  Message: 'Message',
   Profile: 'Profile',
   MentorProfile: 'MentorProfile',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  Skill: 'Skill',
   Interest: 'Interest',
+  Skill: 'Skill',
   ProfileSkill: 'ProfileSkill',
   ProfileInterest: 'ProfileInterest',
-  Project: 'Project',
-  ProjectSkill: 'ProjectSkill',
-  ProjectApplication: 'ProjectApplication',
   Availability: 'Availability',
   SchedulerRun: 'SchedulerRun',
   CompatibilityScore: 'CompatibilityScore',
@@ -94,12 +94,38 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   role: 'role',
-  institutionRole: 'institutionRole',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const ConversationParticipantScalarFieldEnum = {
+  userId: 'userId',
+  conversationId: 'conversationId'
+} as const
+
+export type ConversationParticipantScalarFieldEnum = (typeof ConversationParticipantScalarFieldEnum)[keyof typeof ConversationParticipantScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  senderId: 'senderId',
+  conversationId: 'conversationId'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
 export const ProfileScalarFieldEnum = {
@@ -178,20 +204,20 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
-export const SkillScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-} as const
-
-export type SkillScalarFieldEnum = (typeof SkillScalarFieldEnum)[keyof typeof SkillScalarFieldEnum]
-
-
 export const InterestScalarFieldEnum = {
   id: 'id',
   name: 'name'
 } as const
 
 export type InterestScalarFieldEnum = (typeof InterestScalarFieldEnum)[keyof typeof InterestScalarFieldEnum]
+
+
+export const SkillScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type SkillScalarFieldEnum = (typeof SkillScalarFieldEnum)[keyof typeof SkillScalarFieldEnum]
 
 
 export const ProfileSkillScalarFieldEnum = {
@@ -208,38 +234,6 @@ export const ProfileInterestScalarFieldEnum = {
 } as const
 
 export type ProfileInterestScalarFieldEnum = (typeof ProfileInterestScalarFieldEnum)[keyof typeof ProfileInterestScalarFieldEnum]
-
-
-export const ProjectScalarFieldEnum = {
-  id: 'id',
-  ownerId: 'ownerId',
-  title: 'title',
-  description: 'description',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
-
-
-export const ProjectSkillScalarFieldEnum = {
-  projectId: 'projectId',
-  skillId: 'skillId'
-} as const
-
-export type ProjectSkillScalarFieldEnum = (typeof ProjectSkillScalarFieldEnum)[keyof typeof ProjectSkillScalarFieldEnum]
-
-
-export const ProjectApplicationScalarFieldEnum = {
-  id: 'id',
-  projectId: 'projectId',
-  applicantId: 'applicantId',
-  status: 'status',
-  appliedAt: 'appliedAt'
-} as const
-
-export type ProjectApplicationScalarFieldEnum = (typeof ProjectApplicationScalarFieldEnum)[keyof typeof ProjectApplicationScalarFieldEnum]
 
 
 export const AvailabilityScalarFieldEnum = {
