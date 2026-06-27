@@ -4,7 +4,8 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider            = "prisma-client" // FIXED: was "prisma-client", the correct provider is "prisma-client-js"
+  provider            = "prisma-client"
+  // FIXED: was "prisma-client", the correct provider is "prisma-client-js"
   output              = "../generated/prisma"
   moduleFormat        = "esm"
   importFileExtension = "js"
@@ -34,6 +35,11 @@ model User {
   mentorProfile MentorProfile?
   sessions      Session[]
   accounts      Account[]
+  banned        Boolean?       @default(false)
+  banReason     String?
+  banExpires    DateTime?
+
+  @@map("user")
 }
 
 model Conversation {
@@ -107,15 +113,19 @@ model MentorProfile {
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  expiresAt DateTime
-  token     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String   @id @default(uuid())
+  expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy String?
+
+  @@index([userId])
+  @@map("session")
 }
 
 model Account {
@@ -133,6 +143,9 @@ model Account {
   password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
 }
 
 model Verification {
@@ -142,6 +155,9 @@ model Verification {
   expiresAt  DateTime
   createdAt  DateTime?
   updatedAt  DateTime?
+
+  @@index([identifier])
+  @@map("verification")
 }
 
 model Interest {
