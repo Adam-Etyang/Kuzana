@@ -1,11 +1,8 @@
-import { createAuthClient } from "better-auth/client";
-import { inferAdditionalFields } from "better-auth/client/plugins";
+import { inferAdditionalFields, adminClient } from "better-auth/client/plugins";
+import { createAuthClient } from "better-auth/react" // make sure to import from better-auth/react
 
-import type { auth } from "../../server/auth"; // adjust path, server's auth instance
-
-export const authClient = createAuthClient({
+export const authClient =  createAuthClient({
   baseURL: "http://localhost:3001",
-  plugins: [inferAdditionalFields<typeof auth>()],
-});
-
+  plugins: [inferAdditionalFields<typeof auth>(), adminClient()],
+})
 
