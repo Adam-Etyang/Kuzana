@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from './prisma.js';
 import { sendEmail } from './email.js';
+import {admin} from 'better-auth/plugins';
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -12,6 +13,7 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true, 
   },
+
   user: {
     additionalFields: {
       role: {
@@ -21,7 +23,6 @@ export const auth = betterAuth({
       },
     },
   },
-
 
   emailVerification: {
     sendOnSignUp: true,
@@ -37,5 +38,19 @@ export const auth = betterAuth({
     },
   },
 
+  plugins :[
+    admin()
+  ],
+
   trustedOrigins: ["http://localhost:3000", "http://localhost:3001"],
+
+  cookies: {
+    sessionToken: {
+      name: "better-auth.session_token",
+      secure: false, // set to true in production with HTTPS
+      sameSite: "lax", // or "none" if cross-origin
+      path: "/",
+      httpOnly: true,
+    },
+  },
 });
