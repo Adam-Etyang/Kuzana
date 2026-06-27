@@ -5,7 +5,7 @@ import { CreateMessageDto } from './messaging.DTO';
 
 @Injectable()
 export class MessagingService {
-  constructor(@Inject('PRISMA') private prisma:PrismaClient) {}
+  constructor(@Inject('PRISMA') private prisma: PrismaClient) {}
 
   async create(data: CreateMessageDto) {
     const message = await this.prisma.message.create({
