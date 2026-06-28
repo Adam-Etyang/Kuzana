@@ -32,11 +32,12 @@ export class UsersController {
     return data;
   }
 */
+/*
   @Get('user')
   async getUser(@Param('id') id: string) {  // also need @Query() here
     return await this.usersService.getUser(id)
   }
-
+*/
   @Get('me')
   async me(@Req() req: any) {
     const session = await auth.api.getSession({

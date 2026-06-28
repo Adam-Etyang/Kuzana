@@ -31,25 +31,89 @@ export class MatchingService {
   }
 
   async runMatching() {
+    //Debug
+    const profile_count = await this.prisma.profile.count();
+    console.log(`Total profiles in DB: ${profile_count}`);
+
+    const mentorWithProfile = await this.prisma.user.findFirst({
+  where: { role: 'MENTOR', profile: { isNot: null } },
+  include: {
+    profile: {
+      include: {
+        skills: { include: { skill: true } },
+        interests: { include: { interest: true } },
+        availability: true,
+      }
+    }
+  }
+});
+
+const menteeWithProfile = await this.prisma.user.findFirst({
+  where: { role: 'MENTEE', profile: { isNot: null } },
+  include: {
+    profile: {
+      include: {
+        skills: { include: { skill: true } },
+        interests: { include: { interest: true } },
+        availability: true,
+      }
+    }
+  }
+});
+
+console.log('Mentee with profile:', JSON.stringify(menteeWithProfile, null, 2));
+console.log('Mentor with profile:', JSON.stringify(mentorWithProfile, null, 2));
+
     // fetch all eligible profiles from DB
-    const mentors = await this.prisma.user.findMany({
-      where: { role: 'MENTOR' },
+    const mentorsRaw = await this.prisma.user.findMany({
+      where: { role: 'MENTOR', profile: { isNot: null } },
       include: {
         profile: {
-          include: { skills: true, interests: true, availability: true }
+          include: {
+            skills: { include: { skill: true } },
+            interests: { include: { interest: true } },
+            availability: true,
+          }
         },
-        mentorProfile: true,
       }
     });
 
-    const mentees = await this.prisma.user.findMany({
-      where: { role: 'MENTEE' },
+    const menteesRaw = await this.prisma.user.findMany({
+      where: { role: 'MENTEE', profile: { isNot: null } },
       include: {
         profile: {
-          include: { skills: true, interests: true, availability: true }
+          include: {
+            skills: { include: { skill: true } },
+            interests: { include: { interest: true } },
+            availability: true,
+          }
         }
       }
     });
+    console.log('Raw mentor 0:', JSON.stringify(mentorsRaw[0], null, 2));
+    console.log('Profile exists:', !!mentorsRaw[0]?.profile);
+    console.log('Profile skills:', mentorsRaw[0]?.profile?.skills);
+    console.log('Profile interests:', mentorsRaw[0]?.profile?.interests);
+
+    const flattenUser = (user: any) => ({
+    id: user.id,
+    email: user.email,
+    role: user.role,
+    // Flatten profile fields
+    skills: user.profile?.skills ?? [],
+    interests: user.profile?.interests ?? [],
+    availability: user.profile?.availability ?? [],
+    goalVector: user.profile?.goalVector ?? [],
+    yearOfStudy: user.profile?.yearOfStudy ?? 0,
+    // Mentor-specific fields now live directly on Profile
+    bio: user.profile?.bio ?? null,
+    maxMentees: user.profile?.maxMentees ?? 31,
+    currentMentees: user.profile?.currentMentees ?? 0,
+    isAvailable: user.profile?.isAvailable ?? true,
+  });
+
+  const mentees = menteesRaw.map(flattenUser);
+  const mentors = mentorsRaw.map(flattenUser);
 
     // call FastAPI matching service
     const response = await fetch(`${this.baseUrl}/matching/run`, {
@@ -71,7 +135,8 @@ export class MatchingService {
         menteeId,
         mentorId,
         status: 'COMPLETED',
-      }))
+      })),
+      skipDuplicates: true,
     });
 
     return data;

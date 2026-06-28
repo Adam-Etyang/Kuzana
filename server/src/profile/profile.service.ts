@@ -51,7 +51,11 @@ export class ProfileService {
         },
         availability: {
           create: data.availability
-        }
+        },
+        ...(data.role === Role.MENTOR && {
+          bio: data.bio,
+          maxMentees: data.maxMentees ?? 2,
+        }),
       },
       include: {
         skills: true,
@@ -60,15 +64,8 @@ export class ProfileService {
       }
     });
 
-    if (data.role === Role.MENTOR) {
-      if (!data.bio) throw new BadRequestException('Bio is required for mentors');
-      await tx.mentorProfile.create({
-        data: {
-          userId,
-          bio: data.bio,
-          maxMentees: data.maxMentees ?? 2,
-        }
-      });
+    if (data.role === Role.MENTOR && !data.bio) {
+      throw new BadRequestException('Bio is required for mentors');
     }
 
     return profile;
@@ -132,10 +129,28 @@ export class ProfileService {
   async getProfile(userId:string){
     const profile = await this.prisma.profile.findUnique({
       where: { userId },
-      include: { skills: true, 
+      select: {
+        id: true,
+        userId: true,
+        firstName: true,
+        lastName: true,
+        yearOfStudy: true,
+        faculty: true,
+        department: true,
+        goalStatement: true,
+        goalVector: true,
+        createdAt: true,
+        updatedAt: true,
+        // mentor-specific fields (explicit; null for mentees)
+        bio: true,
+        maxMentees: true,
+        currentMentees: true,
+        isAvailable: true,
+        // relations
+        skills: true,
         interests: true,
         availability: true,
-        user:{ select: { role: true, mentorProfile: true } },
+        user: { select: { id: true, name: true, email: true, role: true, image: true } },
       }
     });
 

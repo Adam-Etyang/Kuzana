@@ -6,7 +6,7 @@ export class UsersService {
 
   constructor(@Inject('PRISMA') private prisma: PrismaClient) {}
   
-
+/*
   async getUser(userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -20,4 +20,5 @@ export class UsersService {
     });
     return user;  // actually return the user!
   }
+  */
 }
