@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from './prisma.js';
 import { sendEmail } from './email.js';
-import {admin} from 'better-auth/plugins';
+//import {admin} from 'better-auth/plugins';
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -38,12 +38,13 @@ export const auth = betterAuth({
     },
   },
 
-  plugins :[
+/*  plugins :[
     admin()
   ],
+  */
 
   trustedOrigins: ["http://localhost:3000", "http://localhost:3001"],
-
+/*
   cookies: {
     sessionToken: {
       name: "better-auth.session_token",
@@ -53,4 +54,5 @@ export const auth = betterAuth({
       httpOnly: true,
     },
   },
+  */
 });
