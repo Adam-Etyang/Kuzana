@@ -1,0 +1,241 @@
+generator client {
+  provider            = "prisma-client-js"
+  output              = "../generated/prisma"
+  importFileExtension = "js"
+  moduleFormat        = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String                    @id @default(uuid())
+  name          String?
+  email         String                    @unique
+  emailVerified Boolean                   @default(false)
+  image         String?
+  role          Role                      @default(MENTEE)
+  createdAt     DateTime                  @default(now())
+  updatedAt     DateTime                  @updatedAt
+  banned        Boolean?                  @default(false)
+  banReason     String?
+  banExpires    DateTime?
+  conversations ConversationParticipant[]
+  menteeMatches Match[]                   @relation("MenteeMatches")
+  mentorMatches Match[]                   @relation("MentorMatches")
+  sentMessages  Message[]                 @relation("SentMessages")
+  profile       Profile?
+  accounts      Account[]
+  sessions      Session[]
+
+  @@map("user")
+}
+
+model Conversation {
+  id           String                    @id @default(cuid())
+  createdAt    DateTime                  @default(now())
+  participants ConversationParticipant[]
+  messages     Message[]
+}
+
+model ConversationParticipant {
+  userId         String
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
+
+  @@id([userId, conversationId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  content        String
+  createdAt      DateTime     @default(now())
+  senderId       String
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
+}
+
+model Profile {
+  id             String            @id @default(uuid())
+  userId         String            @unique
+  firstName      String
+  lastName       String
+  yearOfStudy    Int?
+  faculty        String
+  department     String
+  goalStatement  String
+  goalVector     Float[]
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  bio            String?
+  currentMentees Int?              @default(0)
+  isAvailable    Boolean?          @default(true)
+  maxMentees     Int?              @default(31)
+  availability   Availability[]
+  user           User              @relation(fields: [userId], references: [id])
+  interests      ProfileInterest[]
+  skills         ProfileSkill[]
+}
+
+model Session {
+  id             String   @id @default(uuid())
+  expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  impersonatedBy String?
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(uuid())
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model Interest {
+  id               String            @id @default(uuid())
+  name             String            @unique
+  profileInterests ProfileInterest[]
+}
+
+model Skill {
+  id            String         @id @default(uuid())
+  name          String         @unique
+  profileSkills ProfileSkill[]
+}
+
+model ProfileSkill {
+  profileId String
+  skillId   String
+  profile   Profile @relation(fields: [profileId], references: [id])
+  skill     Skill   @relation(fields: [skillId], references: [id])
+
+  @@id([profileId, skillId])
+}
+
+model ProfileInterest {
+  profileId  String
+  interestId String
+  interest   Interest @relation(fields: [interestId], references: [id])
+  profile    Profile  @relation(fields: [profileId], references: [id])
+
+  @@id([profileId, interestId])
+}
+
+model Availability {
+  id        String    @id @default(uuid())
+  profileId String
+  dayOfWeek DayOfWeek
+  startTime String
+  endTime   String
+  profile   Profile   @relation(fields: [profileId], references: [id])
+}
+
+model SchedulerRun {
+  id              String    @id @default(uuid())
+  startedAt       DateTime
+  completedAt     DateTime?
+  matchesCreated  Int       @default(0)
+  waitlistedCount Int       @default(0)
+  status          RunStatus @default(RUNNING)
+  error           String?
+}
+
+model CompatibilityScore {
+  id                String   @id @default(uuid())
+  menteeId          String
+  mentorId          String
+  skillScore        Float
+  interestScore     Float
+  goalScore         Float
+  fieldScore        Float
+  availabilityScore Float
+  yearGapScore      Float
+  totalScore        Float
+  computedAt        DateTime @default(now())
+
+  @@unique([menteeId, mentorId])
+}
+
+model Match {
+  id          String      @id @default(uuid())
+  menteeId    String
+  mentorId    String
+  status      MatchStatus @default(ACTIVE)
+  matchedAt   DateTime    @default(now())
+  dissolvedAt DateTime?
+  mentee      User        @relation("MenteeMatches", fields: [menteeId], references: [id])
+  mentor      User        @relation("MentorMatches", fields: [mentorId], references: [id])
+
+  @@unique([menteeId, mentorId])
+}
+
+model Waitlist {
+  id       String   @id @default(uuid())
+  menteeId String   @unique
+  joinedAt DateTime @default(now())
+}
+
+enum Role {
+  MENTOR
+  MENTEE
+  ADMIN
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum RunStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+enum MatchStatus {
+  ACTIVE
+  DISSOLVED
+  COMPLETED
+}
