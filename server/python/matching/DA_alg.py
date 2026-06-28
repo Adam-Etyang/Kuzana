@@ -16,12 +16,12 @@ class DefferedAcceptance:
         mentor_matches = {
             mentor["id"]: {
             "mentees": [],
-            "capacity": mentor["mentorProfile"]["maxMentees"]
+            "capacity": mentor.get("maxMentees") or 2
         }
             for mentor in mentors
                 }
 
-        unmacted_mentees = list(mentee['id']for mentee in mentees)
+        unmatched_mentees = list(mentee['id']for mentee in mentees)
 
         while unmatched_mentees:
             mentee_id = unmatched_mentees.pop(0)

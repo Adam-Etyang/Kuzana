@@ -51,6 +51,9 @@ async def run_matching(
     
     mentees = payload.get("mentees")
     mentors = payload.get("mentors")
+
+    print(f"Received {len(mentees)} mentees and {len(mentors)} mentors")
+
     if not mentees or not mentors:
         raise HTTPException(status_code=400, detail="Missing mentees or mentors")
     
