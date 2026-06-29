@@ -1,79 +1,12 @@
 import { BadRequestException, ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaClient,DayOfWeek,Role } from '../../generated/prisma/client.js';
-
+import { PrismaClient, DayOfWeek, Role } from '../../generated/prisma/client.js';
 
 @Injectable()
 export class ProfileService {
   constructor(@Inject('PRISMA') private prisma: PrismaClient) {}
 
   async submitProfile(userId: string, data: {
-  firstName: string;
-  lastName: string;
-  yearOfStudy: number;
-  faculty: string;
-  department: string;
-  goalStatement: string;
-  skills: string[];
-  interests: string[];
-  availability: {
-    dayOfWeek: DayOfWeek;
-    startTime: string;
-    endTime: string;
-  }[];
-  role: Role;
-  bio?: string;
-  maxMentees?: number;
-}) {
-  const existing = await this.prisma.profile.findUnique({ where: { userId } });
-  if (existing) throw new ConflictException('Profile already exists');
-
-  return this.prisma.$transaction(async (tx) => {
-    await tx.user.update({
-      where: { id: userId },
-      data: { role: data.role }
-    });
-
-    const profile = await tx.profile.create({
-      data: {
-        userId,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        yearOfStudy: data.yearOfStudy,
-        faculty: data.faculty,
-        department: data.department,
-        goalStatement: data.goalStatement,
-        goalVector: [],
-        skills: {
-          create: data.skills.map(skillId => ({ skillId }))
-        },
-        interests: {
-          create: data.interests.map(interestId => ({ interestId }))
-        },
-        availability: {
-          create: data.availability
-        },
-        ...(data.role === Role.MENTOR && {
-          bio: data.bio,
-          maxMentees: data.maxMentees ?? 2,
-        }),
-      },
-      include: {
-        skills: true,
-        interests: true,
-        availability: true
-      }
-    });
-
-    if (data.role === Role.MENTOR && !data.bio) {
-      throw new BadRequestException('Bio is required for mentors');
-    }
-
-    return profile;
-  });
-}
-
-  async updateProfile(userId:string, data:Partial<{
-        firstName: string;
+    firstName: string;
     lastName: string;
     yearOfStudy: number;
     faculty: string;
@@ -86,32 +19,152 @@ export class ProfileService {
       startTime: string;
       endTime: string;
     }[];
-  }>){
+    role: Role;
+    bio?: string;
+    maxMentees?: number;
+  }) {
+    // Validate mentor requirements BEFORE touching the DB
+    if (data.role === Role.MENTOR && !data.bio) {
+      throw new BadRequestException('Bio is required for mentors');
+    }
+
+    const existing = await this.prisma.profile.findUnique({ where: { userId } });
+    if (existing) throw new ConflictException('Profile already exists');
+
+    return this.prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: { id: userId },
+        data: { role: data.role }
+      });
+
+      // 1. Upsert skills by NAME (not ID) and capture their real UUIDs
+      const skills = await Promise.all(
+        data.skills.map(skillName =>
+          tx.skill.upsert({
+            where: { name: skillName },
+            update: {},
+            create: { name: skillName }, // id auto-generates as UUID
+          })
+        )
+      );
+
+      // 2. Upsert interests by NAME and capture their real UUIDs
+      const interests = await Promise.all(
+        data.interests.map(interestName =>
+          tx.interest.upsert({
+            where: { name: interestName },
+            update: {},
+            create: { name: interestName },
+          })
+        )
+      );
+
+      // 3. Create profile using the ACTUAL UUIDs from the upserts
+      const profile = await tx.profile.create({
+        data: {
+          userId,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          yearOfStudy: data.yearOfStudy,
+          faculty: data.faculty,
+          department: data.department,
+          goalStatement: data.goalStatement,
+          goalVector: [],
+          skills: {
+            create: skills.map(skill => ({ skillId: skill.id }))
+          },
+          interests: {
+            create: interests.map(interest => ({ interestId: interest.id }))
+          },
+          availability: {
+            create: data.availability
+          },
+          ...(data.role === Role.MENTOR && {
+            bio: data.bio,
+            maxMentees: data.maxMentees ?? 2,
+          }),
+        },
+        include: {
+          skills: { include: { skill: true } },
+          interests: { include: { interest: true } },
+          availability: true
+        }
+      });
+
+      return profile;
+    });
+  }
+
+  async updateProfile(userId: string, data: Partial<{
+    firstName: string;
+    lastName: string;
+    yearOfStudy: number;
+    faculty: string;
+    department: string;
+    goalStatement: string;
+    skills: string[];
+    interests: string[];
+    availability: {
+      dayOfWeek: DayOfWeek;
+      startTime: string;
+      endTime: string;
+    }[];
+  }>) {
     const existing = await this.prisma.profile.findUnique({ where: { userId } });
     if (!existing) throw new NotFoundException('Profile not found');
 
+    // Upsert skills by name and get real IDs (outside transaction for simplicity,
+    // or wrap everything in $transaction if you need strict atomicity)
+    let skillIds: string[] | undefined;
+    if (data.skills) {
+      const skills = await Promise.all(
+        data.skills.map(skillName =>
+          this.prisma.skill.upsert({
+            where: { name: skillName },
+            update: {},
+            create: { name: skillName },
+          })
+        )
+      );
+      skillIds = skills.map(s => s.id);
+    }
+
+    let interestIds: string[] | undefined;
+    if (data.interests) {
+      const interests = await Promise.all(
+        data.interests.map(interestName =>
+          this.prisma.interest.upsert({
+            where: { name: interestName },
+            update: {},
+            create: { name: interestName },
+          })
+        )
+      );
+      interestIds = interests.map(i => i.id);
+    }
+
     return this.prisma.profile.update({
-            where: { userId },
+      where: { userId },
       data: {
         ...(data.firstName && { firstName: data.firstName }),
         ...(data.lastName && { lastName: data.lastName }),
         ...(data.yearOfStudy && { yearOfStudy: data.yearOfStudy }),
         ...(data.faculty && { faculty: data.faculty }),
         ...(data.department && { department: data.department }),
-        ...(data.goalStatement && { 
+        ...(data.goalStatement && {
           goalStatement: data.goalStatement,
-          goalVector: []  // reset embedding when goal changes
+          goalVector: []
         }),
-        ...(data.skills && {
+        ...(skillIds && {
           skills: {
             deleteMany: {},
-            create: data.skills.map(skillId => ({ skillId }))
+            create: skillIds.map(skillId => ({ skillId }))
           }
         }),
-        ...(data.interests && {
+        ...(interestIds && {
           interests: {
             deleteMany: {},
-            create: data.interests.map(interestId => ({ interestId }))
+            create: interestIds.map(interestId => ({ interestId }))
           }
         }),
         ...(data.availability && {
@@ -121,12 +174,15 @@ export class ProfileService {
           }
         }),
       },
-      include: { skills: true, interests: true, availability: true }
-    })
-
+      include: {
+        skills: { include: { skill: true } },
+        interests: { include: { interest: true } },
+        availability: true
+      }
+    });
   }
 
-  async getProfile(userId:string){
+  async getProfile(userId: string) {
     const profile = await this.prisma.profile.findUnique({
       where: { userId },
       select: {
@@ -141,12 +197,10 @@ export class ProfileService {
         goalVector: true,
         createdAt: true,
         updatedAt: true,
-        // mentor-specific fields (explicit; null for mentees)
         bio: true,
         maxMentees: true,
         currentMentees: true,
         isAvailable: true,
-        // relations
         skills: { include: { skill: true } },
         interests: { include: { interest: true } },
         availability: true,
@@ -157,6 +211,4 @@ export class ProfileService {
     if (!profile) throw new NotFoundException('Profile not found');
     return profile;
   }
-
-
 }
