@@ -30,12 +30,20 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true,
     expiresIn: 3600,
     sendVerificationEmail: async ({ user, url, token }, request) => {
-      void sendEmail({
-        to: user.email,
-        subject: "Verify your email",
-        text: `Click the link to verify your email: ${url}`,
-        html: `<p>Click the link to verify your email: <a href="${url}">${url}</a></p>`,
-      });
+      try {
+        const result = await sendEmail({
+          to: user.email,
+          subject: "Verify your email",
+          text: `Click the link to verify your email: ${url}`,
+          html: `<p>Click the link to verify your email: <a href="${url}">${url}</a></p>`,
+        });
+        if (result.error) {
+          console.error("[email] Resend returned an error:", result.error);
+        }
+      } catch (err) {
+        console.error("[email] Failed to send verification email:", err);
+        throw err;
+      }
     },
   },
 
