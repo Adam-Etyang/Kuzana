@@ -17,9 +17,10 @@ export const auth = betterAuth({
   user: {
     additionalFields: {
       role: {
-        type: ["Mentee", "Mentor"],
+        type: ["MENTEE", "MENTOR"], // must match the Prisma `Role` enum casing
         required: true,
-        input: true, // user sets this at signup
+        input: true, // user can set this at signup (mentor signup sends "MENTOR")
+        defaultValue: "MENTEE", // student signup defaults to MENTEE
       },
     },
   },
