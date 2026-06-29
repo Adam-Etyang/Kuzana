@@ -147,8 +147,8 @@ export class ProfileService {
         currentMentees: true,
         isAvailable: true,
         // relations
-        skills: true,
-        interests: true,
+        skills: { include: { skill: true } },
+        interests: { include: { interest: true } },
         availability: true,
         user: { select: { id: true, name: true, email: true, role: true, image: true } },
       }
