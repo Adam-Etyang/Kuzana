@@ -413,6 +413,7 @@ export default function StudentOnboardingPage() {
   const [skillsToLearn, setSkillsToLearn] = useState<string[]>([]);
   const [mentorshipTypes, setMentorshipTypes] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [bio, setBio] = useState("");
 
   const toggleMentorshipType = (type: string) =>
     setMentorshipTypes((prev) =>
@@ -426,14 +427,14 @@ export default function StudentOnboardingPage() {
       year !== "",
       academicInterests.length > 0,
       professionalInterests.length > 0,
-      skillsToLearn.length > 0,
       mentorshipTypes.length > 0,
+      bio.trim().length > 10,
     ];
     const filled = signals.filter(Boolean).length;
     return Math.round((filled / signals.length) * 100);
-  }, [fullName, program, year, academicInterests, professionalInterests, skillsToLearn, mentorshipTypes]);
+  }, [fullName, program, year, academicInterests, professionalInterests, skillsToLearn, mentorshipTypes, bio]);
 
-  const canContinue = fullName.trim() !== "" && program !== "" && skillsToLearn.length > 0;
+  const canContinue = fullName.trim() !== "" && program !== "";
 
   const handleContinue = async () => {
     if (!canContinue) return;
@@ -450,7 +451,7 @@ export default function StudentOnboardingPage() {
           yearOfStudy: year ? parseInt(year.replace(/\D/g, ""), 10) || 1 : 1,
           faculty: "ICS",
           department: program,
-          goalStatement: `Seeking mentorship in: ${mentorshipTypes.join(", ")}. Interested in: ${academicInterests.concat(professionalInterests).join(", ")}.`,
+          goalStatement: bio.trim(),
           skills: skillsToLearn,
           interests: academicInterests.concat(professionalInterests),
           availability: [],
@@ -587,20 +588,32 @@ export default function StudentOnboardingPage() {
             </Section>
 
             <Divider />
+            <Divider />
 
-            {/* 4 · Skills to Develop — primary matching signal */}
-            <Section
-              index={4}
-              icon={<Sparkles className="w-4 h-4 text-[#112250]" />}
-              title="Skills I Want to Develop"
-              subtitle="Be specific — this is the primary signal used to match you with mentors."
-            >
-              <TagPicker
-                selected={skillsToLearn}
-                onChange={setSkillsToLearn}
-                searchPlaceholder="Search skills…"
-              />
-            </Section>
+<Section
+  index={4}
+  icon={<Target className="w-4 h-4 text-[#112250]" />}
+  title="Your Goal Statement"
+  subtitle="Tell mentors what you're hoping to achieve. Be specific — it helps with matching."
+>
+  <div className="relative">
+    <textarea
+      value={bio}
+      onChange={(e) => setBio(e.target.value)}
+      placeholder="I'm looking for guidance on breaking into product management..."
+      rows={4}
+      className="w-full border border-gray-200 rounded-xl p-4 text-sm
+        focus:outline-none focus:ring-2 focus:ring-[#112250]/20 focus:border-[#112250]
+        transition bg-white text-gray-900 placeholder:text-gray-400 resize-none"
+    />
+    <div className="flex justify-end mt-1">
+      <span className={`text-xs ${bio.trim().length < 10 ? "text-[#A67C2E]" : "text-gray-400"}`}>
+        {bio.trim().length} / 280
+      </span>
+    </div>
+  </div>
+</Section>
+
 
             <Divider />
 

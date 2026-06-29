@@ -17,6 +17,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { signUpEmail } from "@/app/auth";
+import { authClient } from "@/lib/auth-client";
+import { useProfile } from "@/lib/use-profile";
 
 export default function StudentSignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +36,13 @@ export default function StudentSignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  const { profile } = useProfile(session?.user?.id);
+
+  const placeholderFirst = profile?.firstName ?? (session?.user?.name?.split(" ")[0] ?? "Hellen");
+  const placeholderLast = profile?.lastName ?? (session?.user?.name?.split(" ").slice(1).join(" ") ?? "Mutemi");
+  const placeholderCourse = profile?.department ?? "BSc Computer Science";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -195,7 +204,7 @@ export default function StudentSignupPage() {
                     label="First Name"
                     value={firstName}
                     setValue={setFirstName}
-                    placeholder="Hellen"
+                    placeholder={placeholderFirst}
                   />
 
                   <InputField
@@ -203,7 +212,7 @@ export default function StudentSignupPage() {
                     label="Last Name"
                     value={lastName}
                     setValue={setLastName}
-                    placeholder="Mutemi"
+                    placeholder={placeholderLast}
                   />
 
                 </div>
@@ -214,7 +223,7 @@ export default function StudentSignupPage() {
                   label="Course"
                   value={course}
                   setValue={setCourse}
-                  placeholder="BSc Computer Science"
+                  placeholder={placeholderCourse}
                 />
 
                 {/* EMAIL */}

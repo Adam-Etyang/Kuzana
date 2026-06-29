@@ -12,6 +12,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { useProfile } from "@/lib/use-profile";
 
+
 export default function StudentSidebar() {
   const pathname = usePathname();
   const { data: session } = authClient.useSession();
@@ -93,11 +94,11 @@ export default function StudentSidebar() {
 
       <div className="mt-auto bg-[#1B3475] rounded-xl p-4 text-white">
         <p className="font-semibold">
-          {studentName}
+        {studentName}
         </p>
 
         <p className="text-sm text-gray-300">
-          {course}
+        {course}
         </p>
       </div>
     </div>

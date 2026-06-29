@@ -331,59 +331,60 @@ export default function StudentAuthPage() {
                       </span>
                     </div>
                   ) : (
-                    <form onSubmit={handleResend} className="space-y-3">
-                      <div>
-                        <label className="block mb-1.5 text-xs font-medium text-[#112250]">
-                          Resend verification email
-                        </label>
-                        <div className="relative">
-                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-                          <input
-                            type="email"
-                            value={resendEmail}
-                            onChange={(e) => setResendEmail(e.target.value)}
-                            placeholder="yourname@strathmore.edu"
-                            required
-                            className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#112250] placeholder:text-gray-400
-                              focus:outline-none focus:ring-2 focus:ring-[#112250]/20 focus:border-[#112250] bg-gray-50 focus:bg-white"
-                          />
-                        </div>
-                      </div>
+                  <div className="space-y-3">
+  <div>
+    <label className="block mb-1.5 text-xs font-medium text-[#112250]">
+      Resend verification email
+    </label>
+    <div className="relative">
+      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+      <input
+        type="email"
+        value={resendEmail}
+        onChange={(e) => setResendEmail(e.target.value)}
+        placeholder="yourname@strathmore.edu"
+        required
+        className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#112250] placeholder:text-gray-400
+          focus:outline-none focus:ring-2 focus:ring-[#112250]/20 focus:border-[#112250] bg-gray-50 focus:bg-white"
+      />
+    </div>
+  </div>
 
-                      {resendError && (
-                        <div className="flex items-start gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-2.5 text-xs text-red-700">
-                          <AlertCircle className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-                          <span>{resendError}</span>
-                        </div>
-                      )}
+  {resendError && (
+    <div className="flex items-start gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-2.5 text-xs text-red-700">
+      <AlertCircle className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+      <span>{resendError}</span>
+    </div>
+  )}
 
-                      <div className="flex gap-2">
-                        <button
-                          type="submit"
-                          disabled={resendLoading}
-                          className="flex-1 bg-[#112250] hover:bg-[#1a2f60] disabled:opacity-60 disabled:cursor-not-allowed text-white py-2.5 rounded-xl font-semibold flex items-center justify-center gap-1.5 transition text-sm"
-                        >
-                          {resendLoading ? (
-                            <>
-                              <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                              Sending...
-                            </>
-                          ) : (
-                            <>
-                              Resend
-                              <MailCheck className="w-3.5 h-3.5" />
-                            </>
-                          )}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setShowResend(false)}
-                          className="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 text-sm font-medium transition"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
+  <div className="flex gap-2">
+    <button
+      type="button"
+      onClick={handleResend}
+      disabled={resendLoading}
+      className="flex-1 bg-[#112250] hover:bg-[#1a2f60] disabled:opacity-60 disabled:cursor-not-allowed text-white py-2.5 rounded-xl font-semibold flex items-center justify-center gap-1.5 transition text-sm"
+    >
+      {resendLoading ? (
+        <>
+          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          Sending...
+        </>
+      ) : (
+        <>
+          Resend
+          <MailCheck className="w-3.5 h-3.5" />
+        </>
+      )}
+    </button>
+    <button
+      type="button"
+      onClick={() => setShowResend(false)}
+      className="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 text-sm font-medium transition"
+    >
+      Cancel
+    </button>
+  </div>
+</div>
                   )}
                 </div>
               </form>
