@@ -1,4 +1,4 @@
-import {Inject, BadGatewayException, Injectable } from '@nestjs/common';
+import {Inject, BadGatewayException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaClient } from '../../generated/prisma/client.js';
 
 @Injectable()
@@ -28,6 +28,146 @@ export class MatchingService {
     });
     if (!response.ok) throw new BadGatewayException('Scoring service unavailable');
     return response.json();
+  }
+
+  async getMatchesForUser(userId: string) {
+    const matches = await this.prisma.match.findMany({
+      where: {
+        OR: [{ menteeId: userId }, { mentorId: userId }],
+      },
+      include: {
+        mentee: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            profile: {
+              select: {
+                firstName: true,
+                lastName: true,
+                faculty: true,
+                department: true,
+                yearOfStudy: true,
+                bio: true,
+                skills: { include: { skill: true } },
+                interests: { include: { interest: true } },
+              },
+            },
+          },
+        },
+        mentor: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            profile: {
+              select: {
+                firstName: true,
+                lastName: true,
+                faculty: true,
+                department: true,
+                bio: true,
+                skills: { include: { skill: true } },
+                interests: { include: { interest: true } },
+                availability: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { matchedAt: 'desc' },
+    });
+
+    const scores = await this.prisma.compatibilityScore.findMany({
+      where: {
+        OR: [{ menteeId: userId }, { mentorId: userId }],
+      },
+    });
+
+    const scoreMap = new Map<string, number>();
+    for (const s of scores) {
+      const key = `${s.menteeId}-${s.mentorId}`;
+      scoreMap.set(key, s.totalScore);
+    }
+
+    return matches.map((m) => ({
+      ...m,
+      compatibilityScore: scoreMap.get(`${m.menteeId}-${m.mentorId}`) ?? null,
+    }));
+  }
+
+  async getRecommendationsForUser(userId: string, limit = 5) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('User not found');
+
+    const scores = await this.prisma.compatibilityScore.findMany({
+      where: { menteeId: userId },
+      orderBy: { totalScore: 'desc' },
+      take: limit,
+    });
+
+    if (scores.length === 0) {
+      const availableMentors = await this.prisma.user.findMany({
+        where: {
+          role: 'MENTOR',
+          profile: {isAvailable: true },
+        },
+        include: {
+          profile: {
+            select: {
+              firstName: true,
+              lastName: true,
+              faculty: true,
+              department: true,
+              bio: true,
+              skills: { include: { skill: true } },
+              interests: { include: { interest: true } },
+            },
+          },
+        },
+        take: limit,
+      });
+      return availableMentors.map((mentor) => ({
+        mentor,
+        compatibilityScore: null,
+      }));
+    }
+
+    const mentorIds = scores.map((s) => s.mentorId);
+    const mentors = await this.prisma.user.findMany({
+      where: { id: { in: mentorIds } },
+      include: {
+        profile: {
+          select: {
+            firstName: true,
+            lastName: true,
+            faculty: true,
+            department: true,
+            bio: true,
+            skills: { include: { skill: true } },
+            interests: { include: { interest: true } },
+            isAvailable: true,
+            maxMentees: true,
+            currentMentees: true,
+          },
+        },
+      },
+    });
+
+    const mentorMap = new Map(mentors.map((m) => [m.id, m]));
+    return scores
+      .map((s) => {
+        const mentor = mentorMap.get(s.mentorId);
+        if (!mentor) return null;
+        return {
+          mentor,
+          compatibilityScore: s.totalScore,
+          skillScore: s.skillScore,
+          interestScore: s.interestScore,
+          goalScore: s.goalScore,
+        };
+      })
+      .filter((r): r is NonNullable<typeof r> => r !== null);
   }
 
   async runMatching() {
