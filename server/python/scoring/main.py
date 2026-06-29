@@ -18,14 +18,21 @@ class Scoring :
 
 # Note that the Cosine simiarity is calculated as Inner product/(Magnitude of vec1 * Magnitude of vec2)
     async def CosineSimilarity(self, vec1, vec2):
-        dot_product = np.dot(vec1, vec2)
-        magnitude1 = np.linalg.norm(vec1)
-        magnitude2 = np.linalg.norm(vec2)
+        arr1 = np.asarray(vec1, dtype=float)
+        arr2 = np.asarray(vec2, dtype=float)
 
+        if arr1.size == 0 or arr2.size == 0:
+            return 0.0
+        if arr1.shape != arr2.shape:
+            return 0.0
+
+        magnitude1 = np.linalg.norm(arr1)
+        magnitude2 = np.linalg.norm(arr2)
         if magnitude1 == 0 or magnitude2 == 0:
             return 0.0
 
-        return dot_product / (magnitude1 * magnitude2)
+        dot_product = np.dot(arr1, arr2)
+        return float(dot_product / (magnitude1 * magnitude2))
 
     async def OverlapRatio(self, set1, set2):
         intersection = len(set(set1).intersection(set(set2)))
