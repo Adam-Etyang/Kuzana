@@ -274,6 +274,16 @@ exports.Prisma.WaitlistScalarFieldEnum = {
   joinedAt: 'joinedAt'
 };
 
+exports.Prisma.MentorshipRequestScalarFieldEnum = {
+  id: 'id',
+  menteeId: 'menteeId',
+  mentorId: 'mentorId',
+  status: 'status',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -316,6 +326,12 @@ exports.MatchStatus = exports.$Enums.MatchStatus = {
   COMPLETED: 'COMPLETED'
 };
 
+exports.RequestStatus = exports.$Enums.RequestStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Conversation: 'Conversation',
@@ -333,7 +349,8 @@ exports.Prisma.ModelName = {
   SchedulerRun: 'SchedulerRun',
   CompatibilityScore: 'CompatibilityScore',
   Match: 'Match',
-  Waitlist: 'Waitlist'
+  Waitlist: 'Waitlist',
+  MentorshipRequest: 'MentorshipRequest'
 };
 
 /**

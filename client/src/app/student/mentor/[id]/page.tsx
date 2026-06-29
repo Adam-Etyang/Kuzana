@@ -1,13 +1,61 @@
+"use client";
+
 import DashboardShell from "@/components/layout/dashboardshell";
 import StudentSidebar from "@/components/layout/studentsidebar";
 import Button from "@/components/ui/button";
 import Badge from "@/components/ui/badge";
-import { Briefcase, Building2, CheckCircle, Star } from "lucide-react";
+import { Briefcase, Building2, CheckCircle, Star, Loader2, AlertCircle, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useProfile } from "@/lib/use-profile";
 
 export default function MentorProfilePage() {
+  const params = useParams();
+  const mentorId = params?.id as string | undefined;
+  const { profile, loading, error } = useProfile(mentorId);
+
+  if (loading) {
+    return (
+      <DashboardShell sidebar={<StudentSidebar />}>
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-[#112250]" />
+        </div>
+      </DashboardShell>
+    );
+  }
+
+  if (error || !profile) {
+    return (
+      <DashboardShell sidebar={<StudentSidebar />}>
+        <div className="flex items-start gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+          <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+          <span>{error || "Mentor profile not found."}</span>
+        </div>
+        <Link
+          href="/student/discover"
+          className="mt-4 inline-flex items-center gap-1 text-sm text-[#112250] hover:underline"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to discover
+        </Link>
+      </DashboardShell>
+    );
+  }
+
+  const fullName = `${profile.firstName} ${profile.lastName}`;
+  const initials = `${profile.firstName[0] ?? ""}${profile.lastName[0] ?? ""}`;
+  const skills = profile.skills.map((s) => s.skill.name);
+  const interests = profile.interests.map((i) => i.interest.name);
+
   return (
     <DashboardShell sidebar={<StudentSidebar />}>
       
+      <Link
+        href="/student/discover"
+        className="text-sm text-gray-400 hover:text-[#112250] transition flex items-center gap-1 mb-6"
+      >
+        <ArrowLeft className="w-4 h-4" /> Back to discover
+      </Link>
+
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-10">
 
         {/* HERO SECTION */}
@@ -16,7 +64,7 @@ export default function MentorProfilePage() {
           {/* Avatar */}
           <div className="w-24 h-24 rounded-full bg-[#112250] text-[#E0C58F]
                           flex items-center justify-center text-3xl font-bold shadow-md">
-            DW
+            {initials}
           </div>
 
           {/* Identity */}
@@ -24,7 +72,7 @@ export default function MentorProfilePage() {
             
             <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-3xl font-bold text-[#112250]">
-                Dr. Wanjiru
+                {fullName}
               </h1>
 
               <div className="flex items-center gap-1 text-xs text-[#E0C58F]">
@@ -35,18 +83,20 @@ export default function MentorProfilePage() {
 
             <div className="flex items-center gap-2 text-gray-600 mt-1">
               <Briefcase className="w-4 h-4 text-gray-400" />
-              <p>Senior Software Engineer</p>
+              <p>{profile.department}</p>
             </div>
 
             <div className="flex items-center gap-2 text-gray-500 mt-1">
               <Building2 className="w-4 h-4" />
-              <p>Safaricom</p>
+              <p>{profile.faculty}</p>
             </div>
 
-            <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
-              <CheckCircle className="w-3.5 h-3.5" />
-              Available for mentorship
-            </p>
+            {profile.isAvailable && (
+              <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
+                <CheckCircle className="w-3.5 h-3.5" />
+                Available for mentorship
+              </p>
+            )}
           </div>
 
           {/* CTA */}
@@ -58,12 +108,16 @@ export default function MentorProfilePage() {
         </div>
 
         {/* TAGS */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          <Badge>Software Engineering</Badge>
-          <Badge>Career Growth</Badge>
-          <Badge>Leadership</Badge>
-          <Badge>Interview Prep</Badge>
-        </div>
+        {(skills.length > 0 || interests.length > 0) && (
+          <div className="flex flex-wrap gap-2 mb-10">
+            {skills.map((s) => (
+              <Badge key={s}>{s}</Badge>
+            ))}
+            {interests.map((i) => (
+              <Badge key={i}>{i}</Badge>
+            ))}
+          </div>
+        )}
 
         {/* CONTENT GRID */}
         <div className="grid md:grid-cols-3 gap-8">
@@ -78,27 +132,26 @@ export default function MentorProfilePage() {
               </h2>
 
               <p className="text-gray-600 leading-relaxed">
-                Experienced software engineer with 10+ years in the industry,
-                specializing in scalable systems, backend architecture, and
-                mentoring early-career developers. Passionate about helping
-                students transition into real-world engineering roles with
-                confidence and clarity.
+                {profile.bio || profile.goalStatement || "No bio available."}
               </p>
             </div>
 
-            {/* MENTORSHIP AREAS */}
-            <div>
-              <h2 className="font-semibold text-lg text-[#112250] mb-3">
-                Mentorship Areas
-              </h2>
+            {/* AVAILABILITY */}
+            {profile.availability.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-lg text-[#112250] mb-3">
+                  Availability
+                </h2>
 
-              <ul className="space-y-2 text-gray-600">
-                <li>• Software Engineering fundamentals & best practices</li>
-                <li>• Career development & industry readiness</li>
-                <li>• Technical interview preparation</li>
-                <li>• System design & backend architecture basics</li>
-              </ul>
-            </div>
+                <ul className="space-y-2 text-gray-600">
+                  {profile.availability.map((slot) => (
+                    <li key={slot.id}>
+                      • {slot.dayOfWeek}: {slot.startTime} – {slot.endTime}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/* SIDE INFO PANEL */}
@@ -111,23 +164,23 @@ export default function MentorProfilePage() {
             <div className="space-y-3 text-sm text-gray-700">
 
               <div>
-                <p className="text-gray-500 text-xs">Experience</p>
-                <p className="font-medium">10+ Years</p>
+                <p className="text-gray-500 text-xs">Department</p>
+                <p className="font-medium">{profile.department}</p>
               </div>
 
               <div>
-                <p className="text-gray-500 text-xs">Industry</p>
-                <p className="font-medium">Tech / Telecommunications</p>
+                <p className="text-gray-500 text-xs">Faculty</p>
+                <p className="font-medium">{profile.faculty}</p>
               </div>
 
               <div>
-                <p className="text-gray-500 text-xs">Mentorship Style</p>
-                <p className="font-medium">Structured & Practical</p>
+                <p className="text-gray-500 text-xs">Max Mentees</p>
+                <p className="font-medium">{profile.maxMentees ?? "—"}</p>
               </div>
 
               <div>
-                <p className="text-gray-500 text-xs">Response Rate</p>
-                <p className="font-medium text-green-600">Fast</p>
+                <p className="text-gray-500 text-xs">Current Mentees</p>
+                <p className="font-medium">{profile.currentMentees ?? 0}</p>
               </div>
 
             </div>

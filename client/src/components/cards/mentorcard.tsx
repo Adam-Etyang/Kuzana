@@ -5,15 +5,19 @@ import Link from "next/link";
 import { Briefcase, Building2, Star } from "lucide-react";
 
 interface MentorCardProps {
+  id: string;
   name: string;
   field: string;
   company: string;
+  skills?: string[];
 }
 
 export default function MentorCard({
+  id,
   name,
   field,
   company,
+  skills = [],
 }: MentorCardProps) {
   return (
     <div
@@ -60,25 +64,21 @@ export default function MentorCard({
       </div>
 
       {/* TAGS */}
-      <div className="mt-4 flex gap-2 flex-wrap">
-        <Badge>Career Growth</Badge>
-        <Badge>Industry Insights</Badge>
-        <Badge>1:1 Mentorship</Badge>
-      </div>
+      {skills.length > 0 && (
+        <div className="mt-4 flex gap-2 flex-wrap">
+          {skills.slice(0, 3).map((skill) => (
+            <Badge key={skill}>{skill}</Badge>
+          ))}
+        </div>
+      )}
 
       {/* CTA */}
       <div className="mt-5 space-y-2">
         
-        <Link href={`/student/requests/new?mentor=${encodeURIComponent(name)}`}>
+        <Link href={`/student/mentor/${id}`}>
           <Button className="w-full bg-[#112250] hover:bg-[#1B3475] text-white transition">
-            Request Mentorship
+            View Profile
           </Button>
-        </Link>
-
-        <Link href="/student/mentor/1">
-          <button className="w-full text-sm text-[#1B3475] hover:underline py-1">
-            View Full Profile
-          </button>
         </Link>
       </div>
     </div>

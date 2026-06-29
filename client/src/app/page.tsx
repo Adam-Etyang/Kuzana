@@ -8,16 +8,11 @@ import {
   GraduationCap,
   Sparkles,
   ShieldCheck,
-  TrendingUp,
   Star,
-  Globe,
   Menu,
   X,
-  CheckCircle,
-  BookOpen,
   Clock,
   Briefcase,
-  Target,
   Award,
   ChevronDown,
   ChevronRight,
@@ -184,7 +179,7 @@ function TestimonialCard({ quote, name, role, field }: TestimonialProps) {
 function StatItem({ value, label, start, numericValue, suffix }: StatProps) {
   const count = useCountUp(numericValue ?? 0, 1800, start);
   return (
-    <div className="text-center group px-8 py-6">
+    <div className="text-center group px-3 md:px-8 py-6">
       <p className="text-[3.25rem] md:text-[3.75rem] font-black text-[#112250] tracking-tight tabular-nums leading-none group-hover:text-[#1e3a6e] transition-colors duration-200">
         {numericValue !== undefined ? `${count}${suffix ?? ""}` : value}
       </p>
@@ -341,16 +336,16 @@ export default function HomePage() {
                 Log in
               </Link>
               <Link
-                href="/mentor/auth"
+                href="/mentor/login"
                 className="text-sm font-semibold text-white/50 hover:text-white px-3 py-2 transition-colors duration-200"
               >
                 Mentor Portal
               </Link>
               <Link
-                href="/student/auth"
+                href="/student/signup"
                 className="group bg-[#E0C58F] text-[#112250] px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-1.5 hover:bg-[#f0d89c] hover:shadow-lg hover:shadow-[#E0C58F]/25 hover:-translate-y-px transition-all duration-200"
               >
-                Get Matched
+                Get Started
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
@@ -386,10 +381,10 @@ export default function HomePage() {
                   Mentor Portal
                 </Link>
                 <Link
-                  href="/student/auth"
+                  href="/student/signup"
                   className="bg-[#E0C58F] text-[#112250] py-3 px-4 rounded-xl font-bold text-sm text-center"
                 >
-                  Get Matched
+                  Get Started
                 </Link>
               </div>
             </div>
@@ -418,11 +413,7 @@ export default function HomePage() {
 
               {/* Left column — copy */}
               <div className="max-w-[640px]">
-                {/* Pill badge */}
-                <div className="ku-fade-up ku-d1 inline-flex items-center gap-2 bg-[#E0C58F]/10 border border-[#E0C58F]/20 px-4 py-2 rounded-full mb-10">
-                  
-                </div>
-
+                
                 <h1 className="ku-serif ku-fade-up ku-d2 text-[3.25rem] sm:text-[4rem] xl:text-[4.75rem] font-normal leading-[1.05] tracking-[-0.01em]">
                   The right mentor
                   <br />
@@ -437,10 +428,10 @@ export default function HomePage() {
 
                 <div className="ku-fade-up ku-d4 flex flex-col sm:flex-row gap-4 mt-12">
                   <Link
-                    href="/student/auth"
+                    href="/student/signup"
                     className="group bg-[#E0C58F] text-[#112250] px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#f0d89c] hover:shadow-2xl hover:shadow-[#E0C58F]/20 hover:-translate-y-0.5 transition-all duration-200 text-sm"
                   >
-                    Find My Mentor
+                    Find A Mentor
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link
@@ -552,12 +543,14 @@ export default function HomePage() {
 
         {/* ───────────────────── FEATURES BENTO ───────────────────── */}
         <section id="features" className="max-w-7xl mx-auto px-6 sm:px-10 py-24">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <Eyebrow>The platform</Eyebrow>
             <h2 className="ku-serif text-[2.5rem] sm:text-[3rem] font-normal tracking-tight leading-[1.1]">
               Built for real career growth
             </h2>
-            
+            <p className="mt-5 text-[#6B7280] text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+              Every feature exists to get you in front of the right person, faster.
+            </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -580,8 +573,6 @@ export default function HomePage() {
               title="Real Industry Mentors"
               desc="Verified professionals from product, engineering, finance, entrepreneurship, and more — not career coaches."
             />
-            
-          
             <div className="lg:col-span-2">
               <FeatureCard
                 icon={Users}
@@ -589,8 +580,6 @@ export default function HomePage() {
                 desc="Career growth is rarely linear. Kuzana lets you build relationships across multiple domains — so as your path evolves, your mentorship network can evolve with it."
               />
             </div>
-          
-                      
           </div>
         </section>
 
@@ -621,7 +610,7 @@ export default function HomePage() {
                 <p className="mt-7 text-white/45 text-[1rem] leading-[1.8] max-w-xs">
                   From profile to your first mentorship session, the process is designed to be clear and the momentum to keep going.
                 </p>
-</div>
+              </div>
 
               {/* Steps */}
               <div className="pt-1">
@@ -653,12 +642,14 @@ export default function HomePage() {
 
         {/* ───────────────────── MENTOR SPOTLIGHT ───────────────────── */}
         <section id="mentors" className="max-w-7xl mx-auto px-6 sm:px-10 py-24">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <Eyebrow>The network</Eyebrow>
             <h2 className="ku-serif text-[2.5rem] sm:text-[3rem] font-normal tracking-tight leading-[1.1]">
               Mentors worth learning from
             </h2>
-            
+            <p className="mt-5 text-[#6B7280] text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+              A growing network of verified professionals, vetted for substance over title.
+            </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -745,11 +736,14 @@ export default function HomePage() {
         {/* ───────────────────── TESTIMONIALS ───────────────────── */}
         <section id="proof" className="bg-[#F5F0E9] border-t border-[#E0DAD0] py-24">
           <div className="max-w-7xl mx-auto px-6 sm:px-10">
-            <div className="text-center mb-12">
+            <div className="text-center mb-14">
               <Eyebrow>Student stories</Eyebrow>
               <h2 className="ku-serif text-[2.5rem] sm:text-[3rem] font-normal tracking-tight leading-[1.1]">
                 Students are leveling up
               </h2>
+              <p className="mt-5 text-[#6B7280] text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+                A few of the conversations that started with one good match.
+              </p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <TestimonialCard
@@ -838,7 +832,6 @@ export default function HomePage() {
           </div>
 
           <div className="relative max-w-2xl mx-auto px-6 sm:px-10 text-center">
-            
             <h2 className="ku-serif text-[3rem] sm:text-[3.75rem] font-normal tracking-tight leading-[1.07]">
               Your mentor is already
               <br />
@@ -847,14 +840,14 @@ export default function HomePage() {
               </em>
             </h2>
             <p className="text-white/45 mt-8 text-[1rem] leading-[1.8] max-w-md mx-auto">
-              Join students who stopped wondering what their career looks like and started building it with someone who's already been there.
+                Join students who stopped wondering what their career looks like and started building it with someone who&apos;s already been there.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
               <Link
                 href="/student/auth"
                 className="group bg-[#E0C58F] text-[#112250] px-9 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#f0d89c] hover:shadow-2xl hover:shadow-[#E0C58F]/25 hover:-translate-y-0.5 transition-all duration-200 text-sm"
               >
-                Get Started — it's free
+                Get Started — it&apos;s free
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
@@ -868,85 +861,83 @@ export default function HomePage() {
         </section>
 
         {/* ───────────────────── FOOTER ───────────────────── */}
-<footer className="bg-[#080F20] text-white/35">
-  <div className="max-w-7xl mx-auto px-6 sm:px-10 py-16 grid grid-cols-2 md:grid-cols-5 gap-12">
+        <footer className="bg-[#080F20] text-white/35">
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 md:gap-12">
 
-    <div className="col-span-2">
-      <div className="flex items-center gap-2.5 mb-5">
-        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#E0C58F] to-[#c9a96e] flex items-center justify-center">
-          <Sparkles className="w-4 h-4 text-[#112250]" />
-        </div>
-        <span className="text-[#E0C58F] font-black tracking-[0.12em] text-sm">
-          KUZANA
-        </span>
-      </div>
+            <div className="sm:col-span-2">
+              <div className="flex items-center gap-2.5 mb-5">
+                
+                <span className="text-[#E0C58F] font-black tracking-[0.12em] text-sm">
+                  KUZANA
+                </span>
+              </div>
 
-      <p className="text-sm max-w-[210px] leading-[1.7]">
-        Mentorship that actually aligns with where you're going.
-      </p>
+              <p className="text-sm max-w-[210px] leading-[1.7]">
+                Mentorship that actually aligns with where you&apos;re going.
+              </p>
 
-      <p className="text-xs mt-6 text-white/20">
-        Built at Strathmore University · Nairobi, Kenya
-      </p>
-    </div>
+              <p className="text-xs mt-6 text-white/20">
+                Built at Strathmore University · Nairobi, Kenya
+              </p>
+            </div>
 
-    {[
-      {
-        title: "Platform",
-        links: [
-          { href: "/student/auth", label: "Student Login" },
-          { href: "/mentor/auth", label: "Mentor Portal" },
-          { href: "/admin/auth", label: "Admin Login" },
-        ],
-      },
-      {
-        title: "Company",
-        links: [
-          { href: "#", label: "About" },
-          { href: "#", label: "Careers" },
-          { href: "#", label: "Contact" },
-        ],
-      },
-      {
-        title: "Legal",
-        links: [
-          { href: "#", label: "Privacy Policy" },
-          { href: "#", label: "Terms of Use" },
-          { href: "#", label: "Help Center" },
-        ],
-      },
-    ].map((col) => (
-      <div key={col.title}>
-        <p className="font-bold text-white/45 text-[10px] tracking-[0.2em] uppercase mb-5">
-          {col.title}
-        </p>
+            {[
+              {
+                title: "Platform",
+                links: [
+                  { href: "/student/auth", label: "Student Login" },
+                  { href: "/mentor/auth", label: "Mentor Portal" },
+                  { href: "/admin/auth", label: "Admin Login" },
+                ],
+              },
+              {
+                title: "Company",
+                links: [
+                  { href: "#", label: "About" },
+                  { href: "#", label: "Careers" },
+                  { href: "#", label: "Contact" },
+                ],
+              },
+              {
+                title: "Legal",
+                links: [
+                  { href: "#", label: "Privacy Policy" },
+                  { href: "#", label: "Terms of Use" },
+                  { href: "#", label: "Help Center" },
+                ],
+              },
+            ].map((col) => (
+              <div key={col.title}>
+                <p className="font-bold text-white/45 text-[10px] tracking-[0.2em] uppercase mb-5">
+                  {col.title}
+                </p>
 
-        <ul className="space-y-4 text-sm">
-          {col.links.map((l, i) => (
-            <li key={`${col.title}-${l.label}-${i}`}>
-              {l.href ? (
-                <Link
-                  href={l.href}
-                  className="hover:text-white/70 transition-colors duration-200"
-                >
-                  {l.label}
-                </Link>
-              ) : (
-                <span className="opacity-50">{l.label}</span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
+                <ul className="space-y-4 text-sm">
+                  {col.links.map((l, i) => (
+                    <li key={`${col.title}-${l.label}-${i}`}>
+                      {l.href ? (
+                        <Link
+                          href={l.href}
+                          className="hover:text-white/70 transition-colors duration-200"
+                        >
+                          {l.label}
+                        </Link>
+                      ) : (
+                        <span className="opacity-50">{l.label}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
 
-  </div>
+          </div>
 
-  <div className="border-t border-white/[0.06] px-6 sm:px-10 py-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-white/20">
-    <p>© {new Date().getFullYear()} Kuzana. All rights reserved.</p>
-    <p>Strathmore University · School of Computing and Engineering Sciences</p>
-  </div>
-</footer>
+          <div className="border-t border-white/[0.06] px-6 sm:px-10 py-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-white/20">
+            <p>© {new Date().getFullYear()} Kuzana. All rights reserved.</p>
+            <p>Strathmore University · School of Computing and Engineering Sciences</p>
+          </div>
+        </footer>
       </main>
     </>
   );

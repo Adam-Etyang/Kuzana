@@ -18,9 +18,34 @@ export default function AdminSidebar() {
       icon: LayoutDashboard,
     },
     {
-      href: "/admin/pairs",
-      label: "Pairings",
+      href: "/admin/verify",
+      label: "Verify Mentors",
       icon: Users,
+    },
+    {
+      href: "/admin/pairs",
+      label: "Mentorship Pairs",
+      icon: Users,
+    },
+    {
+      href: "/admin/reports",
+      label: "Reports",
+      icon: LayoutDashboard,
+    },
+    {
+      href: "/admin/users",
+      label: "Users",
+      icon: Users,
+    },
+    {
+      href: "/admin/profile",
+      label: "Profile",
+      icon: Users,
+    },
+    {
+      href: "/admin/logout",
+      label: "Logout",
+      icon: LogOut,
     },
   ];
 
@@ -62,23 +87,8 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      {/* Admin Card */}
-      <div className="mt-auto">
-        <div className="bg-[#1B3475] rounded-xl p-4 text-white">
-          <p className="font-semibold">
-            System Admin
-          </p>
-
-          <p className="text-sm text-gray-300">
-            Kuzana Management
-          </p>
-        </div>
-
-        <button className="w-full flex items-center justify-center gap-2 mt-4 px-4 py-3 rounded-xl border border-red-400 text-red-300 hover:bg-red-500 hover:text-white transition">
-          <LogOut size={18} />
-          Logout
-        </button>
-      </div>
+      
+      
     </div>
   );
 }

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  DoorOpen,
+  FileText,
   LayoutDashboard,
   Users,
 } from "lucide-react";
@@ -17,9 +19,23 @@ export default function MentorSidebar() {
       icon: LayoutDashboard,
     },
     {
-      href: "/mentor/onboarding",
-      label: "Profile",
+      href: "/mentor/mentees",
+      label: "My Mentees",
       icon: Users,
+    },
+    {
+      href: "/mentor/requests",
+      label: "Requests",
+      icon: FileText,
+    },
+    {
+      href: "/mentor/profile",      label: "Profile",
+      icon: Users,
+    },
+    {
+      href: "/mentor/logout",
+      label: "Log out",
+      icon: DoorOpen,
     },
   ];
 

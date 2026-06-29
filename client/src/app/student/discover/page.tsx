@@ -1,11 +1,33 @@
+"use client";
+
 import DashboardShell from "@/components/layout/dashboardshell";
 import StudentSidebar from "@/components/layout/studentsidebar";
 import MentorCard from "@/components/cards/mentorcard";
 import SectionTitle from "@/components/ui/sectiontitle";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { useMentors, type MentorWithProfile } from "@/lib/use-student-data";
+
+function getMentorName(m: MentorWithProfile): string {
+  if (m.profile) return `${m.profile.firstName} ${m.profile.lastName}`;
+  return m.name ?? "Mentor";
+}
 
 export default function DiscoverPage() {
+  const { data: mentors, loading, error } = useMentors();
+  const [search, setSearch] = useState("");
+
+  const filtered = (mentors ?? []).filter((m) => {
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    const name = getMentorName(m).toLowerCase();
+    const dept = m.profile?.department?.toLowerCase() ?? "";
+    const faculty = m.profile?.faculty?.toLowerCase() ?? "";
+    const skills = (m.profile?.skills ?? []).map((s) => s.skill.name.toLowerCase());
+    return name.includes(q) || dept.includes(q) || faculty.includes(q) || skills.some((s) => s.includes(q));
+  });
+
   return (
     <DashboardShell sidebar={<StudentSidebar />}>
       
@@ -23,62 +45,55 @@ export default function DiscoverPage() {
         <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2 w-full md:w-80">
           <Search className="w-4 h-4 text-gray-400" />
           <input
-            placeholder="Search mentors, skills, companies..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search mentors, skills, departments..."
             className="w-full outline-none text-sm"
           />
         </div>
       </div>
 
-      {/* FILTER CHIPS */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {[
-          "Software Engineering",
-          "UX Design",
-          "Data Science",
-          "Product Management",
-          "Cybersecurity",
-        ].map((tag) => (
-          <button
-            key={tag}
-            className="px-3 py-1.5 text-sm rounded-full border border-gray-200 bg-white hover:bg-[#F5F0E9] hover:border-[#E0C58F] transition"
-          >
-            {tag}
-          </button>
-        ))}
-
-        <button className="ml-auto flex items-center gap-2 text-sm text-[#112250] border border-gray-200 px-3 py-1.5 rounded-full hover:bg-gray-50 transition">
-          <SlidersHorizontal className="w-4 h-4" />
-          Filters
-        </button>
-      </div>
-
       {/* MENTOR GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <div className="hover:shadow-md transition">
-          <MentorCard
-            name="Dr. Wanjiru"
-            field="Software Engineering"
-            company="Safaricom"
-          />
+      {loading ? (
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-[#112250]" />
         </div>
-
-        <div className="hover:shadow-md transition">
-          <MentorCard
-            name="James Otieno"
-            field="UX Design"
-            company="Microsoft"
-          />
+      ) : error ? (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+          <p className="text-sm text-red-700">{error}</p>
         </div>
-      </div>
+      ) : filtered.length === 0 ? (
+        <div className="bg-white border border-gray-200 rounded-xl p-10 text-center">
+          <p className="text-sm text-gray-500 mb-2">
+            {search.trim() ? "No mentors match your search." : "No mentors available yet."}
+          </p>
+          <p className="text-xs text-gray-400">
+            Check back soon as our mentor network grows.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {filtered.map((m) => (
+            <div key={m.id} className="hover:shadow-md transition">
+              <MentorCard
+                id={m.id}
+                name={getMentorName(m)}
+                field={m.profile?.department ?? "—"}
+                company={m.profile?.faculty ?? "—"}
+                skills={(m.profile?.skills ?? []).map((s) => s.skill.name)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* EMPTY SPACE CTA FEEL (future expansion hook) */}
+      {/* CTA */}
       <div className="mt-10 bg-white border border-gray-200 rounded-xl p-6 text-center">
         <h3 className="text-[#112250] font-semibold">
-          Can’t find the right mentor?
+          Can&apos;t find the right mentor?
         </h3>
         <p className="text-sm text-gray-500 mt-1">
-          We’ll help you match with someone based on your profile soon.
+          We&apos;ll help you match with someone based on your profile soon.
         </p>
 
         <Link

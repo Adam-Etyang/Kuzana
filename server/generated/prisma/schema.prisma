@@ -24,6 +24,8 @@ model User {
   conversations ConversationParticipant[]
   menteeMatches Match[]                   @relation("MenteeMatches")
   mentorMatches Match[]                   @relation("MentorMatches")
+  sentRequests  MentorshipRequest[]       @relation("SentRequests")
+  receivedRequests MentorshipRequest[]    @relation("ReceivedRequests")
   sentMessages  Message[]                 @relation("SentMessages")
   profile       Profile?
   accounts      Account[]
@@ -212,6 +214,20 @@ model Waitlist {
   joinedAt DateTime @default(now())
 }
 
+model MentorshipRequest {
+  id        String        @id @default(uuid())
+  menteeId  String
+  mentorId  String
+  status    RequestStatus @default(PENDING)
+  message   String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  mentee    User          @relation("SentRequests", fields: [menteeId], references: [id])
+  mentor    User          @relation("ReceivedRequests", fields: [mentorId], references: [id])
+
+  @@unique([menteeId, mentorId])
+}
+
 enum Role {
   MENTOR
   MENTEE
@@ -238,4 +254,10 @@ enum MatchStatus {
   ACTIVE
   DISSOLVED
   COMPLETED
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
 }

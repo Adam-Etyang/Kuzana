@@ -7,10 +7,20 @@ import {
   Search,
   Users,
   FileText,
+  DoorOpen,
 } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { useProfile } from "@/lib/use-profile";
 
 export default function StudentSidebar() {
   const pathname = usePathname();
+  const { data: session } = authClient.useSession();
+  const { profile } = useProfile(session?.user?.id);
+
+  const studentName = profile
+    ? `${profile.firstName} ${profile.lastName}`
+    : (session?.user?.name ?? "Student");
+  const course = profile?.department ?? "—";
 
   const links = [
     {
@@ -33,6 +43,16 @@ export default function StudentSidebar() {
       label: "Requests",
       icon: FileText,
     },
+    {
+  href: "/student/profile",
+  label: "Profile",
+  icon: Users,
+},
+{
+      href: "/student/logout",
+      label: "Log out",
+      icon: DoorOpen,
+    }
   ];
 
   return (
@@ -49,7 +69,7 @@ export default function StudentSidebar() {
 
       <nav className="mt-12 space-y-3">
         {links.map((link) => {
-          const Icon = link.icon;
+          const Icon = link.icon as any;
 
           const active =
             pathname === link.href;
@@ -64,7 +84,7 @@ export default function StudentSidebar() {
                   : "text-white hover:bg-[#1B3475]"
               }`}
             >
-              <Icon size={20} />
+              {Icon && <Icon size={20} />}
               {link.label}
             </Link>
           );
@@ -73,11 +93,11 @@ export default function StudentSidebar() {
 
       <div className="mt-auto bg-[#1B3475] rounded-xl p-4 text-white">
         <p className="font-semibold">
-          Hellen
+          {studentName}
         </p>
 
         <p className="text-sm text-gray-300">
-          Computer Science
+          {course}
         </p>
       </div>
     </div>
