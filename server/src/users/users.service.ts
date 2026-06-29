@@ -1,24 +1,38 @@
-import { Injectable,Inject } from '@nestjs/common';
-import { PrismaClient } from '../../generated/prisma/client.js'
+import { Injectable, Inject } from '@nestjs/common';
+import { PrismaClient } from '../../generated/prisma/client.js';
 
 @Injectable()
 export class UsersService {
-
   constructor(@Inject('PRISMA') private prisma: PrismaClient) {}
-  
-/*
-  async getUser(userId: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: {  // use 'select' not 'include' for scalar fields
+
+  async getAvailableMentors() {
+    return this.prisma.user.findMany({
+      where: {
+        role: 'MENTOR',
+        profile: { isAvailable: true },
+      },
+      select: {
+        id: true,
         name: true,
         email: true,
         image: true,
-        role: true,
-        profile: true,
+        profile: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            faculty: true,
+            department: true,
+            bio: true,
+            maxMentees: true,
+            currentMentees: true,
+            isAvailable: true,
+            skills: { include: { skill: true } },
+            interests: { include: { interest: true } },
+            availability: true,
+          },
+        },
       },
     });
-    return user;  // actually return the user!
   }
-  */
 }
