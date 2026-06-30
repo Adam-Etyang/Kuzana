@@ -1,4 +1,15 @@
-import { UseGuards, Controller, Get, Post, Put, Body, Param, Req, Query, NotFoundException } from '@nestjs/common';
+import {
+  UseGuards,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Body,
+  Param,
+  Req,
+  Query,
+  NotFoundException,
+} from '@nestjs/common';
 import { AuthGuard } from '@thallesp/nestjs-better-auth';
 import { auth } from '../../lib/auth.js';
 import { RequestsService } from './requests.service.js';
@@ -36,7 +47,11 @@ export class RequestsController {
   ) {
     const session = await auth.api.getSession({ headers: req.headers });
     if (!session) throw new NotFoundException('No session');
-    return this.requestsService.createRequest(session.user.id, body.mentorId, body.message);
+    return this.requestsService.createRequest(
+      session.user.id,
+      body.mentorId,
+      body.message,
+    );
   }
 
   @Put(':id')

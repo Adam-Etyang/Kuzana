@@ -1,12 +1,13 @@
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 config();
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule,{
-                                      bodyParser: false,});
+  const app = await NestFactory.create(AppModule, {
+    bodyParser: false,
+  });
   const config = new DocumentBuilder()
     .setTitle('Mentor-Mentee API')
     .setDescription('The Mentor-Mentee API description')

@@ -6,10 +6,13 @@ import { prisma } from '../../lib/prisma.js';
 
 @Module({
   controllers: [MessagingController],
-  providers: [MessagingService, MessagingGateway,
+  providers: [
+    MessagingService,
+    MessagingGateway,
     {
       provide: 'PRISMA',
       useValue: prisma,
-    }]
+    },
+  ],
 })
 export class MessagingModule {}

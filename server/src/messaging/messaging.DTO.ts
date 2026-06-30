@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 
-export class CreateMessageDto{
+export class CreateMessageDto {
   @IsString()
   @IsNotEmpty()
   content!: string;
@@ -12,4 +12,4 @@ export class CreateMessageDto{
   @IsString()
   @IsNotEmpty()
   senderId!: string;
-} 
+}

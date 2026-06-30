@@ -3,7 +3,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from '../lib/auth.js';
-import {prisma} from '../lib/prisma.js';
+import { prisma } from '../lib/prisma.js';
 import { UsersModule } from './users/users.module.js';
 import { ProfileModule } from './profile/profile.module.js';
 import { MatchingModule } from './matching/matching.module.js';
@@ -20,7 +20,6 @@ import { RequestsModule } from './requests/requests.module.js';
     RequestsModule,
   ],
   controllers: [AppController],
-  providers: [AppService,{provide: 'PRISMA', useValue: prisma,}],
-
+  providers: [AppService, { provide: 'PRISMA', useValue: prisma }],
 })
 export class AppModule {}

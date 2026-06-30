@@ -1,4 +1,12 @@
-import { Controller, Body, Post, Get, Req,Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Body,
+  Post,
+  Get,
+  Req,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { AllowAnonymous, AuthGuard } from '@thallesp/nestjs-better-auth';
 import { auth } from '../../lib/auth.js';
 import { UsersService } from './users.service.js';

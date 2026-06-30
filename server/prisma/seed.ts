@@ -2,9 +2,34 @@ import 'dotenv/config'
 import { PrismaClient, Role, DayOfWeek } from '../generated/prisma/client.js'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { faker } from '@faker-js/faker'
+import { hashPassword } from 'better-auth/crypto'
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL || '' })
 const prisma = new PrismaClient({ adapter })
+
+// Shared password for all seeded users so they can sign in via better-auth.
+// (better-auth requires a credential Account row with a hashed password.)
+const SEED_PASSWORD = 'Password123!'
+
+async function createUserWithCredentials(data: {
+  email: string
+  name: string
+  role: Role
+  emailVerified?: boolean
+  image?: string
+}) {
+  const user = await prisma.user.create({ data })
+  const hash = await hashPassword(SEED_PASSWORD)
+  await prisma.account.create({
+    data: {
+      userId: user.id,
+      providerId: 'credential',
+      accountId: user.id,
+      password: hash,
+    },
+  })
+  return user
+}
 
 const randomVector = (dim = 5): number[] =>
   Array.from({ length: dim }, () => parseFloat(Math.random().toFixed(4)))
@@ -16,6 +41,11 @@ async function main() {
   // CLEAN SLATE (respect FK order)
   // ─────────────────────────────────────────
   console.log('Cleaning existing data...')
+  await prisma.message.deleteMany()
+  await prisma.conversationParticipant.deleteMany()
+  await prisma.conversation.deleteMany()
+  await prisma.match.deleteMany()
+  await prisma.mentorshipRequest.deleteMany()
   await prisma.availability.deleteMany()
   await prisma.profileSkill.deleteMany()
   await prisma.profileInterest.deleteMany()
@@ -56,39 +86,33 @@ async function main() {
   // ─────────────────────────────────────────
   console.log('Seeding users...')
 
-  const admin = await prisma.user.create({
-    data: {
-      email: 'admin@mentorlink.com',
-      name: 'System Admin',
-      role: Role.ADMIN,
-      emailVerified: true,
-    }
+  const admin = await createUserWithCredentials({
+    email: 'admin@mentorlink.com',
+    name: 'System Admin',
+    role: Role.ADMIN,
+    emailVerified: true,
   })
 
   const mentors = await Promise.all(
     Array.from({ length: 6 }).map((_, i) =>
-      prisma.user.create({
-        data: {
-          email: `mentor${i + 1}@example.com`,
-          name: faker.person.fullName(),
-          role: Role.MENTOR,
-          emailVerified: true,
-          image: faker.image.avatar(),
-        }
+      createUserWithCredentials({
+        email: `mentor${i + 1}@example.com`,
+        name: faker.person.fullName(),
+        role: Role.MENTOR,
+        emailVerified: true,
+        image: faker.image.avatar(),
       })
     )
   )
 
   const mentees = await Promise.all(
     Array.from({ length: 12 }).map((_, i) =>
-      prisma.user.create({
-        data: {
-          email: `mentee${i + 1}@example.com`,
-          name: faker.person.fullName(),
-          role: Role.MENTEE,
-          emailVerified: true,
-          image: faker.image.avatar(),
-        }
+      createUserWithCredentials({
+        email: `mentee${i + 1}@example.com`,
+        name: faker.person.fullName(),
+        role: Role.MENTEE,
+        emailVerified: true,
+        image: faker.image.avatar(),
       })
     )
   )
@@ -223,6 +247,14 @@ async function main() {
     { entity: 'Total Profiles', count: allProfiles.length },
     { entity: 'Skills', count: skills.length },
     { entity: 'Interests', count: interests.length },
+  ])
+
+  console.log('\n🔑 Login credentials (all users share the same password):')
+  console.log(`   Password: ${SEED_PASSWORD}\n`)
+  console.table([
+    { role: 'ADMIN', email: admin.email, password: SEED_PASSWORD },
+    { role: 'MENTOR', email: mentors[0].email, password: SEED_PASSWORD },
+    { role: 'MENTEE', email: mentees[0].email, password: SEED_PASSWORD },
   ])
 }
 
