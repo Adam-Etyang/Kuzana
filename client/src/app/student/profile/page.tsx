@@ -97,9 +97,6 @@ export default function StudentProfilePage() {
             <span className="mt-1 inline-block px-3 py-0.5 rounded-full bg-[#F5F0E9] text-[#112250] text-xs font-medium">
               Student
             </span>
-            <p className="mt-3 text-sm text-gray-500 leading-relaxed">
-              {bio}
-            </p>
           </div>
 
           {/* Contact details */}

@@ -207,7 +207,7 @@ export default function MentorApplyPage() {
           <div className="mt-6 text-center text-sm text-gray-500">
             Already an approved mentor?
             <Link
-              href="/mentor/login"
+              href="/login"
               className="ml-1 font-medium text-[#112250] hover:underline"
             >
               Sign In

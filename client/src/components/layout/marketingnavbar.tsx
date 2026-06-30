@@ -7,7 +7,7 @@ export default function MarketingNavbar() {
 
       <div className="flex gap-8 text-sm">
         <Link href="/">Home</Link>
-        <Link href="/student/auth">Student</Link>
+        <Link href="/login">Student</Link>
         <Link href="/mentor/auth">Mentor</Link>
       </div>
     </nav>

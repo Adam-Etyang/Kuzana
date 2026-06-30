@@ -157,7 +157,7 @@ export default function MentorSignupPage() {
                     Click it to verify your mentor account, then sign in.
                   </p>
                   <Link
-                    href="/mentor/login"
+                    href="/login"
                     className="inline-flex items-center gap-2 mt-6 bg-[#112250] hover:bg-[#1A2F60] text-white px-6 py-3 rounded-xl font-semibold text-sm transition"
                   >
                     Continue to Sign In
@@ -365,7 +365,7 @@ export default function MentorSignupPage() {
                 <p className="text-center text-sm text-gray-500">
                   Already have an account?{" "}
                   <Link
-                    href="/mentor/login"
+                    href="/login"
                     className="text-[#112250] font-semibold hover:underline"
                   >
                     Sign In

@@ -7,6 +7,7 @@ import {
   Users,
   LogOut,
 } from "lucide-react";
+import { signOutUser } from "@/app/auth";
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -42,12 +43,10 @@ export default function AdminSidebar() {
       label: "Profile",
       icon: Users,
     },
-    {
-      href: "/admin/logout",
-      label: "Logout",
-      icon: LogOut,
-    },
   ];
+  const handleLogout = () => {
+    void signOutUser({ callbackURL: "/" });
+  }
 
   return (
     <div className="h-full flex flex-col p-6">
@@ -85,6 +84,13 @@ export default function AdminSidebar() {
             </Link>
           );
         })}
+        <button
+        onClick ={handleLogout}
+        className="flex items-center gap-4 px-4 py-3 rounded-xl transition text-white hover:bg-[#1B3475] w-full"
+      >
+        <LogOut size={20} />
+        Logout
+      </button>
       </nav>
 
       

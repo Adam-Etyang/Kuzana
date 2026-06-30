@@ -149,13 +149,6 @@ export default function StudentDashboardPage() {
       {/* ── HEADER BAR ────────────────────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-3 mb-6">
 
-        <div className="hidden md:flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2">
-          <Search className="w-4 h-4 text-gray-400" />
-          <input
-            placeholder="Search mentors, skills..."
-            className="outline-none text-sm w-44"
-          />
-        </div>
 
         <button className="relative bg-white border border-gray-200 p-2 rounded-lg hover:bg-gray-50 transition self-start md:self-auto">
           <Bell className="w-4 h-4 text-[#112250]" />

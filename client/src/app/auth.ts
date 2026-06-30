@@ -12,7 +12,7 @@ export async function signUpEmail({
   password,
   name,
   role,
-  callbackURL = "/",
+  callbackURL = "/login",
 }: {
   email: string;
   password: string;
@@ -34,7 +34,7 @@ export async function signUpEmail({
 export async function signInEmail({
   email,
   password,
-  callbackURL = "/",
+  callbackURL,
   rememberMe = true,
 }: {
   email: string;

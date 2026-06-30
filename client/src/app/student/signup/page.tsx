@@ -173,7 +173,7 @@ export default function StudentSignupPage() {
                     Click it to verify your account, then sign in to continue.
                   </p>
                   <Link
-                    href="/student/auth"
+                    href="/login"
                     className="inline-flex items-center gap-2 mt-6 bg-[#112250] hover:bg-[#1A2F60] text-white px-6 py-3 rounded-xl font-semibold text-sm transition"
                   >
                     Continue to Sign In
@@ -344,7 +344,7 @@ export default function StudentSignupPage() {
                 <p className="text-center text-sm text-gray-500">
                   Already have an account?{" "}
                   <Link
-                    href="/student/auth"
+                    href="/login"
                     className="text-[#112250] font-semibold hover:underline"
                   >
                     Sign In

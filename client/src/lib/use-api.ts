@@ -12,7 +12,7 @@ export interface ApiState<T> {
 
 export function useApi<T>(endpoint: string | null): ApiState<T> {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(endpoint !== null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

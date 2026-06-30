@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useProfile } from "@/lib/use-profile";
+import { signOutUser } from "@/app/auth";
 
 
 export default function StudentSidebar() {
@@ -49,12 +50,11 @@ export default function StudentSidebar() {
   label: "Profile",
   icon: Users,
 },
-{
-      href: "/student/logout",
-      label: "Log out",
-      icon: DoorOpen,
-    }
   ];
+
+  const handleLogout = () => {
+    void signOutUser({ callbackURL: "/" });
+  };
 
   return (
     <div className="h-full flex flex-col p-6">
@@ -90,6 +90,13 @@ export default function StudentSidebar() {
             </Link>
           );
         })}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-4 px-4 py-3 rounded-xl transition text-white hover:bg-[#1B3475] w-full"
+        >
+          <DoorOpen size={20} />
+          Log out
+        </button>
       </nav>
 
       <div className="mt-auto bg-[#1B3475] rounded-xl p-4 text-white">

@@ -330,13 +330,13 @@ export default function HomePage() {
             {/* Desktop CTAs */}
             <div className="hidden md:flex items-center gap-2">
               <Link
-                href="/student/auth"
+                href="/login"
                 className="text-sm font-semibold text-white/50 hover:text-white px-3 py-2 transition-colors duration-200"
               >
                 Log in
               </Link>
               <Link
-                href="/mentor/login"
+                href="/mentor/auth"
                 className="text-sm font-semibold text-white/50 hover:text-white px-3 py-2 transition-colors duration-200"
               >
                 Mentor Portal
@@ -712,7 +712,7 @@ export default function HomePage() {
                     {mentor.sessions} sessions
                   </div>
                   <Link
-                    href="/student/auth"
+                    href="/login"
                     className="text-xs font-bold text-[#112250] flex items-center gap-1 group-hover:gap-1.5 group-hover:text-[#1e3a6e] transition-all"
                   >
                     View profile <ChevronRight className="w-3.5 h-3.5" />
@@ -724,7 +724,7 @@ export default function HomePage() {
 
           <div className="text-center mt-14">
             <Link
-              href="/student/auth"
+              href="/login"
               className="group inline-flex items-center gap-2 border-2 border-[#112250]/12 text-[#112250] px-7 py-4 rounded-xl text-sm font-semibold hover:bg-[#112250] hover:text-white hover:border-[#112250] hover:-translate-y-0.5 transition-all duration-200"
             >
               Browse the full mentor network
@@ -843,11 +843,11 @@ export default function HomePage() {
                 Join students who stopped wondering what their career looks like and started building it with someone who&apos;s already been there.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-              <Link
-                href="/student/auth"
-                className="group bg-[#E0C58F] text-[#112250] px-9 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#f0d89c] hover:shadow-2xl hover:shadow-[#E0C58F]/25 hover:-translate-y-0.5 transition-all duration-200 text-sm"
-              >
-                Get Started — it&apos;s free
+                  <Link
+                    href="/login"
+                    className="group bg-[#E0C58F] text-[#112250] px-9 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#f0d89c] hover:shadow-2xl hover:shadow-[#E0C58F]/25 hover:-translate-y-0.5 transition-all duration-200 text-sm"
+                  >
+                    Get Started — it&apos;s free
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
@@ -885,9 +885,9 @@ export default function HomePage() {
               {
                 title: "Platform",
                 links: [
-                  { href: "/student/auth", label: "Student Login" },
+                  { href: "/login", label: "Student Login" },
                   { href: "/mentor/auth", label: "Mentor Portal" },
-                  { href: "/admin/auth", label: "Admin Login" },
+                  { href: "/login", label: "Admin Login" },
                 ],
               },
               {
