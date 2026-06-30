@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, UseGuards, Req, NotFoundException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+  Req,
+  NotFoundException,
+} from '@nestjs/common';
 import { AllowAnonymous, AuthGuard } from '@thallesp/nestjs-better-auth';
 import { MatchingService } from './matching.service.js';
 import { InternalGuard } from './lib/InternalGuard.js';
@@ -10,7 +19,9 @@ export class MatchingController {
 
   @Post('score')
   @UseGuards(InternalGuard)
-  async scorePair(@Body() body: { targetUserId: string; viewerUserId: string }) {
+  async scorePair(
+    @Body() body: { targetUserId: string; viewerUserId: string },
+  ) {
     return this.matchingService.scorePair(body.targetUserId, body.viewerUserId);
   }
 
