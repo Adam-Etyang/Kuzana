@@ -3,7 +3,9 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-     "assets": [
+    "builder": "webpack",
+    "webpackConfigPath": "webpack.config.cjs",
+    "assets": [
       {
         "include": "generated/prisma/**/*",
         "outDir": "dist"

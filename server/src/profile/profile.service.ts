@@ -9,7 +9,7 @@ import {
   PrismaClient,
   DayOfWeek,
   Role,
-} from '../../generated/prisma/client.js';
+} from '@/generated/prisma/client.js';
 import { MatchingService } from '../matching/matching.service.js';
 
 @Injectable()

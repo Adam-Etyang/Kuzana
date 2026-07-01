@@ -11,7 +11,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { AuthGuard } from '@thallesp/nestjs-better-auth';
-import { auth } from '../../lib/auth.js';
+import { auth } from '@/lib/auth.js';
 import { RequestsService } from './requests.service.js';
 
 @Controller('requests')

@@ -11,7 +11,7 @@ import {
 import { AllowAnonymous, AuthGuard } from '@thallesp/nestjs-better-auth';
 import { MatchingService } from './matching.service.js';
 import { InternalGuard } from './lib/InternalGuard.js';
-import { auth } from '../../lib/auth.js';
+import { auth } from '@/lib/auth.js';
 
 @Controller('matching')
 export class MatchingController {

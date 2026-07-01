@@ -1,4 +1,4 @@
-import { DayOfWeek } from '../../../generated/prisma/client.js';
+import { DayOfWeek } from '@/generated/prisma/client.js';
 import { AvailabilityDto } from './create-profile.dto.js';
 
 export class UpdateProfileDto {

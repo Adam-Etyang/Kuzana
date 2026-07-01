@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { PrismaClient } from '../../generated/prisma/client.js';
-//import { prisma } from '../../lib/prisma.js';
+import { PrismaClient } from '@/generated/prisma/client.js';
+//import { prisma } from '@/lib/prisma.js';
 import { CreateMessageDto } from './messaging.DTO';
 
 @Injectable()

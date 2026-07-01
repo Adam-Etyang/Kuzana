@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { PrismaClient, Role, DayOfWeek } from '../generated/prisma/client.js'
+import { PrismaClient, Role, DayOfWeek } from '@/generated/prisma/client.js'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { faker } from '@faker-js/faker'
 import { hashPassword } from 'better-auth/crypto'

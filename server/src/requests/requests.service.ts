@@ -5,7 +5,7 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
-import { PrismaClient, RequestStatus } from '../../generated/prisma/client.js';
+import { PrismaClient, RequestStatus } from '@/generated/prisma/client.js';
 
 @Injectable()
 export class RequestsService {
