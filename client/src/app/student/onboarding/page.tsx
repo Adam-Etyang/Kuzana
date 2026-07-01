@@ -449,7 +449,7 @@ export default function StudentOnboardingPage() {
           firstName: fullName.split(" ")[0] ?? fullName,
           lastName: fullName.split(" ").slice(1).join(" ") || "",
           yearOfStudy: year ? parseInt(year.replace(/\D/g, ""), 10) || 1 : 1,
-          faculty: "ICS",//TODO:change this
+ //         faculty: "ICS",//TODO:change this
           department: program,
           goalStatement: bio.trim(),
           skills: skillsToLearn,

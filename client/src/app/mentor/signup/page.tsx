@@ -7,8 +7,6 @@ import {
   Mail,
   Lock,
   KeyRound,
-  Building2,
-  GraduationCap,
   Eye,
   EyeOff,
   ArrowRight,
@@ -16,7 +14,8 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-import { signUpEmail } from "@/app/auth";
+
+const API_BASE = "http://localhost:3001";
 
 export default function MentorSignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -25,8 +24,6 @@ export default function MentorSignupPage() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [faculty, setFaculty] = useState("");
-  const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
   const [accessKey, setAccessKey] = useState("");
   const [password, setPassword] = useState("");
@@ -50,22 +47,33 @@ export default function MentorSignupPage() {
     }
 
     setLoading(true);
-    const { error: signUpError } = await signUpEmail({
-      email,
-      password,
-      name: `${firstName} ${lastName}`.trim(),
-      role: "MENTOR",
-      callbackURL: "http://localhost:3000/mentor/onboarding",
-    });
-    setLoading(false);
+    try {
+      const res = await fetch(`${API_BASE}/users/register-mentor`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          name: `${firstName} ${lastName}`.trim(),
+          accessKey,
+          callbackURL: "http://localhost:3000/mentor/onboarding",
+        }),
+      });
 
-    if (signUpError) {
-      setError(signUpError.message || "Sign up failed. Please try again.");
-      return;
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => null);
+        throw new Error(
+          errBody?.message || "Sign up failed. Please try again.",
+        );
+      }
+      setSuccess(true);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Sign up failed. Please try again.",
+      );
+    } finally {
+      setLoading(false);
     }
-
-    // Server requires email verification before sign-in is allowed.
-    setSuccess(true);
   };
 
   return (
@@ -197,27 +205,6 @@ export default function MentorSignupPage() {
                     value={lastName}
                     setValue={setLastName}
                     placeholder="Mwangi"
-                  />
-
-                </div>
-
-                {/* FACULTY + DEPARTMENT */}
-                <div className="grid sm:grid-cols-2 gap-4">
-
-                  <InputField
-                    icon={GraduationCap}
-                    label="Faculty"
-                    value={faculty}
-                    setValue={setFaculty}
-                    placeholder="Business School"
-                  />
-
-                  <InputField
-                    icon={Building2}
-                    label="Department"
-                    value={department}
-                    setValue={setDepartment}
-                    placeholder="Marketing"
                   />
 
                 </div>

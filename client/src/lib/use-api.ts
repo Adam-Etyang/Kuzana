@@ -8,6 +8,7 @@ export interface ApiState<T> {
   data: T | null;
   loading: boolean;
   error: string | null;
+  mutate: () => Promise<void>;
 }
 
 export function useApi<T>(endpoint: string | null): ApiState<T> {
@@ -49,5 +50,20 @@ export function useApi<T>(endpoint: string | null): ApiState<T> {
     };
   }, [endpoint]);
 
-  return { data, loading, error };
+  const mutate = async () => {
+    if (!endpoint) return;
+    try {
+      const res = await fetch(`${API_BASE}${endpoint}`, {
+        credentials: "include",
+      });
+      if (res.ok) {
+        const json = (await res.json()) as T;
+        setData(json);
+      }
+    } catch {
+      // refetch errors are silent; the original data/error stays
+    }
+  };
+
+  return { data, loading, error, mutate };
 }

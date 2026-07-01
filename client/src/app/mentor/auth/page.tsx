@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import type { FormEvent } from "react";
 import {
   PenLine,
@@ -9,7 +10,11 @@ import {
   BadgeCheck,
   Sparkles,
   Info,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
+
+const API_BASE = "http://localhost:3001";
 
 const steps = [
   {
@@ -37,10 +42,54 @@ const steps = [
 export default function MentorApplyPage() {
   const router = useRouter();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [position, setPosition] = useState("");
+  const [yearsExperience, setYearsExperience] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [expertise, setExpertise] = useState("");
+  const [motivation, setMotivation] = useState("");
 
-    router.push("/mentor/applicationsubmitted");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${API_BASE}/applications`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          fullName,
+          email,
+          organization,
+          position,
+          yearsExperience,
+          linkedin: linkedin || undefined,
+          expertise,
+          motivation,
+        }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => null);
+        throw new Error(
+          errBody?.message || `Failed to submit application (${res.status})`,
+        );
+      }
+
+      router.push("/mentor/applicationsubmitted");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Something went wrong.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -119,29 +168,37 @@ export default function MentorApplyPage() {
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field
+              <InputField
                 label="Full Name"
+                value={fullName}
+                setValue={setFullName}
                 placeholder="Jane Mwangi"
                 required
               />
 
-              <Field
+              <InputField
                 label="Professional Email"
                 type="email"
+                value={email}
+                setValue={setEmail}
                 placeholder="jane@company.com"
                 required
               />
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field
+              <InputField
                 label="Current Organization"
+                value={organization}
+                setValue={setOrganization}
                 placeholder="Safaricom PLC"
                 required
               />
 
-              <Field
+              <InputField
                 label="Current Role / Position"
+                value={position}
+                setValue={setPosition}
                 placeholder="Product Manager"
                 required
               />
@@ -155,7 +212,8 @@ export default function MentorApplyPage() {
 
                 <select
                   required
-                  defaultValue=""
+                  value={yearsExperience}
+                  onChange={(e) => setYearsExperience(e.target.value)}
                   className="w-full rounded-lg border px-4 py-3 text-sm text-[#112250] focus:border-[#112250] focus:outline-none focus:ring-1 focus:ring-[#112250]"
                 >
                   <option value="" disabled>
@@ -169,15 +227,19 @@ export default function MentorApplyPage() {
                 </select>
               </div>
 
-              <Field
+              <InputField
                 label="LinkedIn Profile"
+                value={linkedin}
+                setValue={setLinkedin}
                 placeholder="linkedin.com/in/janemwangi"
                 hint="Optional"
               />
             </div>
 
-            <Field
+            <InputField
               label="Areas of Expertise"
+              value={expertise}
+              setValue={setExpertise}
               placeholder="Software Engineering, Product Management, UI/UX"
               hint="Separate multiple areas with commas."
               required
@@ -191,16 +253,33 @@ export default function MentorApplyPage() {
               <textarea
                 required
                 rows={4}
+                value={motivation}
+                onChange={(e) => setMotivation(e.target.value)}
                 placeholder="Tell us what draws you to mentoring Kuzana students."
                 className="w-full resize-none rounded-lg border px-4 py-3 text-sm text-[#112250] placeholder:text-gray-400 focus:border-[#112250] focus:outline-none focus:ring-1 focus:ring-[#112250]"
               />
             </div>
 
+            {error && (
+              <div className="flex items-start gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full rounded-lg bg-[#112250] py-3 font-medium text-white transition hover:bg-[#0c1a3d]"
+              disabled={loading}
+              className="w-full rounded-lg bg-[#112250] py-3 font-medium text-white transition hover:bg-[#0c1a3d] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Submit Application
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit Application"
+              )}
             </button>
           </form>
 
@@ -219,15 +298,19 @@ export default function MentorApplyPage() {
   );
 }
 
-function Field({
+function InputField({
   label,
   type = "text",
+  value,
+  setValue,
   placeholder,
   hint,
   required,
 }: {
   label: string;
   type?: string;
+  value: string;
+  setValue: (value: string) => void;
   placeholder?: string;
   hint?: string;
   required?: boolean;
@@ -241,14 +324,14 @@ function Field({
       <input
         type={type}
         required={required}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
         className="w-full rounded-lg border px-4 py-3 text-sm text-[#112250] placeholder:text-gray-400 focus:border-[#112250] focus:outline-none focus:ring-1 focus:ring-[#112250]"
       />
 
       {hint && (
-        <p className="mt-1 text-xs text-gray-400">
-          {hint}
-        </p>
+        <p className="mt-1 text-xs text-gray-400">{hint}</p>
       )}
     </div>
   );
