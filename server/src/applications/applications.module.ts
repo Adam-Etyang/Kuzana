@@ -6,5 +6,6 @@ import { prisma } from '@/lib/prisma.js';
 @Module({
   controllers: [ApplicationsController],
   providers: [ApplicationsService, { provide: 'PRISMA', useValue: prisma }],
+  exports: [ApplicationsService],
 })
 export class ApplicationsModule {}
