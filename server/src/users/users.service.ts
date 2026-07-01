@@ -1,9 +1,21 @@
-import { Injectable, Inject } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common';
+import { APIError } from 'better-auth';
 import { PrismaClient } from '@/generated/prisma/client.js';
+import { auth } from '@/lib/auth.js';
+import { ApplicationsService } from '../applications/applications.service.js';
+import { RegisterMentorDto } from './DTO/register-mentor.dto.js';
 
 @Injectable()
 export class UsersService {
-  constructor(@Inject('PRISMA') private prisma: PrismaClient) {}
+  constructor(
+    @Inject('PRISMA') private prisma: PrismaClient,
+    private readonly applicationsService: ApplicationsService,
+  ) {}
 
   async getAvailableMentors() {
     return this.prisma.user.findMany({
@@ -101,5 +113,42 @@ export class UsersService {
         matchedAt: m.matchedAt,
       })),
     };
+  }
+
+  async registerMentor(dto: RegisterMentorDto) {
+    const { valid, message } = await this.applicationsService.validateAccessKey(
+      {
+        key: dto.accessKey,
+        email: dto.email,
+      },
+    );
+    if (!valid) throw new BadRequestException(message);
+
+    try {
+      await auth.api.signUpEmail({
+        body: {
+          email: dto.email,
+          password: dto.password,
+          name: dto.name,
+          role: 'MENTOR',
+          callbackURL:
+            dto.callbackURL ?? 'http://localhost:3000/mentor/onboarding',
+        },
+      });
+    } catch (err) {
+      if (err instanceof APIError) {
+        if (err.statusCode === 409) {
+          throw new ConflictException('A user with this email already exists.');
+        }
+        throw new BadRequestException(
+          (err.body as { message?: string })?.message ?? 'Sign up failed.',
+        );
+      }
+      throw err;
+    }
+
+    await this.applicationsService.consumeAccessKey(dto.accessKey, dto.email);
+
+    return { success: true, message: 'Mentor account created.' };
   }
 }
