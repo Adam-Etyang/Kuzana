@@ -1,47 +1,98 @@
+"use client";
+
 import DashboardShell from "@/components/layout/dashboardshell";
 import AdminSidebar from "@/components/layout/adminsidebar";
 import Link from "next/link";
 import {
   Users,
   UserCheck,
-  ShieldAlert,
   AlertTriangle,
   Clock,
   ArrowRight,
-  Activity,
   CheckCircle,
   UserPlus,
 } from "lucide-react";
+import { useApi } from "@/lib/use-api";
+
+interface AdminStats {
+  counts: {
+    students: number;
+    mentors: number;
+    pending: number;
+    reports: number;
+  };
+  pendingVerifications: {
+    id: string;
+    name: string | null;
+    email: string;
+    createdAt: string;
+  }[];
+  recentUsers: {
+    id: string;
+    name: string | null;
+    role: string;
+    createdAt: string;
+  }[];
+  recentMatches: {
+    id: string;
+    menteeName: string | null;
+    mentorName: string | null;
+    matchedAt: string;
+  }[];
+}
+
+function timeAgo(iso: string): string {
+  const then = new Date(iso).getTime();
+  const diff = Date.now() - then;
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins} minute${mins === 1 ? "" : "s"} ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  const days = Math.floor(hours / 24);
+  return `${days} day${days === 1 ? "" : "s"} ago`;
+}
+
+function roleLabel(role: string): string {
+  if (role === "MENTOR") return "mentor";
+  if (role === "ADMIN") return "admin";
+  return "student";
+}
 
 export default function AdminDashboardPage() {
+  const { data, loading, error } = useApi<AdminStats>("/users/stats");
+
+  const counts = data?.counts;
+  const pendingVerifications = data?.pendingVerifications ?? [];
+  const recentUsers = data?.recentUsers ?? [];
+  const recentMatches = data?.recentMatches ?? [];
+
   return (
     <DashboardShell sidebar={<AdminSidebar />}>
-
       {/* HERO */}
       <div className="mb-8 bg-gradient-to-r from-[#112250] to-[#1B3475] rounded-2xl p-8 text-white relative overflow-hidden">
-
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#E0C58F]/10 rounded-full blur-3xl" />
 
         <div className="relative z-10">
-          <p className="text-white/70 text-sm mb-2">
-            Welcome back
-          </p>
+          <p className="text-white/70 text-sm mb-2">Welcome back</p>
 
-          <h1 className="text-3xl font-bold mb-3">
-            Admin Control Center
-          </h1>
+          <h1 className="text-3xl font-bold mb-3">Admin Control Center</h1>
 
           <p className="text-white/80 max-w-2xl">
-            Monitor mentor applications, manage mentorship
-            relationships, resolve issues, and oversee the
-            Kuzana platform.
+            Monitor mentor applications, manage mentorship relationships,
+            resolve issues, and oversee the Kuzana platform.
           </p>
         </div>
       </div>
 
+      {error && (
+        <div className="mb-6 bg-red-50 border border-red-200 text-red-600 rounded-xl p-4 text-sm">
+          Failed to load dashboard data: {error}
+        </div>
+      )}
+
       {/* STATS */}
       <div className="grid md:grid-cols-4 gap-5 mb-8">
-
         <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
           <div className="flex justify-between items-center mb-4">
             <Users className="w-8 h-8 text-blue-600" />
@@ -50,11 +101,9 @@ export default function AdminDashboardPage() {
             </span>
           </div>
           <h2 className="text-3xl font-bold text-[#112250]">
-            152
+            {loading ? "—" : counts?.students ?? 0}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Registered students
-          </p>
+          <p className="text-sm text-gray-500 mt-1">Registered students</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
@@ -65,11 +114,9 @@ export default function AdminDashboardPage() {
             </span>
           </div>
           <h2 className="text-3xl font-bold text-[#112250]">
-            38
+            {loading ? "—" : counts?.mentors ?? 0}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Verified mentors
-          </p>
+          <p className="text-sm text-gray-500 mt-1">Registered mentors</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
@@ -80,11 +127,9 @@ export default function AdminDashboardPage() {
             </span>
           </div>
           <h2 className="text-3xl font-bold text-[#112250]">
-            7
+            {loading ? "—" : counts?.pending ?? 0}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Awaiting approval
-          </p>
+          <p className="text-sm text-gray-500 mt-1">Awaiting approval</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-red-200 p-5 shadow-sm">
@@ -95,28 +140,23 @@ export default function AdminDashboardPage() {
             </span>
           </div>
           <h2 className="text-3xl font-bold text-red-500">
-            3
+            {loading ? "—" : counts?.reports ?? 0}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Open issues
-          </p>
+          <p className="text-sm text-gray-500 mt-1">Open issues</p>
         </div>
-
       </div>
 
       {/* MAIN GRID */}
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
-
         {/* VERIFICATIONS */}
         <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 p-6">
-
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-semibold text-[#112250]">
               Awaiting Verification
             </h3>
 
             <Link
-              href="/admin/verify-mentors"
+              href="/admin/verify"
               className="text-sm text-[#112250] flex items-center gap-1"
             >
               View All
@@ -125,162 +165,127 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="space-y-4">
+            {loading ? (
+              <p className="text-sm text-gray-400">Loading…</p>
+            ) : pendingVerifications.length === 0 ? (
+              <p className="text-sm text-gray-400">
+                No mentors awaiting verification.
+              </p>
+            ) : (
+              pendingVerifications.map((mentor) => (
+                <div
+                  key={mentor.id}
+                  className="flex items-center justify-between border border-gray-100 rounded-xl p-4"
+                >
+                  <div>
+                    <p className="font-medium text-[#112250]">
+                      {mentor.name ?? mentor.email}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Submitted {timeAgo(mentor.createdAt)}
+                    </p>
+                  </div>
 
-            {[
-              "James Mutua",
-              "Grace Wanjiku",
-              "David Otieno",
-            ].map((mentor) => (
-              <div
-                key={mentor}
-                className="flex items-center justify-between border border-gray-100 rounded-xl p-4"
-              >
-                <div>
-                  <p className="font-medium text-[#112250]">
-                    {mentor}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Submitted 2 days ago
-                  </p>
+                  <button className="px-4 py-2 bg-[#112250] text-white rounded-lg text-sm hover:bg-[#1B3475]">
+                    Review
+                  </button>
                 </div>
-
-                <button className="px-4 py-2 bg-[#112250] text-white rounded-lg text-sm hover:bg-[#1B3475]">
-                  Review
-                </button>
-              </div>
-            ))}
-
+              ))
+            )}
           </div>
         </div>
 
-        {/* HEALTH */}
+        {/* QUICK STATS SUMMARY */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-
-          <h3 className="font-semibold text-[#112250] mb-5">
-            Platform Health
-          </h3>
+          <h3 className="font-semibold text-[#112250] mb-5">Overview</h3>
 
           <div className="space-y-5">
-
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm text-gray-500">
-                  Active Mentorships
-                </span>
-                <span className="font-medium">
-                  89%
-                </span>
-              </div>
-
-              <div className="h-2 bg-gray-100 rounded-full">
-                <div className="w-[89%] h-2 bg-green-500 rounded-full" />
-              </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-500">Total Users</span>
+              <span className="font-medium">
+                {loading
+                  ? "—"
+                  : (counts?.students ?? 0) + (counts?.mentors ?? 0)}
+              </span>
             </div>
 
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm text-gray-500">
-                  Match Success
-                </span>
-                <span className="font-medium">
-                  94%
-                </span>
-              </div>
-
-              <div className="h-2 bg-gray-100 rounded-full">
-                <div className="w-[94%] h-2 bg-blue-500 rounded-full" />
-              </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-500">
+                Active Mentorships
+              </span>
+              <span className="font-medium">
+                {loading ? "—" : recentMatches.length}
+              </span>
             </div>
 
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm text-gray-500">
-                  User Satisfaction
-                </span>
-                <span className="font-medium">
-                  91%
-                </span>
-              </div>
-
-              <div className="h-2 bg-gray-100 rounded-full">
-                <div className="w-[91%] h-2 bg-[#E0C58F] rounded-full" />
-              </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-500">
+                Awaiting Verification
+              </span>
+              <span className="font-medium">
+                {loading ? "—" : pendingVerifications.length}
+              </span>
             </div>
-
           </div>
         </div>
-
       </div>
 
       {/* LOWER GRID */}
       <div className="grid lg:grid-cols-2 gap-6">
-
         {/* ACTIVITY */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-
-          <h3 className="font-semibold text-[#112250] mb-5">
-            Recent Activity
-          </h3>
+          <h3 className="font-semibold text-[#112250] mb-5">Recent Activity</h3>
 
           <div className="space-y-5">
+            {loading ? (
+              <p className="text-sm text-gray-400">Loading…</p>
+            ) : recentUsers.length === 0 && recentMatches.length === 0 ? (
+              <p className="text-sm text-gray-400">No recent activity.</p>
+            ) : (
+              <>
+                {recentUsers.map((u) => (
+                  <div key={`u-${u.id}`} className="flex gap-3">
+                    <UserPlus className="w-5 h-5 text-blue-500 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-gray-700">
+                        {u.name ?? "A user"} registered as a {roleLabel(u.role)}.
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {timeAgo(u.createdAt)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
 
-            <Activity className="hidden" />
-
-            <div className="flex gap-3">
-              <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-              <div>
-                <p className="text-sm text-gray-700">
-                  5 mentors approved today.
-                </p>
-                <p className="text-xs text-gray-400">
-                  2 minutes ago
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <UserPlus className="w-5 h-5 text-blue-500 mt-0.5" />
-              <div>
-                <p className="text-sm text-gray-700">
-                  12 students registered.
-                </p>
-                <p className="text-xs text-gray-400">
-                  15 minutes ago
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <ShieldAlert className="w-5 h-5 text-red-500 mt-0.5" />
-              <div>
-                <p className="text-sm text-gray-700">
-                  3 disputes require review.
-                </p>
-                <p className="text-xs text-gray-400">
-                  1 hour ago
-                </p>
-              </div>
-            </div>
-
+                {recentMatches.map((m) => (
+                  <div key={`m-${m.id}`} className="flex gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-gray-700">
+                        {m.menteeName ?? "Mentee"} matched with{" "}
+                        {m.mentorName ?? "mentor"}.
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {timeAgo(m.matchedAt)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
 
         {/* QUICK ACTIONS */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-
-          <h3 className="font-semibold text-[#112250] mb-5">
-            Quick Actions
-          </h3>
+          <h3 className="font-semibold text-[#112250] mb-5">Quick Actions</h3>
 
           <div className="grid gap-4">
-
             <Link
-              href="/admin/verify-mentors"
+              href="/admin/verify"
               className="border rounded-xl p-4 hover:border-[#112250] transition"
             >
-              <h4 className="font-medium text-[#112250]">
-                Verify Mentors
-              </h4>
+              <h4 className="font-medium text-[#112250]">Verify Mentors</h4>
               <p className="text-sm text-gray-500 mt-1">
                 Review pending mentor applications.
               </p>
@@ -290,9 +295,7 @@ export default function AdminDashboardPage() {
               href="/admin/pairs"
               className="border rounded-xl p-4 hover:border-[#112250] transition"
             >
-              <h4 className="font-medium text-[#112250]">
-                Manage Pairings
-              </h4>
+              <h4 className="font-medium text-[#112250]">Manage Pairings</h4>
               <p className="text-sm text-gray-500 mt-1">
                 View active mentorship relationships.
               </p>
@@ -302,19 +305,12 @@ export default function AdminDashboardPage() {
               href="/admin/reports"
               className="border rounded-xl p-4 hover:border-red-400 transition"
             >
-              <h4 className="font-medium text-red-500">
-                Review Reports
-              </h4>
-              <p className="text-sm text-gray-500 mt-1">
-                Resolve flagged issues.
-              </p>
+              <h4 className="font-medium text-red-500">Review Reports</h4>
+              <p className="text-sm text-gray-500 mt-1">Resolve flagged issues.</p>
             </Link>
-
           </div>
         </div>
-
       </div>
-
     </DashboardShell>
   );
 }

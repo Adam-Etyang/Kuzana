@@ -38,11 +38,6 @@ export default function AdminSidebar() {
       label: "Users",
       icon: Users,
     },
-    {
-      href: "/admin/profile",
-      label: "Profile",
-      icon: Users,
-    },
   ];
   const handleLogout = () => {
     void signOutUser({ callbackURL: "/" });
