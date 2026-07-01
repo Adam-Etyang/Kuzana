@@ -9,27 +9,58 @@ datasource db {
   provider = "postgresql"
 }
 
+model MentorApplication {
+  id              String            @id @default(uuid())
+  fullName        String
+  email           String            @unique
+  organization    String
+  position        String
+  yearsExperience String
+  linkedin        String?
+  expertise       String
+  motivation      String
+  status          ApplicationStatus @default(PENDING)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  reviewedAt      DateTime?
+  reviewerId      String?
+  reviewer        User?             @relation("ReviewedApplications", fields: [reviewerId], references: [id])
+  accessKey       MentorAccessKey?
+}
+
+model MentorAccessKey {
+  id            String            @id @default(uuid())
+  key           String            @unique
+  applicationId String            @unique
+  application   MentorApplication @relation(fields: [applicationId], references: [id])
+  email         String
+  isUsed        Boolean           @default(false)
+  usedAt        DateTime?
+  createdAt     DateTime          @default(now())
+}
+
 model User {
-  id               String                    @id @default(uuid())
-  name             String?
-  email            String                    @unique
-  emailVerified    Boolean                   @default(false)
-  image            String?
-  role             Role                      @default(MENTEE)
-  createdAt        DateTime                  @default(now())
-  updatedAt        DateTime                  @updatedAt
-  banned           Boolean?                  @default(false)
-  banReason        String?
-  banExpires       DateTime?
-  conversations    ConversationParticipant[]
-  menteeMatches    Match[]                   @relation("MenteeMatches")
-  mentorMatches    Match[]                   @relation("MentorMatches")
-  sentRequests     MentorshipRequest[]       @relation("SentRequests")
-  receivedRequests MentorshipRequest[]       @relation("ReceivedRequests")
-  sentMessages     Message[]                 @relation("SentMessages")
-  profile          Profile?
-  accounts         Account[]
-  sessions         Session[]
+  id                   String                    @id @default(uuid())
+  name                 String?
+  email                String                    @unique
+  emailVerified        Boolean                   @default(false)
+  image                String?
+  role                 Role                      @default(MENTEE)
+  createdAt            DateTime                  @default(now())
+  updatedAt            DateTime                  @updatedAt
+  banned               Boolean?                  @default(false)
+  banReason            String?
+  banExpires           DateTime?
+  conversations        ConversationParticipant[]
+  menteeMatches        Match[]                   @relation("MenteeMatches")
+  mentorMatches        Match[]                   @relation("MentorMatches")
+  sentRequests         MentorshipRequest[]       @relation("SentRequests")
+  receivedRequests     MentorshipRequest[]       @relation("ReceivedRequests")
+  sentMessages         Message[]                 @relation("SentMessages")
+  profile              Profile?
+  accounts             Account[]
+  sessions             Session[]
+  reviewedApplications MentorApplication[]       @relation("ReviewedApplications")
 
   @@map("user")
 }
@@ -260,4 +291,10 @@ enum RequestStatus {
   PENDING
   ACCEPTED
   DECLINED
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

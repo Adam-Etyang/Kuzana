@@ -14,6 +14,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model MentorApplication
+ * 
+ */
+export type MentorApplication = $Result.DefaultSelection<Prisma.$MentorApplicationPayload>
+/**
+ * Model MentorAccessKey
+ * 
+ */
+export type MentorAccessKey = $Result.DefaultSelection<Prisma.$MentorAccessKeyPayload>
+/**
  * Model User
  * 
  */
@@ -156,6 +166,15 @@ export const RequestStatus: {
 
 export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]
 
+
+export const ApplicationStatus: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -178,6 +197,10 @@ export type RequestStatus = $Enums.RequestStatus
 
 export const RequestStatus: typeof $Enums.RequestStatus
 
+export type ApplicationStatus = $Enums.ApplicationStatus
+
+export const ApplicationStatus: typeof $Enums.ApplicationStatus
+
 /**
  * ##  Prisma Client ʲˢ
  *
@@ -187,8 +210,8 @@ export const RequestStatus: typeof $Enums.RequestStatus
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more MentorApplications
+ * const mentorApplications = await prisma.mentorApplication.findMany()
  * ```
  *
  *
@@ -210,8 +233,8 @@ export class PrismaClient<
    * const prisma = new PrismaClient({
    *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
    * })
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more MentorApplications
+   * const mentorApplications = await prisma.mentorApplication.findMany()
    * ```
    *
    *
@@ -300,6 +323,26 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.mentorApplication`: Exposes CRUD operations for the **MentorApplication** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MentorApplications
+    * const mentorApplications = await prisma.mentorApplication.findMany()
+    * ```
+    */
+  get mentorApplication(): Prisma.MentorApplicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.mentorAccessKey`: Exposes CRUD operations for the **MentorAccessKey** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MentorAccessKeys
+    * const mentorAccessKeys = await prisma.mentorAccessKey.findMany()
+    * ```
+    */
+  get mentorAccessKey(): Prisma.MentorAccessKeyDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -912,6 +955,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    MentorApplication: 'MentorApplication',
+    MentorAccessKey: 'MentorAccessKey',
     User: 'User',
     Conversation: 'Conversation',
     ConversationParticipant: 'ConversationParticipant',
@@ -945,10 +990,158 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "conversation" | "conversationParticipant" | "message" | "profile" | "session" | "account" | "verification" | "interest" | "skill" | "profileSkill" | "profileInterest" | "availability" | "schedulerRun" | "compatibilityScore" | "match" | "waitlist" | "mentorshipRequest"
+      modelProps: "mentorApplication" | "mentorAccessKey" | "user" | "conversation" | "conversationParticipant" | "message" | "profile" | "session" | "account" | "verification" | "interest" | "skill" | "profileSkill" | "profileInterest" | "availability" | "schedulerRun" | "compatibilityScore" | "match" | "waitlist" | "mentorshipRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      MentorApplication: {
+        payload: Prisma.$MentorApplicationPayload<ExtArgs>
+        fields: Prisma.MentorApplicationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MentorApplicationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MentorApplicationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>
+          }
+          findFirst: {
+            args: Prisma.MentorApplicationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MentorApplicationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>
+          }
+          findMany: {
+            args: Prisma.MentorApplicationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>[]
+          }
+          create: {
+            args: Prisma.MentorApplicationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>
+          }
+          createMany: {
+            args: Prisma.MentorApplicationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MentorApplicationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>[]
+          }
+          delete: {
+            args: Prisma.MentorApplicationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>
+          }
+          update: {
+            args: Prisma.MentorApplicationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>
+          }
+          deleteMany: {
+            args: Prisma.MentorApplicationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MentorApplicationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MentorApplicationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>[]
+          }
+          upsert: {
+            args: Prisma.MentorApplicationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorApplicationPayload>
+          }
+          aggregate: {
+            args: Prisma.MentorApplicationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMentorApplication>
+          }
+          groupBy: {
+            args: Prisma.MentorApplicationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MentorApplicationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MentorApplicationCountArgs<ExtArgs>
+            result: $Utils.Optional<MentorApplicationCountAggregateOutputType> | number
+          }
+        }
+      }
+      MentorAccessKey: {
+        payload: Prisma.$MentorAccessKeyPayload<ExtArgs>
+        fields: Prisma.MentorAccessKeyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MentorAccessKeyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MentorAccessKeyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>
+          }
+          findFirst: {
+            args: Prisma.MentorAccessKeyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MentorAccessKeyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>
+          }
+          findMany: {
+            args: Prisma.MentorAccessKeyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>[]
+          }
+          create: {
+            args: Prisma.MentorAccessKeyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>
+          }
+          createMany: {
+            args: Prisma.MentorAccessKeyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MentorAccessKeyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>[]
+          }
+          delete: {
+            args: Prisma.MentorAccessKeyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>
+          }
+          update: {
+            args: Prisma.MentorAccessKeyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>
+          }
+          deleteMany: {
+            args: Prisma.MentorAccessKeyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MentorAccessKeyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MentorAccessKeyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>[]
+          }
+          upsert: {
+            args: Prisma.MentorAccessKeyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MentorAccessKeyPayload>
+          }
+          aggregate: {
+            args: Prisma.MentorAccessKeyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMentorAccessKey>
+          }
+          groupBy: {
+            args: Prisma.MentorAccessKeyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MentorAccessKeyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MentorAccessKeyCountArgs<ExtArgs>
+            result: $Utils.Optional<MentorAccessKeyCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -2389,6 +2582,8 @@ export namespace Prisma {
     comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
+    mentorApplication?: MentorApplicationOmit
+    mentorAccessKey?: MentorAccessKeyOmit
     user?: UserOmit
     conversation?: ConversationOmit
     conversationParticipant?: ConversationParticipantOmit
@@ -2495,6 +2690,7 @@ export namespace Prisma {
     sentMessages: number
     accounts: number
     sessions: number
+    reviewedApplications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2506,6 +2702,7 @@ export namespace Prisma {
     sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+    reviewedApplications?: boolean | UserCountOutputTypeCountReviewedApplicationsArgs
   }
 
   // Custom InputTypes
@@ -2573,6 +2770,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReviewedApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MentorApplicationWhereInput
   }
 
 
@@ -2730,6 +2934,2317 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model MentorApplication
+   */
+
+  export type AggregateMentorApplication = {
+    _count: MentorApplicationCountAggregateOutputType | null
+    _min: MentorApplicationMinAggregateOutputType | null
+    _max: MentorApplicationMaxAggregateOutputType | null
+  }
+
+  export type MentorApplicationMinAggregateOutputType = {
+    id: string | null
+    fullName: string | null
+    email: string | null
+    organization: string | null
+    position: string | null
+    yearsExperience: string | null
+    linkedin: string | null
+    expertise: string | null
+    motivation: string | null
+    status: $Enums.ApplicationStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    reviewedAt: Date | null
+    reviewerId: string | null
+  }
+
+  export type MentorApplicationMaxAggregateOutputType = {
+    id: string | null
+    fullName: string | null
+    email: string | null
+    organization: string | null
+    position: string | null
+    yearsExperience: string | null
+    linkedin: string | null
+    expertise: string | null
+    motivation: string | null
+    status: $Enums.ApplicationStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    reviewedAt: Date | null
+    reviewerId: string | null
+  }
+
+  export type MentorApplicationCountAggregateOutputType = {
+    id: number
+    fullName: number
+    email: number
+    organization: number
+    position: number
+    yearsExperience: number
+    linkedin: number
+    expertise: number
+    motivation: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    reviewedAt: number
+    reviewerId: number
+    _all: number
+  }
+
+
+  export type MentorApplicationMinAggregateInputType = {
+    id?: true
+    fullName?: true
+    email?: true
+    organization?: true
+    position?: true
+    yearsExperience?: true
+    linkedin?: true
+    expertise?: true
+    motivation?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    reviewedAt?: true
+    reviewerId?: true
+  }
+
+  export type MentorApplicationMaxAggregateInputType = {
+    id?: true
+    fullName?: true
+    email?: true
+    organization?: true
+    position?: true
+    yearsExperience?: true
+    linkedin?: true
+    expertise?: true
+    motivation?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    reviewedAt?: true
+    reviewerId?: true
+  }
+
+  export type MentorApplicationCountAggregateInputType = {
+    id?: true
+    fullName?: true
+    email?: true
+    organization?: true
+    position?: true
+    yearsExperience?: true
+    linkedin?: true
+    expertise?: true
+    motivation?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    reviewedAt?: true
+    reviewerId?: true
+    _all?: true
+  }
+
+  export type MentorApplicationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MentorApplication to aggregate.
+     */
+    where?: MentorApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorApplications to fetch.
+     */
+    orderBy?: MentorApplicationOrderByWithRelationInput | MentorApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MentorApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MentorApplications
+    **/
+    _count?: true | MentorApplicationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MentorApplicationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MentorApplicationMaxAggregateInputType
+  }
+
+  export type GetMentorApplicationAggregateType<T extends MentorApplicationAggregateArgs> = {
+        [P in keyof T & keyof AggregateMentorApplication]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMentorApplication[P]>
+      : GetScalarType<T[P], AggregateMentorApplication[P]>
+  }
+
+
+
+
+  export type MentorApplicationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MentorApplicationWhereInput
+    orderBy?: MentorApplicationOrderByWithAggregationInput | MentorApplicationOrderByWithAggregationInput[]
+    by: MentorApplicationScalarFieldEnum[] | MentorApplicationScalarFieldEnum
+    having?: MentorApplicationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MentorApplicationCountAggregateInputType | true
+    _min?: MentorApplicationMinAggregateInputType
+    _max?: MentorApplicationMaxAggregateInputType
+  }
+
+  export type MentorApplicationGroupByOutputType = {
+    id: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin: string | null
+    expertise: string
+    motivation: string
+    status: $Enums.ApplicationStatus
+    createdAt: Date
+    updatedAt: Date
+    reviewedAt: Date | null
+    reviewerId: string | null
+    _count: MentorApplicationCountAggregateOutputType | null
+    _min: MentorApplicationMinAggregateOutputType | null
+    _max: MentorApplicationMaxAggregateOutputType | null
+  }
+
+  type GetMentorApplicationGroupByPayload<T extends MentorApplicationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MentorApplicationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MentorApplicationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MentorApplicationGroupByOutputType[P]>
+            : GetScalarType<T[P], MentorApplicationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MentorApplicationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fullName?: boolean
+    email?: boolean
+    organization?: boolean
+    position?: boolean
+    yearsExperience?: boolean
+    linkedin?: boolean
+    expertise?: boolean
+    motivation?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewedAt?: boolean
+    reviewerId?: boolean
+    reviewer?: boolean | MentorApplication$reviewerArgs<ExtArgs>
+    accessKey?: boolean | MentorApplication$accessKeyArgs<ExtArgs>
+  }, ExtArgs["result"]["mentorApplication"]>
+
+  export type MentorApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fullName?: boolean
+    email?: boolean
+    organization?: boolean
+    position?: boolean
+    yearsExperience?: boolean
+    linkedin?: boolean
+    expertise?: boolean
+    motivation?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewedAt?: boolean
+    reviewerId?: boolean
+    reviewer?: boolean | MentorApplication$reviewerArgs<ExtArgs>
+  }, ExtArgs["result"]["mentorApplication"]>
+
+  export type MentorApplicationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fullName?: boolean
+    email?: boolean
+    organization?: boolean
+    position?: boolean
+    yearsExperience?: boolean
+    linkedin?: boolean
+    expertise?: boolean
+    motivation?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewedAt?: boolean
+    reviewerId?: boolean
+    reviewer?: boolean | MentorApplication$reviewerArgs<ExtArgs>
+  }, ExtArgs["result"]["mentorApplication"]>
+
+  export type MentorApplicationSelectScalar = {
+    id?: boolean
+    fullName?: boolean
+    email?: boolean
+    organization?: boolean
+    position?: boolean
+    yearsExperience?: boolean
+    linkedin?: boolean
+    expertise?: boolean
+    motivation?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewedAt?: boolean
+    reviewerId?: boolean
+  }
+
+  export type MentorApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "organization" | "position" | "yearsExperience" | "linkedin" | "expertise" | "motivation" | "status" | "createdAt" | "updatedAt" | "reviewedAt" | "reviewerId", ExtArgs["result"]["mentorApplication"]>
+  export type MentorApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviewer?: boolean | MentorApplication$reviewerArgs<ExtArgs>
+    accessKey?: boolean | MentorApplication$accessKeyArgs<ExtArgs>
+  }
+  export type MentorApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviewer?: boolean | MentorApplication$reviewerArgs<ExtArgs>
+  }
+  export type MentorApplicationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviewer?: boolean | MentorApplication$reviewerArgs<ExtArgs>
+  }
+
+  export type $MentorApplicationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MentorApplication"
+    objects: {
+      reviewer: Prisma.$UserPayload<ExtArgs> | null
+      accessKey: Prisma.$MentorAccessKeyPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      fullName: string
+      email: string
+      organization: string
+      position: string
+      yearsExperience: string
+      linkedin: string | null
+      expertise: string
+      motivation: string
+      status: $Enums.ApplicationStatus
+      createdAt: Date
+      updatedAt: Date
+      reviewedAt: Date | null
+      reviewerId: string | null
+    }, ExtArgs["result"]["mentorApplication"]>
+    composites: {}
+  }
+
+  type MentorApplicationGetPayload<S extends boolean | null | undefined | MentorApplicationDefaultArgs> = $Result.GetResult<Prisma.$MentorApplicationPayload, S>
+
+  type MentorApplicationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MentorApplicationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MentorApplicationCountAggregateInputType | true
+    }
+
+  export interface MentorApplicationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MentorApplication'], meta: { name: 'MentorApplication' } }
+    /**
+     * Find zero or one MentorApplication that matches the filter.
+     * @param {MentorApplicationFindUniqueArgs} args - Arguments to find a MentorApplication
+     * @example
+     * // Get one MentorApplication
+     * const mentorApplication = await prisma.mentorApplication.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MentorApplicationFindUniqueArgs>(args: SelectSubset<T, MentorApplicationFindUniqueArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MentorApplication that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MentorApplicationFindUniqueOrThrowArgs} args - Arguments to find a MentorApplication
+     * @example
+     * // Get one MentorApplication
+     * const mentorApplication = await prisma.mentorApplication.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MentorApplicationFindUniqueOrThrowArgs>(args: SelectSubset<T, MentorApplicationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MentorApplication that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorApplicationFindFirstArgs} args - Arguments to find a MentorApplication
+     * @example
+     * // Get one MentorApplication
+     * const mentorApplication = await prisma.mentorApplication.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MentorApplicationFindFirstArgs>(args?: SelectSubset<T, MentorApplicationFindFirstArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MentorApplication that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorApplicationFindFirstOrThrowArgs} args - Arguments to find a MentorApplication
+     * @example
+     * // Get one MentorApplication
+     * const mentorApplication = await prisma.mentorApplication.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MentorApplicationFindFirstOrThrowArgs>(args?: SelectSubset<T, MentorApplicationFindFirstOrThrowArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MentorApplications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorApplicationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MentorApplications
+     * const mentorApplications = await prisma.mentorApplication.findMany()
+     * 
+     * // Get first 10 MentorApplications
+     * const mentorApplications = await prisma.mentorApplication.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mentorApplicationWithIdOnly = await prisma.mentorApplication.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MentorApplicationFindManyArgs>(args?: SelectSubset<T, MentorApplicationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MentorApplication.
+     * @param {MentorApplicationCreateArgs} args - Arguments to create a MentorApplication.
+     * @example
+     * // Create one MentorApplication
+     * const MentorApplication = await prisma.mentorApplication.create({
+     *   data: {
+     *     // ... data to create a MentorApplication
+     *   }
+     * })
+     * 
+     */
+    create<T extends MentorApplicationCreateArgs>(args: SelectSubset<T, MentorApplicationCreateArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MentorApplications.
+     * @param {MentorApplicationCreateManyArgs} args - Arguments to create many MentorApplications.
+     * @example
+     * // Create many MentorApplications
+     * const mentorApplication = await prisma.mentorApplication.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MentorApplicationCreateManyArgs>(args?: SelectSubset<T, MentorApplicationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MentorApplications and returns the data saved in the database.
+     * @param {MentorApplicationCreateManyAndReturnArgs} args - Arguments to create many MentorApplications.
+     * @example
+     * // Create many MentorApplications
+     * const mentorApplication = await prisma.mentorApplication.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MentorApplications and only return the `id`
+     * const mentorApplicationWithIdOnly = await prisma.mentorApplication.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MentorApplicationCreateManyAndReturnArgs>(args?: SelectSubset<T, MentorApplicationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MentorApplication.
+     * @param {MentorApplicationDeleteArgs} args - Arguments to delete one MentorApplication.
+     * @example
+     * // Delete one MentorApplication
+     * const MentorApplication = await prisma.mentorApplication.delete({
+     *   where: {
+     *     // ... filter to delete one MentorApplication
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MentorApplicationDeleteArgs>(args: SelectSubset<T, MentorApplicationDeleteArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MentorApplication.
+     * @param {MentorApplicationUpdateArgs} args - Arguments to update one MentorApplication.
+     * @example
+     * // Update one MentorApplication
+     * const mentorApplication = await prisma.mentorApplication.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MentorApplicationUpdateArgs>(args: SelectSubset<T, MentorApplicationUpdateArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MentorApplications.
+     * @param {MentorApplicationDeleteManyArgs} args - Arguments to filter MentorApplications to delete.
+     * @example
+     * // Delete a few MentorApplications
+     * const { count } = await prisma.mentorApplication.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MentorApplicationDeleteManyArgs>(args?: SelectSubset<T, MentorApplicationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MentorApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorApplicationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MentorApplications
+     * const mentorApplication = await prisma.mentorApplication.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MentorApplicationUpdateManyArgs>(args: SelectSubset<T, MentorApplicationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MentorApplications and returns the data updated in the database.
+     * @param {MentorApplicationUpdateManyAndReturnArgs} args - Arguments to update many MentorApplications.
+     * @example
+     * // Update many MentorApplications
+     * const mentorApplication = await prisma.mentorApplication.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MentorApplications and only return the `id`
+     * const mentorApplicationWithIdOnly = await prisma.mentorApplication.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MentorApplicationUpdateManyAndReturnArgs>(args: SelectSubset<T, MentorApplicationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MentorApplication.
+     * @param {MentorApplicationUpsertArgs} args - Arguments to update or create a MentorApplication.
+     * @example
+     * // Update or create a MentorApplication
+     * const mentorApplication = await prisma.mentorApplication.upsert({
+     *   create: {
+     *     // ... data to create a MentorApplication
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MentorApplication we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MentorApplicationUpsertArgs>(args: SelectSubset<T, MentorApplicationUpsertArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MentorApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorApplicationCountArgs} args - Arguments to filter MentorApplications to count.
+     * @example
+     * // Count the number of MentorApplications
+     * const count = await prisma.mentorApplication.count({
+     *   where: {
+     *     // ... the filter for the MentorApplications we want to count
+     *   }
+     * })
+    **/
+    count<T extends MentorApplicationCountArgs>(
+      args?: Subset<T, MentorApplicationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MentorApplicationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MentorApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorApplicationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MentorApplicationAggregateArgs>(args: Subset<T, MentorApplicationAggregateArgs>): Prisma.PrismaPromise<GetMentorApplicationAggregateType<T>>
+
+    /**
+     * Group by MentorApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorApplicationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MentorApplicationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MentorApplicationGroupByArgs['orderBy'] }
+        : { orderBy?: MentorApplicationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MentorApplicationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMentorApplicationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MentorApplication model
+   */
+  readonly fields: MentorApplicationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MentorApplication.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MentorApplicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reviewer<T extends MentorApplication$reviewerArgs<ExtArgs> = {}>(args?: Subset<T, MentorApplication$reviewerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    accessKey<T extends MentorApplication$accessKeyArgs<ExtArgs> = {}>(args?: Subset<T, MentorApplication$accessKeyArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MentorApplication model
+   */
+  interface MentorApplicationFieldRefs {
+    readonly id: FieldRef<"MentorApplication", 'String'>
+    readonly fullName: FieldRef<"MentorApplication", 'String'>
+    readonly email: FieldRef<"MentorApplication", 'String'>
+    readonly organization: FieldRef<"MentorApplication", 'String'>
+    readonly position: FieldRef<"MentorApplication", 'String'>
+    readonly yearsExperience: FieldRef<"MentorApplication", 'String'>
+    readonly linkedin: FieldRef<"MentorApplication", 'String'>
+    readonly expertise: FieldRef<"MentorApplication", 'String'>
+    readonly motivation: FieldRef<"MentorApplication", 'String'>
+    readonly status: FieldRef<"MentorApplication", 'ApplicationStatus'>
+    readonly createdAt: FieldRef<"MentorApplication", 'DateTime'>
+    readonly updatedAt: FieldRef<"MentorApplication", 'DateTime'>
+    readonly reviewedAt: FieldRef<"MentorApplication", 'DateTime'>
+    readonly reviewerId: FieldRef<"MentorApplication", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MentorApplication findUnique
+   */
+  export type MentorApplicationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorApplication to fetch.
+     */
+    where: MentorApplicationWhereUniqueInput
+  }
+
+  /**
+   * MentorApplication findUniqueOrThrow
+   */
+  export type MentorApplicationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorApplication to fetch.
+     */
+    where: MentorApplicationWhereUniqueInput
+  }
+
+  /**
+   * MentorApplication findFirst
+   */
+  export type MentorApplicationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorApplication to fetch.
+     */
+    where?: MentorApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorApplications to fetch.
+     */
+    orderBy?: MentorApplicationOrderByWithRelationInput | MentorApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MentorApplications.
+     */
+    cursor?: MentorApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MentorApplications.
+     */
+    distinct?: MentorApplicationScalarFieldEnum | MentorApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * MentorApplication findFirstOrThrow
+   */
+  export type MentorApplicationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorApplication to fetch.
+     */
+    where?: MentorApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorApplications to fetch.
+     */
+    orderBy?: MentorApplicationOrderByWithRelationInput | MentorApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MentorApplications.
+     */
+    cursor?: MentorApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MentorApplications.
+     */
+    distinct?: MentorApplicationScalarFieldEnum | MentorApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * MentorApplication findMany
+   */
+  export type MentorApplicationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorApplications to fetch.
+     */
+    where?: MentorApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorApplications to fetch.
+     */
+    orderBy?: MentorApplicationOrderByWithRelationInput | MentorApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MentorApplications.
+     */
+    cursor?: MentorApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MentorApplications.
+     */
+    distinct?: MentorApplicationScalarFieldEnum | MentorApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * MentorApplication create
+   */
+  export type MentorApplicationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MentorApplication.
+     */
+    data: XOR<MentorApplicationCreateInput, MentorApplicationUncheckedCreateInput>
+  }
+
+  /**
+   * MentorApplication createMany
+   */
+  export type MentorApplicationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MentorApplications.
+     */
+    data: MentorApplicationCreateManyInput | MentorApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MentorApplication createManyAndReturn
+   */
+  export type MentorApplicationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to create many MentorApplications.
+     */
+    data: MentorApplicationCreateManyInput | MentorApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MentorApplication update
+   */
+  export type MentorApplicationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MentorApplication.
+     */
+    data: XOR<MentorApplicationUpdateInput, MentorApplicationUncheckedUpdateInput>
+    /**
+     * Choose, which MentorApplication to update.
+     */
+    where: MentorApplicationWhereUniqueInput
+  }
+
+  /**
+   * MentorApplication updateMany
+   */
+  export type MentorApplicationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MentorApplications.
+     */
+    data: XOR<MentorApplicationUpdateManyMutationInput, MentorApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which MentorApplications to update
+     */
+    where?: MentorApplicationWhereInput
+    /**
+     * Limit how many MentorApplications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MentorApplication updateManyAndReturn
+   */
+  export type MentorApplicationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to update MentorApplications.
+     */
+    data: XOR<MentorApplicationUpdateManyMutationInput, MentorApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which MentorApplications to update
+     */
+    where?: MentorApplicationWhereInput
+    /**
+     * Limit how many MentorApplications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MentorApplication upsert
+   */
+  export type MentorApplicationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MentorApplication to update in case it exists.
+     */
+    where: MentorApplicationWhereUniqueInput
+    /**
+     * In case the MentorApplication found by the `where` argument doesn't exist, create a new MentorApplication with this data.
+     */
+    create: XOR<MentorApplicationCreateInput, MentorApplicationUncheckedCreateInput>
+    /**
+     * In case the MentorApplication was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MentorApplicationUpdateInput, MentorApplicationUncheckedUpdateInput>
+  }
+
+  /**
+   * MentorApplication delete
+   */
+  export type MentorApplicationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    /**
+     * Filter which MentorApplication to delete.
+     */
+    where: MentorApplicationWhereUniqueInput
+  }
+
+  /**
+   * MentorApplication deleteMany
+   */
+  export type MentorApplicationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MentorApplications to delete
+     */
+    where?: MentorApplicationWhereInput
+    /**
+     * Limit how many MentorApplications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MentorApplication.reviewer
+   */
+  export type MentorApplication$reviewerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * MentorApplication.accessKey
+   */
+  export type MentorApplication$accessKeyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    where?: MentorAccessKeyWhereInput
+  }
+
+  /**
+   * MentorApplication without action
+   */
+  export type MentorApplicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MentorAccessKey
+   */
+
+  export type AggregateMentorAccessKey = {
+    _count: MentorAccessKeyCountAggregateOutputType | null
+    _min: MentorAccessKeyMinAggregateOutputType | null
+    _max: MentorAccessKeyMaxAggregateOutputType | null
+  }
+
+  export type MentorAccessKeyMinAggregateOutputType = {
+    id: string | null
+    key: string | null
+    applicationId: string | null
+    email: string | null
+    isUsed: boolean | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type MentorAccessKeyMaxAggregateOutputType = {
+    id: string | null
+    key: string | null
+    applicationId: string | null
+    email: string | null
+    isUsed: boolean | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type MentorAccessKeyCountAggregateOutputType = {
+    id: number
+    key: number
+    applicationId: number
+    email: number
+    isUsed: number
+    usedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MentorAccessKeyMinAggregateInputType = {
+    id?: true
+    key?: true
+    applicationId?: true
+    email?: true
+    isUsed?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type MentorAccessKeyMaxAggregateInputType = {
+    id?: true
+    key?: true
+    applicationId?: true
+    email?: true
+    isUsed?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type MentorAccessKeyCountAggregateInputType = {
+    id?: true
+    key?: true
+    applicationId?: true
+    email?: true
+    isUsed?: true
+    usedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MentorAccessKeyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MentorAccessKey to aggregate.
+     */
+    where?: MentorAccessKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorAccessKeys to fetch.
+     */
+    orderBy?: MentorAccessKeyOrderByWithRelationInput | MentorAccessKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MentorAccessKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorAccessKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorAccessKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MentorAccessKeys
+    **/
+    _count?: true | MentorAccessKeyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MentorAccessKeyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MentorAccessKeyMaxAggregateInputType
+  }
+
+  export type GetMentorAccessKeyAggregateType<T extends MentorAccessKeyAggregateArgs> = {
+        [P in keyof T & keyof AggregateMentorAccessKey]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMentorAccessKey[P]>
+      : GetScalarType<T[P], AggregateMentorAccessKey[P]>
+  }
+
+
+
+
+  export type MentorAccessKeyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MentorAccessKeyWhereInput
+    orderBy?: MentorAccessKeyOrderByWithAggregationInput | MentorAccessKeyOrderByWithAggregationInput[]
+    by: MentorAccessKeyScalarFieldEnum[] | MentorAccessKeyScalarFieldEnum
+    having?: MentorAccessKeyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MentorAccessKeyCountAggregateInputType | true
+    _min?: MentorAccessKeyMinAggregateInputType
+    _max?: MentorAccessKeyMaxAggregateInputType
+  }
+
+  export type MentorAccessKeyGroupByOutputType = {
+    id: string
+    key: string
+    applicationId: string
+    email: string
+    isUsed: boolean
+    usedAt: Date | null
+    createdAt: Date
+    _count: MentorAccessKeyCountAggregateOutputType | null
+    _min: MentorAccessKeyMinAggregateOutputType | null
+    _max: MentorAccessKeyMaxAggregateOutputType | null
+  }
+
+  type GetMentorAccessKeyGroupByPayload<T extends MentorAccessKeyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MentorAccessKeyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MentorAccessKeyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MentorAccessKeyGroupByOutputType[P]>
+            : GetScalarType<T[P], MentorAccessKeyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MentorAccessKeySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    applicationId?: boolean
+    email?: boolean
+    isUsed?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    application?: boolean | MentorApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mentorAccessKey"]>
+
+  export type MentorAccessKeySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    applicationId?: boolean
+    email?: boolean
+    isUsed?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    application?: boolean | MentorApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mentorAccessKey"]>
+
+  export type MentorAccessKeySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    applicationId?: boolean
+    email?: boolean
+    isUsed?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    application?: boolean | MentorApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mentorAccessKey"]>
+
+  export type MentorAccessKeySelectScalar = {
+    id?: boolean
+    key?: boolean
+    applicationId?: boolean
+    email?: boolean
+    isUsed?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type MentorAccessKeyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "key" | "applicationId" | "email" | "isUsed" | "usedAt" | "createdAt", ExtArgs["result"]["mentorAccessKey"]>
+  export type MentorAccessKeyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | MentorApplicationDefaultArgs<ExtArgs>
+  }
+  export type MentorAccessKeyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | MentorApplicationDefaultArgs<ExtArgs>
+  }
+  export type MentorAccessKeyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | MentorApplicationDefaultArgs<ExtArgs>
+  }
+
+  export type $MentorAccessKeyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MentorAccessKey"
+    objects: {
+      application: Prisma.$MentorApplicationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      key: string
+      applicationId: string
+      email: string
+      isUsed: boolean
+      usedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["mentorAccessKey"]>
+    composites: {}
+  }
+
+  type MentorAccessKeyGetPayload<S extends boolean | null | undefined | MentorAccessKeyDefaultArgs> = $Result.GetResult<Prisma.$MentorAccessKeyPayload, S>
+
+  type MentorAccessKeyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MentorAccessKeyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MentorAccessKeyCountAggregateInputType | true
+    }
+
+  export interface MentorAccessKeyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MentorAccessKey'], meta: { name: 'MentorAccessKey' } }
+    /**
+     * Find zero or one MentorAccessKey that matches the filter.
+     * @param {MentorAccessKeyFindUniqueArgs} args - Arguments to find a MentorAccessKey
+     * @example
+     * // Get one MentorAccessKey
+     * const mentorAccessKey = await prisma.mentorAccessKey.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MentorAccessKeyFindUniqueArgs>(args: SelectSubset<T, MentorAccessKeyFindUniqueArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MentorAccessKey that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MentorAccessKeyFindUniqueOrThrowArgs} args - Arguments to find a MentorAccessKey
+     * @example
+     * // Get one MentorAccessKey
+     * const mentorAccessKey = await prisma.mentorAccessKey.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MentorAccessKeyFindUniqueOrThrowArgs>(args: SelectSubset<T, MentorAccessKeyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MentorAccessKey that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAccessKeyFindFirstArgs} args - Arguments to find a MentorAccessKey
+     * @example
+     * // Get one MentorAccessKey
+     * const mentorAccessKey = await prisma.mentorAccessKey.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MentorAccessKeyFindFirstArgs>(args?: SelectSubset<T, MentorAccessKeyFindFirstArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MentorAccessKey that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAccessKeyFindFirstOrThrowArgs} args - Arguments to find a MentorAccessKey
+     * @example
+     * // Get one MentorAccessKey
+     * const mentorAccessKey = await prisma.mentorAccessKey.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MentorAccessKeyFindFirstOrThrowArgs>(args?: SelectSubset<T, MentorAccessKeyFindFirstOrThrowArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MentorAccessKeys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAccessKeyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MentorAccessKeys
+     * const mentorAccessKeys = await prisma.mentorAccessKey.findMany()
+     * 
+     * // Get first 10 MentorAccessKeys
+     * const mentorAccessKeys = await prisma.mentorAccessKey.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mentorAccessKeyWithIdOnly = await prisma.mentorAccessKey.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MentorAccessKeyFindManyArgs>(args?: SelectSubset<T, MentorAccessKeyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MentorAccessKey.
+     * @param {MentorAccessKeyCreateArgs} args - Arguments to create a MentorAccessKey.
+     * @example
+     * // Create one MentorAccessKey
+     * const MentorAccessKey = await prisma.mentorAccessKey.create({
+     *   data: {
+     *     // ... data to create a MentorAccessKey
+     *   }
+     * })
+     * 
+     */
+    create<T extends MentorAccessKeyCreateArgs>(args: SelectSubset<T, MentorAccessKeyCreateArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MentorAccessKeys.
+     * @param {MentorAccessKeyCreateManyArgs} args - Arguments to create many MentorAccessKeys.
+     * @example
+     * // Create many MentorAccessKeys
+     * const mentorAccessKey = await prisma.mentorAccessKey.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MentorAccessKeyCreateManyArgs>(args?: SelectSubset<T, MentorAccessKeyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MentorAccessKeys and returns the data saved in the database.
+     * @param {MentorAccessKeyCreateManyAndReturnArgs} args - Arguments to create many MentorAccessKeys.
+     * @example
+     * // Create many MentorAccessKeys
+     * const mentorAccessKey = await prisma.mentorAccessKey.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MentorAccessKeys and only return the `id`
+     * const mentorAccessKeyWithIdOnly = await prisma.mentorAccessKey.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MentorAccessKeyCreateManyAndReturnArgs>(args?: SelectSubset<T, MentorAccessKeyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MentorAccessKey.
+     * @param {MentorAccessKeyDeleteArgs} args - Arguments to delete one MentorAccessKey.
+     * @example
+     * // Delete one MentorAccessKey
+     * const MentorAccessKey = await prisma.mentorAccessKey.delete({
+     *   where: {
+     *     // ... filter to delete one MentorAccessKey
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MentorAccessKeyDeleteArgs>(args: SelectSubset<T, MentorAccessKeyDeleteArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MentorAccessKey.
+     * @param {MentorAccessKeyUpdateArgs} args - Arguments to update one MentorAccessKey.
+     * @example
+     * // Update one MentorAccessKey
+     * const mentorAccessKey = await prisma.mentorAccessKey.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MentorAccessKeyUpdateArgs>(args: SelectSubset<T, MentorAccessKeyUpdateArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MentorAccessKeys.
+     * @param {MentorAccessKeyDeleteManyArgs} args - Arguments to filter MentorAccessKeys to delete.
+     * @example
+     * // Delete a few MentorAccessKeys
+     * const { count } = await prisma.mentorAccessKey.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MentorAccessKeyDeleteManyArgs>(args?: SelectSubset<T, MentorAccessKeyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MentorAccessKeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAccessKeyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MentorAccessKeys
+     * const mentorAccessKey = await prisma.mentorAccessKey.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MentorAccessKeyUpdateManyArgs>(args: SelectSubset<T, MentorAccessKeyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MentorAccessKeys and returns the data updated in the database.
+     * @param {MentorAccessKeyUpdateManyAndReturnArgs} args - Arguments to update many MentorAccessKeys.
+     * @example
+     * // Update many MentorAccessKeys
+     * const mentorAccessKey = await prisma.mentorAccessKey.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MentorAccessKeys and only return the `id`
+     * const mentorAccessKeyWithIdOnly = await prisma.mentorAccessKey.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MentorAccessKeyUpdateManyAndReturnArgs>(args: SelectSubset<T, MentorAccessKeyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MentorAccessKey.
+     * @param {MentorAccessKeyUpsertArgs} args - Arguments to update or create a MentorAccessKey.
+     * @example
+     * // Update or create a MentorAccessKey
+     * const mentorAccessKey = await prisma.mentorAccessKey.upsert({
+     *   create: {
+     *     // ... data to create a MentorAccessKey
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MentorAccessKey we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MentorAccessKeyUpsertArgs>(args: SelectSubset<T, MentorAccessKeyUpsertArgs<ExtArgs>>): Prisma__MentorAccessKeyClient<$Result.GetResult<Prisma.$MentorAccessKeyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MentorAccessKeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAccessKeyCountArgs} args - Arguments to filter MentorAccessKeys to count.
+     * @example
+     * // Count the number of MentorAccessKeys
+     * const count = await prisma.mentorAccessKey.count({
+     *   where: {
+     *     // ... the filter for the MentorAccessKeys we want to count
+     *   }
+     * })
+    **/
+    count<T extends MentorAccessKeyCountArgs>(
+      args?: Subset<T, MentorAccessKeyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MentorAccessKeyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MentorAccessKey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAccessKeyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MentorAccessKeyAggregateArgs>(args: Subset<T, MentorAccessKeyAggregateArgs>): Prisma.PrismaPromise<GetMentorAccessKeyAggregateType<T>>
+
+    /**
+     * Group by MentorAccessKey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAccessKeyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MentorAccessKeyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MentorAccessKeyGroupByArgs['orderBy'] }
+        : { orderBy?: MentorAccessKeyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MentorAccessKeyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMentorAccessKeyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MentorAccessKey model
+   */
+  readonly fields: MentorAccessKeyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MentorAccessKey.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MentorAccessKeyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    application<T extends MentorApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MentorApplicationDefaultArgs<ExtArgs>>): Prisma__MentorApplicationClient<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MentorAccessKey model
+   */
+  interface MentorAccessKeyFieldRefs {
+    readonly id: FieldRef<"MentorAccessKey", 'String'>
+    readonly key: FieldRef<"MentorAccessKey", 'String'>
+    readonly applicationId: FieldRef<"MentorAccessKey", 'String'>
+    readonly email: FieldRef<"MentorAccessKey", 'String'>
+    readonly isUsed: FieldRef<"MentorAccessKey", 'Boolean'>
+    readonly usedAt: FieldRef<"MentorAccessKey", 'DateTime'>
+    readonly createdAt: FieldRef<"MentorAccessKey", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MentorAccessKey findUnique
+   */
+  export type MentorAccessKeyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorAccessKey to fetch.
+     */
+    where: MentorAccessKeyWhereUniqueInput
+  }
+
+  /**
+   * MentorAccessKey findUniqueOrThrow
+   */
+  export type MentorAccessKeyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorAccessKey to fetch.
+     */
+    where: MentorAccessKeyWhereUniqueInput
+  }
+
+  /**
+   * MentorAccessKey findFirst
+   */
+  export type MentorAccessKeyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorAccessKey to fetch.
+     */
+    where?: MentorAccessKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorAccessKeys to fetch.
+     */
+    orderBy?: MentorAccessKeyOrderByWithRelationInput | MentorAccessKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MentorAccessKeys.
+     */
+    cursor?: MentorAccessKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorAccessKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorAccessKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MentorAccessKeys.
+     */
+    distinct?: MentorAccessKeyScalarFieldEnum | MentorAccessKeyScalarFieldEnum[]
+  }
+
+  /**
+   * MentorAccessKey findFirstOrThrow
+   */
+  export type MentorAccessKeyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorAccessKey to fetch.
+     */
+    where?: MentorAccessKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorAccessKeys to fetch.
+     */
+    orderBy?: MentorAccessKeyOrderByWithRelationInput | MentorAccessKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MentorAccessKeys.
+     */
+    cursor?: MentorAccessKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorAccessKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorAccessKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MentorAccessKeys.
+     */
+    distinct?: MentorAccessKeyScalarFieldEnum | MentorAccessKeyScalarFieldEnum[]
+  }
+
+  /**
+   * MentorAccessKey findMany
+   */
+  export type MentorAccessKeyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which MentorAccessKeys to fetch.
+     */
+    where?: MentorAccessKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MentorAccessKeys to fetch.
+     */
+    orderBy?: MentorAccessKeyOrderByWithRelationInput | MentorAccessKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MentorAccessKeys.
+     */
+    cursor?: MentorAccessKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MentorAccessKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MentorAccessKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MentorAccessKeys.
+     */
+    distinct?: MentorAccessKeyScalarFieldEnum | MentorAccessKeyScalarFieldEnum[]
+  }
+
+  /**
+   * MentorAccessKey create
+   */
+  export type MentorAccessKeyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MentorAccessKey.
+     */
+    data: XOR<MentorAccessKeyCreateInput, MentorAccessKeyUncheckedCreateInput>
+  }
+
+  /**
+   * MentorAccessKey createMany
+   */
+  export type MentorAccessKeyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MentorAccessKeys.
+     */
+    data: MentorAccessKeyCreateManyInput | MentorAccessKeyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MentorAccessKey createManyAndReturn
+   */
+  export type MentorAccessKeyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * The data used to create many MentorAccessKeys.
+     */
+    data: MentorAccessKeyCreateManyInput | MentorAccessKeyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MentorAccessKey update
+   */
+  export type MentorAccessKeyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MentorAccessKey.
+     */
+    data: XOR<MentorAccessKeyUpdateInput, MentorAccessKeyUncheckedUpdateInput>
+    /**
+     * Choose, which MentorAccessKey to update.
+     */
+    where: MentorAccessKeyWhereUniqueInput
+  }
+
+  /**
+   * MentorAccessKey updateMany
+   */
+  export type MentorAccessKeyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MentorAccessKeys.
+     */
+    data: XOR<MentorAccessKeyUpdateManyMutationInput, MentorAccessKeyUncheckedUpdateManyInput>
+    /**
+     * Filter which MentorAccessKeys to update
+     */
+    where?: MentorAccessKeyWhereInput
+    /**
+     * Limit how many MentorAccessKeys to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MentorAccessKey updateManyAndReturn
+   */
+  export type MentorAccessKeyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * The data used to update MentorAccessKeys.
+     */
+    data: XOR<MentorAccessKeyUpdateManyMutationInput, MentorAccessKeyUncheckedUpdateManyInput>
+    /**
+     * Filter which MentorAccessKeys to update
+     */
+    where?: MentorAccessKeyWhereInput
+    /**
+     * Limit how many MentorAccessKeys to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MentorAccessKey upsert
+   */
+  export type MentorAccessKeyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MentorAccessKey to update in case it exists.
+     */
+    where: MentorAccessKeyWhereUniqueInput
+    /**
+     * In case the MentorAccessKey found by the `where` argument doesn't exist, create a new MentorAccessKey with this data.
+     */
+    create: XOR<MentorAccessKeyCreateInput, MentorAccessKeyUncheckedCreateInput>
+    /**
+     * In case the MentorAccessKey was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MentorAccessKeyUpdateInput, MentorAccessKeyUncheckedUpdateInput>
+  }
+
+  /**
+   * MentorAccessKey delete
+   */
+  export type MentorAccessKeyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+    /**
+     * Filter which MentorAccessKey to delete.
+     */
+    where: MentorAccessKeyWhereUniqueInput
+  }
+
+  /**
+   * MentorAccessKey deleteMany
+   */
+  export type MentorAccessKeyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MentorAccessKeys to delete
+     */
+    where?: MentorAccessKeyWhereInput
+    /**
+     * Limit how many MentorAccessKeys to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MentorAccessKey without action
+   */
+  export type MentorAccessKeyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorAccessKey
+     */
+    select?: MentorAccessKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorAccessKey
+     */
+    omit?: MentorAccessKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorAccessKeyInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model User
@@ -2952,6 +5467,7 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    reviewedApplications?: boolean | User$reviewedApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3008,6 +5524,7 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    reviewedApplications?: boolean | User$reviewedApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3025,6 +5542,7 @@ export namespace Prisma {
       profile: Prisma.$ProfilePayload<ExtArgs> | null
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      reviewedApplications: Prisma.$MentorApplicationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3441,6 +5959,7 @@ export namespace Prisma {
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviewedApplications<T extends User$reviewedApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4082,6 +6601,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.reviewedApplications
+   */
+  export type User$reviewedApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MentorApplication
+     */
+    select?: MentorApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MentorApplication
+     */
+    omit?: MentorApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MentorApplicationInclude<ExtArgs> | null
+    where?: MentorApplicationWhereInput
+    orderBy?: MentorApplicationOrderByWithRelationInput | MentorApplicationOrderByWithRelationInput[]
+    cursor?: MentorApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MentorApplicationScalarFieldEnum | MentorApplicationScalarFieldEnum[]
   }
 
   /**
@@ -22454,6 +24997,39 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const MentorApplicationScalarFieldEnum: {
+    id: 'id',
+    fullName: 'fullName',
+    email: 'email',
+    organization: 'organization',
+    position: 'position',
+    yearsExperience: 'yearsExperience',
+    linkedin: 'linkedin',
+    expertise: 'expertise',
+    motivation: 'motivation',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    reviewedAt: 'reviewedAt',
+    reviewerId: 'reviewerId'
+  };
+
+  export type MentorApplicationScalarFieldEnum = (typeof MentorApplicationScalarFieldEnum)[keyof typeof MentorApplicationScalarFieldEnum]
+
+
+  export const MentorAccessKeyScalarFieldEnum: {
+    id: 'id',
+    key: 'key',
+    applicationId: 'applicationId',
+    email: 'email',
+    isUsed: 'isUsed',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type MentorAccessKeyScalarFieldEnum = (typeof MentorAccessKeyScalarFieldEnum)[keyof typeof MentorAccessKeyScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -22716,6 +25292,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ApplicationStatus'
+   */
+  export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationStatus[]'
+   */
+  export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -22733,20 +25337,6 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -22837,6 +25427,174 @@ export namespace Prisma {
    */
 
 
+  export type MentorApplicationWhereInput = {
+    AND?: MentorApplicationWhereInput | MentorApplicationWhereInput[]
+    OR?: MentorApplicationWhereInput[]
+    NOT?: MentorApplicationWhereInput | MentorApplicationWhereInput[]
+    id?: StringFilter<"MentorApplication"> | string
+    fullName?: StringFilter<"MentorApplication"> | string
+    email?: StringFilter<"MentorApplication"> | string
+    organization?: StringFilter<"MentorApplication"> | string
+    position?: StringFilter<"MentorApplication"> | string
+    yearsExperience?: StringFilter<"MentorApplication"> | string
+    linkedin?: StringNullableFilter<"MentorApplication"> | string | null
+    expertise?: StringFilter<"MentorApplication"> | string
+    motivation?: StringFilter<"MentorApplication"> | string
+    status?: EnumApplicationStatusFilter<"MentorApplication"> | $Enums.ApplicationStatus
+    createdAt?: DateTimeFilter<"MentorApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"MentorApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"MentorApplication"> | Date | string | null
+    reviewerId?: StringNullableFilter<"MentorApplication"> | string | null
+    reviewer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    accessKey?: XOR<MentorAccessKeyNullableScalarRelationFilter, MentorAccessKeyWhereInput> | null
+  }
+
+  export type MentorApplicationOrderByWithRelationInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    email?: SortOrder
+    organization?: SortOrder
+    position?: SortOrder
+    yearsExperience?: SortOrder
+    linkedin?: SortOrderInput | SortOrder
+    expertise?: SortOrder
+    motivation?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    reviewerId?: SortOrderInput | SortOrder
+    reviewer?: UserOrderByWithRelationInput
+    accessKey?: MentorAccessKeyOrderByWithRelationInput
+  }
+
+  export type MentorApplicationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    AND?: MentorApplicationWhereInput | MentorApplicationWhereInput[]
+    OR?: MentorApplicationWhereInput[]
+    NOT?: MentorApplicationWhereInput | MentorApplicationWhereInput[]
+    fullName?: StringFilter<"MentorApplication"> | string
+    organization?: StringFilter<"MentorApplication"> | string
+    position?: StringFilter<"MentorApplication"> | string
+    yearsExperience?: StringFilter<"MentorApplication"> | string
+    linkedin?: StringNullableFilter<"MentorApplication"> | string | null
+    expertise?: StringFilter<"MentorApplication"> | string
+    motivation?: StringFilter<"MentorApplication"> | string
+    status?: EnumApplicationStatusFilter<"MentorApplication"> | $Enums.ApplicationStatus
+    createdAt?: DateTimeFilter<"MentorApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"MentorApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"MentorApplication"> | Date | string | null
+    reviewerId?: StringNullableFilter<"MentorApplication"> | string | null
+    reviewer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    accessKey?: XOR<MentorAccessKeyNullableScalarRelationFilter, MentorAccessKeyWhereInput> | null
+  }, "id" | "email">
+
+  export type MentorApplicationOrderByWithAggregationInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    email?: SortOrder
+    organization?: SortOrder
+    position?: SortOrder
+    yearsExperience?: SortOrder
+    linkedin?: SortOrderInput | SortOrder
+    expertise?: SortOrder
+    motivation?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    reviewerId?: SortOrderInput | SortOrder
+    _count?: MentorApplicationCountOrderByAggregateInput
+    _max?: MentorApplicationMaxOrderByAggregateInput
+    _min?: MentorApplicationMinOrderByAggregateInput
+  }
+
+  export type MentorApplicationScalarWhereWithAggregatesInput = {
+    AND?: MentorApplicationScalarWhereWithAggregatesInput | MentorApplicationScalarWhereWithAggregatesInput[]
+    OR?: MentorApplicationScalarWhereWithAggregatesInput[]
+    NOT?: MentorApplicationScalarWhereWithAggregatesInput | MentorApplicationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MentorApplication"> | string
+    fullName?: StringWithAggregatesFilter<"MentorApplication"> | string
+    email?: StringWithAggregatesFilter<"MentorApplication"> | string
+    organization?: StringWithAggregatesFilter<"MentorApplication"> | string
+    position?: StringWithAggregatesFilter<"MentorApplication"> | string
+    yearsExperience?: StringWithAggregatesFilter<"MentorApplication"> | string
+    linkedin?: StringNullableWithAggregatesFilter<"MentorApplication"> | string | null
+    expertise?: StringWithAggregatesFilter<"MentorApplication"> | string
+    motivation?: StringWithAggregatesFilter<"MentorApplication"> | string
+    status?: EnumApplicationStatusWithAggregatesFilter<"MentorApplication"> | $Enums.ApplicationStatus
+    createdAt?: DateTimeWithAggregatesFilter<"MentorApplication"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MentorApplication"> | Date | string
+    reviewedAt?: DateTimeNullableWithAggregatesFilter<"MentorApplication"> | Date | string | null
+    reviewerId?: StringNullableWithAggregatesFilter<"MentorApplication"> | string | null
+  }
+
+  export type MentorAccessKeyWhereInput = {
+    AND?: MentorAccessKeyWhereInput | MentorAccessKeyWhereInput[]
+    OR?: MentorAccessKeyWhereInput[]
+    NOT?: MentorAccessKeyWhereInput | MentorAccessKeyWhereInput[]
+    id?: StringFilter<"MentorAccessKey"> | string
+    key?: StringFilter<"MentorAccessKey"> | string
+    applicationId?: StringFilter<"MentorAccessKey"> | string
+    email?: StringFilter<"MentorAccessKey"> | string
+    isUsed?: BoolFilter<"MentorAccessKey"> | boolean
+    usedAt?: DateTimeNullableFilter<"MentorAccessKey"> | Date | string | null
+    createdAt?: DateTimeFilter<"MentorAccessKey"> | Date | string
+    application?: XOR<MentorApplicationScalarRelationFilter, MentorApplicationWhereInput>
+  }
+
+  export type MentorAccessKeyOrderByWithRelationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    applicationId?: SortOrder
+    email?: SortOrder
+    isUsed?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    application?: MentorApplicationOrderByWithRelationInput
+  }
+
+  export type MentorAccessKeyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    key?: string
+    applicationId?: string
+    AND?: MentorAccessKeyWhereInput | MentorAccessKeyWhereInput[]
+    OR?: MentorAccessKeyWhereInput[]
+    NOT?: MentorAccessKeyWhereInput | MentorAccessKeyWhereInput[]
+    email?: StringFilter<"MentorAccessKey"> | string
+    isUsed?: BoolFilter<"MentorAccessKey"> | boolean
+    usedAt?: DateTimeNullableFilter<"MentorAccessKey"> | Date | string | null
+    createdAt?: DateTimeFilter<"MentorAccessKey"> | Date | string
+    application?: XOR<MentorApplicationScalarRelationFilter, MentorApplicationWhereInput>
+  }, "id" | "key" | "applicationId">
+
+  export type MentorAccessKeyOrderByWithAggregationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    applicationId?: SortOrder
+    email?: SortOrder
+    isUsed?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: MentorAccessKeyCountOrderByAggregateInput
+    _max?: MentorAccessKeyMaxOrderByAggregateInput
+    _min?: MentorAccessKeyMinOrderByAggregateInput
+  }
+
+  export type MentorAccessKeyScalarWhereWithAggregatesInput = {
+    AND?: MentorAccessKeyScalarWhereWithAggregatesInput | MentorAccessKeyScalarWhereWithAggregatesInput[]
+    OR?: MentorAccessKeyScalarWhereWithAggregatesInput[]
+    NOT?: MentorAccessKeyScalarWhereWithAggregatesInput | MentorAccessKeyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MentorAccessKey"> | string
+    key?: StringWithAggregatesFilter<"MentorAccessKey"> | string
+    applicationId?: StringWithAggregatesFilter<"MentorAccessKey"> | string
+    email?: StringWithAggregatesFilter<"MentorAccessKey"> | string
+    isUsed?: BoolWithAggregatesFilter<"MentorAccessKey"> | boolean
+    usedAt?: DateTimeNullableWithAggregatesFilter<"MentorAccessKey"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MentorAccessKey"> | Date | string
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -22861,6 +25619,7 @@ export namespace Prisma {
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
+    reviewedApplications?: MentorApplicationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -22884,6 +25643,7 @@ export namespace Prisma {
     profile?: ProfileOrderByWithRelationInput
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
+    reviewedApplications?: MentorApplicationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -22910,6 +25670,7 @@ export namespace Prisma {
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
+    reviewedApplications?: MentorApplicationListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -23981,6 +26742,197 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"MentorshipRequest"> | Date | string
   }
 
+  export type MentorApplicationCreateInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewer?: UserCreateNestedOneWithoutReviewedApplicationsInput
+    accessKey?: MentorAccessKeyCreateNestedOneWithoutApplicationInput
+  }
+
+  export type MentorApplicationUncheckedCreateInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewerId?: string | null
+    accessKey?: MentorAccessKeyUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type MentorApplicationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewer?: UserUpdateOneWithoutReviewedApplicationsNestedInput
+    accessKey?: MentorAccessKeyUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type MentorApplicationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewerId?: NullableStringFieldUpdateOperationsInput | string | null
+    accessKey?: MentorAccessKeyUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type MentorApplicationCreateManyInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewerId?: string | null
+  }
+
+  export type MentorApplicationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MentorApplicationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewerId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MentorAccessKeyCreateInput = {
+    id?: string
+    key: string
+    email: string
+    isUsed?: boolean
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+    application: MentorApplicationCreateNestedOneWithoutAccessKeyInput
+  }
+
+  export type MentorAccessKeyUncheckedCreateInput = {
+    id?: string
+    key: string
+    applicationId: string
+    email: string
+    isUsed?: boolean
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type MentorAccessKeyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: MentorApplicationUpdateOneRequiredWithoutAccessKeyNestedInput
+  }
+
+  export type MentorAccessKeyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MentorAccessKeyCreateManyInput = {
+    id?: string
+    key: string
+    applicationId: string
+    email: string
+    isUsed?: boolean
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type MentorAccessKeyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MentorAccessKeyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -24002,6 +26954,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -24025,6 +26978,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUpdateInput = {
@@ -24048,6 +27002,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -24071,6 +27026,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -25210,16 +28166,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type EnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  export type EnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -25233,11 +28184,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -25247,6 +28193,206 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type MentorAccessKeyNullableScalarRelationFilter = {
+    is?: MentorAccessKeyWhereInput | null
+    isNot?: MentorAccessKeyWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type MentorApplicationCountOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    email?: SortOrder
+    organization?: SortOrder
+    position?: SortOrder
+    yearsExperience?: SortOrder
+    linkedin?: SortOrder
+    expertise?: SortOrder
+    motivation?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reviewedAt?: SortOrder
+    reviewerId?: SortOrder
+  }
+
+  export type MentorApplicationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    email?: SortOrder
+    organization?: SortOrder
+    position?: SortOrder
+    yearsExperience?: SortOrder
+    linkedin?: SortOrder
+    expertise?: SortOrder
+    motivation?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reviewedAt?: SortOrder
+    reviewerId?: SortOrder
+  }
+
+  export type MentorApplicationMinOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    email?: SortOrder
+    organization?: SortOrder
+    position?: SortOrder
+    yearsExperience?: SortOrder
+    linkedin?: SortOrder
+    expertise?: SortOrder
+    motivation?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reviewedAt?: SortOrder
+    reviewerId?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type MentorApplicationScalarRelationFilter = {
+    is?: MentorApplicationWhereInput
+    isNot?: MentorApplicationWhereInput
+  }
+
+  export type MentorAccessKeyCountOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    applicationId?: SortOrder
+    email?: SortOrder
+    isUsed?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MentorAccessKeyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    applicationId?: SortOrder
+    email?: SortOrder
+    isUsed?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MentorAccessKeyMinOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    applicationId?: SortOrder
+    email?: SortOrder
+    isUsed?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type ConversationParticipantListRelationFilter = {
@@ -25290,9 +28436,10 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type MentorApplicationListRelationFilter = {
+    every?: MentorApplicationWhereInput
+    some?: MentorApplicationWhereInput
+    none?: MentorApplicationWhereInput
   }
 
   export type ConversationParticipantOrderByRelationAggregateInput = {
@@ -25316,6 +28463,10 @@ export namespace Prisma {
   }
 
   export type SessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MentorApplicationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25361,50 +28512,6 @@ export namespace Prisma {
     banExpires?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -25415,40 +28522,12 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ConversationCountOrderByAggregateInput = {
@@ -26185,6 +29264,92 @@ export namespace Prisma {
     _max?: NestedEnumRequestStatusFilter<$PrismaModel>
   }
 
+  export type UserCreateNestedOneWithoutReviewedApplicationsInput = {
+    create?: XOR<UserCreateWithoutReviewedApplicationsInput, UserUncheckedCreateWithoutReviewedApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewedApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MentorAccessKeyCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<MentorAccessKeyCreateWithoutApplicationInput, MentorAccessKeyUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: MentorAccessKeyCreateOrConnectWithoutApplicationInput
+    connect?: MentorAccessKeyWhereUniqueInput
+  }
+
+  export type MentorAccessKeyUncheckedCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<MentorAccessKeyCreateWithoutApplicationInput, MentorAccessKeyUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: MentorAccessKeyCreateOrConnectWithoutApplicationInput
+    connect?: MentorAccessKeyWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EnumApplicationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ApplicationStatus
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneWithoutReviewedApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutReviewedApplicationsInput, UserUncheckedCreateWithoutReviewedApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewedApplicationsInput
+    upsert?: UserUpsertWithoutReviewedApplicationsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewedApplicationsInput, UserUpdateWithoutReviewedApplicationsInput>, UserUncheckedUpdateWithoutReviewedApplicationsInput>
+  }
+
+  export type MentorAccessKeyUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<MentorAccessKeyCreateWithoutApplicationInput, MentorAccessKeyUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: MentorAccessKeyCreateOrConnectWithoutApplicationInput
+    upsert?: MentorAccessKeyUpsertWithoutApplicationInput
+    disconnect?: MentorAccessKeyWhereInput | boolean
+    delete?: MentorAccessKeyWhereInput | boolean
+    connect?: MentorAccessKeyWhereUniqueInput
+    update?: XOR<XOR<MentorAccessKeyUpdateToOneWithWhereWithoutApplicationInput, MentorAccessKeyUpdateWithoutApplicationInput>, MentorAccessKeyUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type MentorAccessKeyUncheckedUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<MentorAccessKeyCreateWithoutApplicationInput, MentorAccessKeyUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: MentorAccessKeyCreateOrConnectWithoutApplicationInput
+    upsert?: MentorAccessKeyUpsertWithoutApplicationInput
+    disconnect?: MentorAccessKeyWhereInput | boolean
+    delete?: MentorAccessKeyWhereInput | boolean
+    connect?: MentorAccessKeyWhereUniqueInput
+    update?: XOR<XOR<MentorAccessKeyUpdateToOneWithWhereWithoutApplicationInput, MentorAccessKeyUpdateWithoutApplicationInput>, MentorAccessKeyUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type MentorApplicationCreateNestedOneWithoutAccessKeyInput = {
+    create?: XOR<MentorApplicationCreateWithoutAccessKeyInput, MentorApplicationUncheckedCreateWithoutAccessKeyInput>
+    connectOrCreate?: MentorApplicationCreateOrConnectWithoutAccessKeyInput
+    connect?: MentorApplicationWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type MentorApplicationUpdateOneRequiredWithoutAccessKeyNestedInput = {
+    create?: XOR<MentorApplicationCreateWithoutAccessKeyInput, MentorApplicationUncheckedCreateWithoutAccessKeyInput>
+    connectOrCreate?: MentorApplicationCreateOrConnectWithoutAccessKeyInput
+    upsert?: MentorApplicationUpsertWithoutAccessKeyInput
+    connect?: MentorApplicationWhereUniqueInput
+    update?: XOR<XOR<MentorApplicationUpdateToOneWithWhereWithoutAccessKeyInput, MentorApplicationUpdateWithoutAccessKeyInput>, MentorApplicationUncheckedUpdateWithoutAccessKeyInput>
+  }
+
   export type ConversationParticipantCreateNestedManyWithoutUserInput = {
     create?: XOR<ConversationParticipantCreateWithoutUserInput, ConversationParticipantUncheckedCreateWithoutUserInput> | ConversationParticipantCreateWithoutUserInput[] | ConversationParticipantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ConversationParticipantCreateOrConnectWithoutUserInput | ConversationParticipantCreateOrConnectWithoutUserInput[]
@@ -26245,6 +29410,13 @@ export namespace Prisma {
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type MentorApplicationCreateNestedManyWithoutReviewerInput = {
+    create?: XOR<MentorApplicationCreateWithoutReviewerInput, MentorApplicationUncheckedCreateWithoutReviewerInput> | MentorApplicationCreateWithoutReviewerInput[] | MentorApplicationUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: MentorApplicationCreateOrConnectWithoutReviewerInput | MentorApplicationCreateOrConnectWithoutReviewerInput[]
+    createMany?: MentorApplicationCreateManyReviewerInputEnvelope
+    connect?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
   }
 
   export type ConversationParticipantUncheckedCreateNestedManyWithoutUserInput = {
@@ -26309,32 +29481,19 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput = {
+    create?: XOR<MentorApplicationCreateWithoutReviewerInput, MentorApplicationUncheckedCreateWithoutReviewerInput> | MentorApplicationCreateWithoutReviewerInput[] | MentorApplicationUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: MentorApplicationCreateOrConnectWithoutReviewerInput | MentorApplicationCreateOrConnectWithoutReviewerInput[]
+    createMany?: MentorApplicationCreateManyReviewerInputEnvelope
+    connect?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type ConversationParticipantUpdateManyWithoutUserNestedInput = {
@@ -26459,6 +29618,20 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type MentorApplicationUpdateManyWithoutReviewerNestedInput = {
+    create?: XOR<MentorApplicationCreateWithoutReviewerInput, MentorApplicationUncheckedCreateWithoutReviewerInput> | MentorApplicationCreateWithoutReviewerInput[] | MentorApplicationUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: MentorApplicationCreateOrConnectWithoutReviewerInput | MentorApplicationCreateOrConnectWithoutReviewerInput[]
+    upsert?: MentorApplicationUpsertWithWhereUniqueWithoutReviewerInput | MentorApplicationUpsertWithWhereUniqueWithoutReviewerInput[]
+    createMany?: MentorApplicationCreateManyReviewerInputEnvelope
+    set?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    disconnect?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    delete?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    connect?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    update?: MentorApplicationUpdateWithWhereUniqueWithoutReviewerInput | MentorApplicationUpdateWithWhereUniqueWithoutReviewerInput[]
+    updateMany?: MentorApplicationUpdateManyWithWhereWithoutReviewerInput | MentorApplicationUpdateManyWithWhereWithoutReviewerInput[]
+    deleteMany?: MentorApplicationScalarWhereInput | MentorApplicationScalarWhereInput[]
+  }
+
   export type ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ConversationParticipantCreateWithoutUserInput, ConversationParticipantUncheckedCreateWithoutUserInput> | ConversationParticipantCreateWithoutUserInput[] | ConversationParticipantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ConversationParticipantCreateOrConnectWithoutUserInput | ConversationParticipantCreateOrConnectWithoutUserInput[]
@@ -26579,6 +29752,20 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput = {
+    create?: XOR<MentorApplicationCreateWithoutReviewerInput, MentorApplicationUncheckedCreateWithoutReviewerInput> | MentorApplicationCreateWithoutReviewerInput[] | MentorApplicationUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: MentorApplicationCreateOrConnectWithoutReviewerInput | MentorApplicationCreateOrConnectWithoutReviewerInput[]
+    upsert?: MentorApplicationUpsertWithWhereUniqueWithoutReviewerInput | MentorApplicationUpsertWithWhereUniqueWithoutReviewerInput[]
+    createMany?: MentorApplicationCreateManyReviewerInputEnvelope
+    set?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    disconnect?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    delete?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    connect?: MentorApplicationWhereUniqueInput | MentorApplicationWhereUniqueInput[]
+    update?: MentorApplicationUpdateWithWhereUniqueWithoutReviewerInput | MentorApplicationUpdateWithWhereUniqueWithoutReviewerInput[]
+    updateMany?: MentorApplicationUpdateManyWithWhereWithoutReviewerInput | MentorApplicationUpdateManyWithWhereWithoutReviewerInput[]
+    deleteMany?: MentorApplicationScalarWhereInput | MentorApplicationScalarWhereInput[]
   }
 
   export type ConversationParticipantCreateNestedManyWithoutConversationInput = {
@@ -27176,16 +30363,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -27197,11 +30379,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -27271,22 +30448,14 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -27303,14 +30472,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -27323,6 +30484,49 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -27461,6 +30665,250 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRequestStatusFilter<$PrismaModel>
     _max?: NestedEnumRequestStatusFilter<$PrismaModel>
+  }
+
+  export type UserCreateWithoutReviewedApplicationsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    banned?: boolean | null
+    banReason?: string | null
+    banExpires?: Date | string | null
+    conversations?: ConversationParticipantCreateNestedManyWithoutUserInput
+    menteeMatches?: MatchCreateNestedManyWithoutMenteeInput
+    mentorMatches?: MatchCreateNestedManyWithoutMentorInput
+    sentRequests?: MentorshipRequestCreateNestedManyWithoutMenteeInput
+    receivedRequests?: MentorshipRequestCreateNestedManyWithoutMentorInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReviewedApplicationsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    banned?: boolean | null
+    banReason?: string | null
+    banExpires?: Date | string | null
+    conversations?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    menteeMatches?: MatchUncheckedCreateNestedManyWithoutMenteeInput
+    mentorMatches?: MatchUncheckedCreateNestedManyWithoutMentorInput
+    sentRequests?: MentorshipRequestUncheckedCreateNestedManyWithoutMenteeInput
+    receivedRequests?: MentorshipRequestUncheckedCreateNestedManyWithoutMentorInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReviewedApplicationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReviewedApplicationsInput, UserUncheckedCreateWithoutReviewedApplicationsInput>
+  }
+
+  export type MentorAccessKeyCreateWithoutApplicationInput = {
+    id?: string
+    key: string
+    email: string
+    isUsed?: boolean
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type MentorAccessKeyUncheckedCreateWithoutApplicationInput = {
+    id?: string
+    key: string
+    email: string
+    isUsed?: boolean
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type MentorAccessKeyCreateOrConnectWithoutApplicationInput = {
+    where: MentorAccessKeyWhereUniqueInput
+    create: XOR<MentorAccessKeyCreateWithoutApplicationInput, MentorAccessKeyUncheckedCreateWithoutApplicationInput>
+  }
+
+  export type UserUpsertWithoutReviewedApplicationsInput = {
+    update: XOR<UserUpdateWithoutReviewedApplicationsInput, UserUncheckedUpdateWithoutReviewedApplicationsInput>
+    create: XOR<UserCreateWithoutReviewedApplicationsInput, UserUncheckedCreateWithoutReviewedApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReviewedApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReviewedApplicationsInput, UserUncheckedUpdateWithoutReviewedApplicationsInput>
+  }
+
+  export type UserUpdateWithoutReviewedApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    conversations?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    menteeMatches?: MatchUpdateManyWithoutMenteeNestedInput
+    mentorMatches?: MatchUpdateManyWithoutMentorNestedInput
+    sentRequests?: MentorshipRequestUpdateManyWithoutMenteeNestedInput
+    receivedRequests?: MentorshipRequestUpdateManyWithoutMentorNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReviewedApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    conversations?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    menteeMatches?: MatchUncheckedUpdateManyWithoutMenteeNestedInput
+    mentorMatches?: MatchUncheckedUpdateManyWithoutMentorNestedInput
+    sentRequests?: MentorshipRequestUncheckedUpdateManyWithoutMenteeNestedInput
+    receivedRequests?: MentorshipRequestUncheckedUpdateManyWithoutMentorNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MentorAccessKeyUpsertWithoutApplicationInput = {
+    update: XOR<MentorAccessKeyUpdateWithoutApplicationInput, MentorAccessKeyUncheckedUpdateWithoutApplicationInput>
+    create: XOR<MentorAccessKeyCreateWithoutApplicationInput, MentorAccessKeyUncheckedCreateWithoutApplicationInput>
+    where?: MentorAccessKeyWhereInput
+  }
+
+  export type MentorAccessKeyUpdateToOneWithWhereWithoutApplicationInput = {
+    where?: MentorAccessKeyWhereInput
+    data: XOR<MentorAccessKeyUpdateWithoutApplicationInput, MentorAccessKeyUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type MentorAccessKeyUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MentorAccessKeyUncheckedUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MentorApplicationCreateWithoutAccessKeyInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewer?: UserCreateNestedOneWithoutReviewedApplicationsInput
+  }
+
+  export type MentorApplicationUncheckedCreateWithoutAccessKeyInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewerId?: string | null
+  }
+
+  export type MentorApplicationCreateOrConnectWithoutAccessKeyInput = {
+    where: MentorApplicationWhereUniqueInput
+    create: XOR<MentorApplicationCreateWithoutAccessKeyInput, MentorApplicationUncheckedCreateWithoutAccessKeyInput>
+  }
+
+  export type MentorApplicationUpsertWithoutAccessKeyInput = {
+    update: XOR<MentorApplicationUpdateWithoutAccessKeyInput, MentorApplicationUncheckedUpdateWithoutAccessKeyInput>
+    create: XOR<MentorApplicationCreateWithoutAccessKeyInput, MentorApplicationUncheckedCreateWithoutAccessKeyInput>
+    where?: MentorApplicationWhereInput
+  }
+
+  export type MentorApplicationUpdateToOneWithWhereWithoutAccessKeyInput = {
+    where?: MentorApplicationWhereInput
+    data: XOR<MentorApplicationUpdateWithoutAccessKeyInput, MentorApplicationUncheckedUpdateWithoutAccessKeyInput>
+  }
+
+  export type MentorApplicationUpdateWithoutAccessKeyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewer?: UserUpdateOneWithoutReviewedApplicationsNestedInput
+  }
+
+  export type MentorApplicationUncheckedUpdateWithoutAccessKeyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ConversationParticipantCreateWithoutUserInput = {
@@ -27730,6 +31178,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MentorApplicationCreateWithoutReviewerInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
+    accessKey?: MentorAccessKeyCreateNestedOneWithoutApplicationInput
+  }
+
+  export type MentorApplicationUncheckedCreateWithoutReviewerInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
+    accessKey?: MentorAccessKeyUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type MentorApplicationCreateOrConnectWithoutReviewerInput = {
+    where: MentorApplicationWhereUniqueInput
+    create: XOR<MentorApplicationCreateWithoutReviewerInput, MentorApplicationUncheckedCreateWithoutReviewerInput>
+  }
+
+  export type MentorApplicationCreateManyReviewerInputEnvelope = {
+    data: MentorApplicationCreateManyReviewerInput | MentorApplicationCreateManyReviewerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ConversationParticipantUpsertWithWhereUniqueWithoutUserInput = {
     where: ConversationParticipantWhereUniqueInput
     update: XOR<ConversationParticipantUpdateWithoutUserInput, ConversationParticipantUncheckedUpdateWithoutUserInput>
@@ -27987,6 +31479,42 @@ export namespace Prisma {
     impersonatedBy?: StringNullableFilter<"Session"> | string | null
   }
 
+  export type MentorApplicationUpsertWithWhereUniqueWithoutReviewerInput = {
+    where: MentorApplicationWhereUniqueInput
+    update: XOR<MentorApplicationUpdateWithoutReviewerInput, MentorApplicationUncheckedUpdateWithoutReviewerInput>
+    create: XOR<MentorApplicationCreateWithoutReviewerInput, MentorApplicationUncheckedCreateWithoutReviewerInput>
+  }
+
+  export type MentorApplicationUpdateWithWhereUniqueWithoutReviewerInput = {
+    where: MentorApplicationWhereUniqueInput
+    data: XOR<MentorApplicationUpdateWithoutReviewerInput, MentorApplicationUncheckedUpdateWithoutReviewerInput>
+  }
+
+  export type MentorApplicationUpdateManyWithWhereWithoutReviewerInput = {
+    where: MentorApplicationScalarWhereInput
+    data: XOR<MentorApplicationUpdateManyMutationInput, MentorApplicationUncheckedUpdateManyWithoutReviewerInput>
+  }
+
+  export type MentorApplicationScalarWhereInput = {
+    AND?: MentorApplicationScalarWhereInput | MentorApplicationScalarWhereInput[]
+    OR?: MentorApplicationScalarWhereInput[]
+    NOT?: MentorApplicationScalarWhereInput | MentorApplicationScalarWhereInput[]
+    id?: StringFilter<"MentorApplication"> | string
+    fullName?: StringFilter<"MentorApplication"> | string
+    email?: StringFilter<"MentorApplication"> | string
+    organization?: StringFilter<"MentorApplication"> | string
+    position?: StringFilter<"MentorApplication"> | string
+    yearsExperience?: StringFilter<"MentorApplication"> | string
+    linkedin?: StringNullableFilter<"MentorApplication"> | string | null
+    expertise?: StringFilter<"MentorApplication"> | string
+    motivation?: StringFilter<"MentorApplication"> | string
+    status?: EnumApplicationStatusFilter<"MentorApplication"> | $Enums.ApplicationStatus
+    createdAt?: DateTimeFilter<"MentorApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"MentorApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"MentorApplication"> | Date | string | null
+    reviewerId?: StringNullableFilter<"MentorApplication"> | string | null
+  }
+
   export type ConversationParticipantCreateWithoutConversationInput = {
     user: UserCreateNestedOneWithoutConversationsInput
   }
@@ -28098,6 +31626,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutConversationsInput = {
@@ -28120,6 +31649,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutConversationsInput = {
@@ -28181,6 +31711,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsInput = {
@@ -28203,6 +31734,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type ConversationCreateWithoutMessagesInput = {
@@ -28242,6 +31774,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -28264,6 +31797,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -28325,6 +31859,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -28347,6 +31882,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type AvailabilityCreateWithoutProfileInput = {
@@ -28393,6 +31929,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -28415,6 +31952,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -28516,6 +32054,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -28538,6 +32077,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type ProfileInterestUpsertWithWhereUniqueWithoutProfileInput = {
@@ -28608,6 +32148,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -28630,6 +32171,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -28668,6 +32210,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -28690,6 +32233,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -28712,6 +32256,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -28734,6 +32279,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -28772,6 +32318,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -28794,6 +32341,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type ProfileInterestCreateWithoutInterestInput = {
@@ -29244,6 +32792,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutMenteeMatchesInput = {
@@ -29266,6 +32815,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutMenteeMatchesInput = {
@@ -29293,6 +32843,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutMentorMatchesInput = {
@@ -29315,6 +32866,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutMentorMatchesInput = {
@@ -29353,6 +32905,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMenteeMatchesInput = {
@@ -29375,6 +32928,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUpsertWithoutMentorMatchesInput = {
@@ -29408,6 +32962,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMentorMatchesInput = {
@@ -29430,6 +32985,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserCreateWithoutSentRequestsInput = {
@@ -29452,6 +33008,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutSentRequestsInput = {
@@ -29474,6 +33031,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutSentRequestsInput = {
@@ -29501,6 +33059,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationCreateNestedManyWithoutReviewerInput
   }
 
   export type UserUncheckedCreateWithoutReceivedRequestsInput = {
@@ -29523,6 +33082,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    reviewedApplications?: MentorApplicationUncheckedCreateNestedManyWithoutReviewerInput
   }
 
   export type UserCreateOrConnectWithoutReceivedRequestsInput = {
@@ -29561,6 +33121,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentRequestsInput = {
@@ -29583,6 +33144,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUpsertWithoutReceivedRequestsInput = {
@@ -29616,6 +33178,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUpdateManyWithoutReviewerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedRequestsInput = {
@@ -29638,6 +33201,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    reviewedApplications?: MentorApplicationUncheckedUpdateManyWithoutReviewerNestedInput
   }
 
   export type ConversationParticipantCreateManyUserInput = {
@@ -29709,6 +33273,22 @@ export namespace Prisma {
     ipAddress?: string | null
     userAgent?: string | null
     impersonatedBy?: string | null
+  }
+
+  export type MentorApplicationCreateManyReviewerInput = {
+    id?: string
+    fullName: string
+    email: string
+    organization: string
+    position: string
+    yearsExperience: string
+    linkedin?: string | null
+    expertise: string
+    motivation: string
+    status?: $Enums.ApplicationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedAt?: Date | string | null
   }
 
   export type ConversationParticipantUpdateWithoutUserInput = {
@@ -29922,6 +33502,56 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     impersonatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MentorApplicationUpdateWithoutReviewerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessKey?: MentorAccessKeyUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type MentorApplicationUncheckedUpdateWithoutReviewerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accessKey?: MentorAccessKeyUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type MentorApplicationUncheckedUpdateManyWithoutReviewerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    organization?: StringFieldUpdateOperationsInput | string
+    position?: StringFieldUpdateOperationsInput | string
+    yearsExperience?: StringFieldUpdateOperationsInput | string
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    expertise?: StringFieldUpdateOperationsInput | string
+    motivation?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ConversationParticipantCreateManyConversationInput = {

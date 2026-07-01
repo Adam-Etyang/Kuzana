@@ -120,6 +120,33 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.MentorApplicationScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  organization: 'organization',
+  position: 'position',
+  yearsExperience: 'yearsExperience',
+  linkedin: 'linkedin',
+  expertise: 'expertise',
+  motivation: 'motivation',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  reviewedAt: 'reviewedAt',
+  reviewerId: 'reviewerId'
+};
+
+exports.Prisma.MentorAccessKeyScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  applicationId: 'applicationId',
+  email: 'email',
+  isUsed: 'isUsed',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -298,6 +325,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Role = exports.$Enums.Role = {
   MENTOR: 'MENTOR',
   MENTEE: 'MENTEE',
@@ -333,6 +366,8 @@ exports.RequestStatus = exports.$Enums.RequestStatus = {
 };
 
 exports.Prisma.ModelName = {
+  MentorApplication: 'MentorApplication',
+  MentorAccessKey: 'MentorAccessKey',
   User: 'User',
   Conversation: 'Conversation',
   ConversationParticipant: 'ConversationParticipant',
