@@ -25,6 +25,18 @@ export class UsersController {
     return session;
   }
 
+  @Get()
+  @UseGuards(AuthGuard)
+  async getAllUsers() {
+    return this.usersService.getAllUsers();
+  }
+
+  @Get('stats')
+  @UseGuards(AuthGuard)
+  async getStats() {
+    return this.usersService.getAdminStats();
+  }
+
   @Get('mentors')
   @UseGuards(AuthGuard)
   async getMentors() {

@@ -9,6 +9,7 @@ import { ProfileModule } from './profile/profile.module.js';
 import { MatchingModule } from './matching/matching.module.js';
 import { MessagingModule } from './messaging/messaging.module.js';
 import { RequestsModule } from './requests/requests.module.js';
+import { ApplicationsModule } from './applications/applications.module.js';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RequestsModule } from './requests/requests.module.js';
     MatchingModule,
     MessagingModule,
     RequestsModule,
+    ApplicationsModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: 'PRISMA', useValue: prisma }],
