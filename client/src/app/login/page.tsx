@@ -321,7 +321,7 @@ export default function LoginPage() {
                   </Link>
                   <span className="text-gray-300">·</span>
                   <Link
-                    href="/mentor/signup"
+                    href="/mentor/apply"
                     className="text-[#112250] font-semibold hover:underline underline-offset-2"
                   >
                     Mentor sign up
