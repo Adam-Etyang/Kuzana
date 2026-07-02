@@ -5,8 +5,7 @@ const PUBLIC_PATHS = [
   "/",
   "/login",
   "/student/signup",
-  "/mentor/auth",
-  "/mentor/signup",
+  "/mentor/apply",
 ];
 
 const SESSION_COOKIE_PREFIX = "better-auth.session_token";

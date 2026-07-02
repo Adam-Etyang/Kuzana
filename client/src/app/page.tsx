@@ -336,7 +336,7 @@ export default function HomePage() {
                 Log in
               </Link>
               <Link
-                href="/mentor/auth"
+                href="/mentor/apply"
                 className="text-sm font-semibold text-white/50 hover:text-white px-3 py-2 transition-colors duration-200"
               >
                 Mentor Portal
@@ -375,7 +375,7 @@ export default function HomePage() {
               ))}
               <div className="flex flex-col gap-2.5 mt-4 pt-4 border-t border-white/10">
                 <Link
-                  href="/mentor/auth"
+                  href="/mentor/apply"
                   className="border border-white/25 text-white py-3 px-4 rounded-xl font-semibold text-sm text-center hover:bg-white/10 transition"
                 >
                   Mentor Portal
@@ -435,7 +435,7 @@ export default function HomePage() {
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link
-                    href="/mentor/auth"
+                    href="/mentor/apply"
                     className="group border border-white/20 bg-white/5 hover:bg-white/[0.09] hover:border-white/35 px-8 py-4 rounded-xl text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center gap-2"
                   >
                     Become a Mentor
@@ -782,7 +782,7 @@ export default function HomePage() {
                 Whether you have one hour a month or one hour a week — your experience is exactly what a student needs to avoid costly career mistakes.
               </p>
               <Link
-                href="/mentor/auth"
+                href="/mentor/apply"
                 className="group inline-flex items-center gap-2 mt-10 bg-[#112250] text-white px-7 py-4 rounded-xl text-sm font-bold hover:bg-[#1a2f60] hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#112250]/20 transition-all duration-200"
               >
                 Apply as a Mentor
@@ -851,7 +851,7 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/mentor/auth"
+                href="/mentor/apply"
                 className="border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/35 px-9 py-4 rounded-xl text-sm font-semibold transition-all duration-200 text-center"
               >
                 Join as a Mentor
@@ -886,7 +886,7 @@ export default function HomePage() {
                 title: "Platform",
                 links: [
                   { href: "/login", label: "Student Login" },
-                  { href: "/mentor/auth", label: "Mentor Portal" },
+                  { href: "/mentor/apply", label: "Mentor Portal" },
                   { href: "/login", label: "Admin Login" },
                 ],
               },

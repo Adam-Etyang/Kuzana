@@ -120,8 +120,8 @@ export class ApplicationsService {
     await sendEmail({
       to: application.email,
       subject: 'Your Kuzana Mentor Access Key',
-      text: `Congratulations! Your mentor application has been approved.\n\nYour access key: ${key}\n\nUse this key to create your mentor account at http://localhost:3000/mentor/signup`,
-      html: `<p>Congratulations! Your mentor application has been approved.</p><p>Your access key: <strong>${key}</strong></p><p><a href="http://localhost:3000/mentor/signup">Click here to create your mentor account</a></p>`,
+      text: `Congratulations! Your mentor application has been approved.\n\nYour access key: ${key}\n\nUse this key to create your mentor account at http://localhost:3000/mentor/apply?key=${key}`,
+      html: `<p>Congratulations! Your mentor application has been approved.</p><p>Your access key: <strong>${key}</strong></p><p><a href="http://localhost:3000/mentor/apply?key=${key}">Click here to create your mentor account</a></p>`,
     }).catch((err) => {
       console.error('[applications] Failed to send approval email:', err);
     });
@@ -166,6 +166,23 @@ export class ApplicationsService {
     }
 
     return { valid: true, message: 'Access key is valid.' };
+  }
+
+  async getApplicationByKey(key: string) {
+    const accessKey = await this.prisma.mentorAccessKey.findUnique({
+      where: { key },
+      include: { application: true },
+    });
+    if (!accessKey) throw new NotFoundException('Invalid access key.');
+    if (accessKey.isUsed) {
+      throw new BadRequestException('This access key has already been used.');
+    }
+    return {
+      key: accessKey.key,
+      email: accessKey.email,
+      fullName: accessKey.application.fullName,
+      isUsed: accessKey.isUsed,
+    };
   }
 
   async consumeAccessKey(key: string, email: string) {

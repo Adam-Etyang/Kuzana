@@ -43,6 +43,12 @@ export class ApplicationsController {
     return this.applicationsService.getPendingApplications();
   }
 
+  @Get('by-key/:key')
+  @AllowAnonymous()
+  async getApplicationByKey(@Param('key') key: string) {
+    return this.applicationsService.getApplicationByKey(key);
+  }
+
   @Get(':id')
   async getApplicationById(@Param('id') id: string) {
     return this.applicationsService.getApplicationById(id);
