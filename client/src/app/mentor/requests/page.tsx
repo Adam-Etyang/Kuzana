@@ -240,13 +240,19 @@ export default function RequestsPage() {
     const matchesSearch =
       r.name.toLowerCase().includes(search.toLowerCase()) ||
       r.major.toLowerCase().includes(search.toLowerCase());
+
     const matchesFilter = filter === "All" || r.status === filter;
+
     return matchesSearch && matchesFilter;
   });
 
   type FilterLabel = "All" | "pending" | "approved" | "rejected";
 
-  const filterLabels: Array<{ key: FilterLabel; label: string; count: number }> = [
+  const filterLabels: Array<{
+    key: FilterLabel;
+    label: string;
+    count: number;
+  }> = [
     { key: "All", label: "All", count: requests.length },
     { key: "pending", label: "Pending", count: pendingCount },
     { key: "approved", label: "Approved", count: approvedCount },
@@ -256,81 +262,122 @@ export default function RequestsPage() {
   return (
     <DashboardShell sidebar={<MentorSidebar />}>
       {/* ── Header ──────────────────────────────────────────────── */}
-      <div className="mb-6">
-        <h1 className="text-xl font-bold text-[#112250]">Mentorship Requests</h1>
-        <p className="text-sm text-gray-400 mt-0.5">
-          Review and respond to students who want to be your mentees.
-        </p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div>
+          <h1 className="text-xl font-bold text-[#112250]">
+            Mentorship Requests
+          </h1>
+          <p className="text-sm text-gray-400 mt-0.5">
+            Review and respond to students who want to be your mentees.
+          </p>
+        </div>
+
+        {/* Search */}
+        <div className="relative w-full md:w-96">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+
+          <input
+            type="text"
+            placeholder="Search by name or programme..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border-2 border-gray-200 bg-white shadow-sm text-[#112250] placeholder:text-gray-400 focus:outline-none focus:border-[#112250] focus:ring-4 focus:ring-[#112250]/10 transition-all"
+          />
+        </div>
       </div>
 
       {/* ── Summary strip ───────────────────────────────────────── */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-amber-600">{pendingCount}</p>
+          <p className="text-2xl font-bold text-amber-600">
+            {pendingCount}
+          </p>
           <p className="text-xs text-gray-400 mt-0.5">Pending</p>
         </div>
+
         <div className="bg-[#112250] rounded-xl p-4 text-center shadow-sm">
-          <p className="text-2xl font-bold text-white">{approvedCount}</p>
-          <p className="text-xs text-blue-200 mt-0.5">Approved</p>
-        </div>
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-gray-400">{rejectedCount}</p>
-          <p className="text-xs text-gray-400 mt-0.5">Rejected</p>
-        </div>
-      </div>
-
-      {/* ── Search + tabs ────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-5">
-        <input
-          type="text"
-          placeholder="Search by name or programme…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 text-sm border border-gray-200 rounded-xl px-4 py-2.5 text-[#112250] placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-[#112250]/20 focus:border-[#112250]/40 transition"
-        />
-        <div className="flex gap-1.5 flex-wrap">
-          {filterLabels.map(({ key, label, count }) => (
-            <button
-              key={key}
-              onClick={() => setFilter(key)}
-              className={`text-xs font-semibold px-3 py-2 rounded-xl border transition-colors flex items-center gap-1.5 ${
-                filter === key
-                  ? "bg-[#112250] text-white border-[#112250]"
-                  : "bg-white text-gray-500 border-gray-200 hover:border-[#112250]/30 hover:text-[#112250]"
-              }`}
-            >
-              {label}
-              <span
-                className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
-                  filter === key
-                    ? "bg-white/20 text-white"
-                    : "bg-gray-100 text-gray-500"
-                }`}
-              >
-                {count}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Pending alert ────────────────────────────────────────── */}
-      {pendingCount > 0 && filter !== "approved" && filter !== "rejected" && (
-        <div className="mb-5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex items-center gap-3">
-          <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
-          <p className="text-xs text-amber-800 font-medium">
-            You have{" "}
-            <span className="font-bold">{pendingCount} pending</span>{" "}
-            {pendingCount === 1 ? "request" : "requests"} waiting for your
-            response.
+          <p className="text-2xl font-bold text-white">
+            {approvedCount}
+          </p>
+          <p className="text-xs text-blue-200 mt-0.5">
+            Approved
           </p>
         </div>
-      )}
 
-      {/* ── Request cards ────────────────────────────────────────── */}
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 text-center">
+          <p className="text-2xl font-bold text-gray-400">
+            {rejectedCount}
+          </p>
+          <p className="text-xs text-gray-400 mt-0.5">
+            Rejected
+          </p>
+        </div>
+      </div>
+
+      {/* ── Filters ─────────────────────────────────────────────── */}
+      <div className="flex gap-2 flex-wrap mb-5">
+        {filterLabels.map(({ key, label, count }) => (
+          <button
+            key={key}
+            onClick={() => setFilter(key)}
+            className={`text-xs font-semibold px-3 py-2 rounded-xl border transition-colors flex items-center gap-1.5 ${
+              filter === key
+                ? "bg-[#112250] text-white border-[#112250]"
+                : "bg-white text-gray-500 border-gray-200 hover:border-[#112250]/30 hover:text-[#112250]"
+            }`}
+          >
+            {label}
+
+            <span
+              className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                filter === key
+                  ? "bg-white/20 text-white"
+                  : "bg-gray-100 text-gray-500"
+              }`}
+            >
+              {count}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* ── Pending alert ───────────────────────────────────────── */}
+      {pendingCount > 0 &&
+        filter !== "approved" &&
+        filter !== "rejected" && (
+          <div className="mb-5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+
+            <p className="text-xs text-amber-800 font-medium">
+              You have{" "}
+              <span className="font-bold">
+                {pendingCount} pending
+              </span>{" "}
+              {pendingCount === 1 ? "request" : "requests"} waiting
+              for your response.
+            </p>
+          </div>
+        )}
+
+      {/* ── Request cards ───────────────────────────────────────── */}
       {filtered.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
-          <p className="text-sm font-semibold text-gray-400">No requests found.</p>
+          <p className="text-sm font-semibold text-gray-400">
+            No requests found.
+          </p>
           <p className="text-xs text-gray-300 mt-1">
             Try adjusting your search or filter.
           </p>

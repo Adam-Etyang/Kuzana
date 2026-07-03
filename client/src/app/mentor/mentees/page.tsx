@@ -205,74 +205,123 @@ export default function MenteesPage() {
     const matchesSearch =
       m.name.toLowerCase().includes(search.toLowerCase()) ||
       m.programme.toLowerCase().includes(search.toLowerCase());
+
     const matchesFilter = filter === "All" || m.status === filter;
+
     return matchesSearch && matchesFilter;
   });
 
   const activeCount = MENTEES.filter((m) => m.status === "Active").length;
+
   const avgCompat = Math.round(
     MENTEES.reduce((acc, m) => acc + m.compatibility, 0) / MENTEES.length,
   );
-  const totalSessions = MENTEES.reduce((acc, m) => acc + m.totalSessions, 0);
 
-  const filters: Array<MenteeStatus | "All"> = ["All", "Active", "Inactive", "Completed"];
+  const totalSessions = MENTEES.reduce(
+    (acc, m) => acc + m.totalSessions,
+    0,
+  );
+
+  const filters: Array<MenteeStatus | "All"> = [
+    "All",
+    "Active",
+    "Inactive",
+    "Completed",
+  ];
 
   return (
     <DashboardShell sidebar={<MentorSidebar />}>
       {/* ── Header ──────────────────────────────────────────────── */}
-      <div className="mb-6">
-        <h1 className="text-xl font-bold text-[#112250]">Your Mentees</h1>
-        <p className="text-sm text-gray-400 mt-0.5">
-          Students currently assigned to you.
-        </p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div>
+          <h1 className="text-xl font-bold text-[#112250]">
+            Your Mentees
+          </h1>
+          <p className="text-sm text-gray-400 mt-0.5">
+            Students currently assigned to you.
+          </p>
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative w-full md:w-96">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+
+          <input
+            type="text"
+            placeholder="Search by name or programme..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border-2 border-gray-200 bg-white shadow-sm text-[#112250] placeholder:text-gray-400 focus:outline-none focus:border-[#112250] focus:ring-4 focus:ring-[#112250]/10 transition-all"
+          />
+        </div>
       </div>
 
       {/* ── Summary strip ───────────────────────────────────────── */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-[#112250]">{activeCount}</p>
-          <p className="text-xs text-gray-400 mt-0.5">Active mentees</p>
+          <p className="text-2xl font-bold text-[#112250]">
+            {activeCount}
+          </p>
+          <p className="text-xs text-gray-400 mt-0.5">
+            Active mentees
+          </p>
         </div>
+
         <div className="bg-[#112250] rounded-xl p-4 text-center shadow-sm">
-          <p className="text-2xl font-bold text-white">{totalSessions}</p>
-          <p className="text-xs text-blue-200 mt-0.5">Total sessions</p>
+          <p className="text-2xl font-bold text-white">
+            {totalSessions}
+          </p>
+          <p className="text-xs text-blue-200 mt-0.5">
+            Total sessions
+          </p>
         </div>
+
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-[#C9A84C]">{avgCompat}%</p>
-          <p className="text-xs text-gray-400 mt-0.5">Avg compatibility</p>
+          <p className="text-2xl font-bold text-[#C9A84C]">
+            {avgCompat}%
+          </p>
+          <p className="text-xs text-gray-400 mt-0.5">
+            Avg compatibility
+          </p>
         </div>
       </div>
 
-      {/* ── Search + filter ─────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-5">
-        <input
-          type="text"
-          placeholder="Search by name or programme…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 text-sm border border-gray-200 rounded-xl px-4 py-2.5 text-[#112250] placeholder:text-white-300 focus:outline-none focus:ring-2 focus:ring-[#112250]/20 focus:border-[#112250]/40 transition"
-        />
-        <div className="flex gap-1.5">
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`text-xs font-semibold px-3 py-2 rounded-xl border transition-colors ${
-                filter === f
-                  ? "bg-[#112250] text-white border-[#112250]"
-                  : "bg-white text-gray-500 border-gray-200 hover:border-[#112250]/30 hover:text-[#112250]"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
+      {/* ── Filters ─────────────────────────────────────────────── */}
+      <div className="flex flex-wrap gap-2 mb-5">
+        {filters.map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`text-xs font-semibold px-3 py-2 rounded-xl border transition-colors ${
+              filter === f
+                ? "bg-[#112250] text-white border-[#112250]"
+                : "bg-white text-gray-500 border-gray-200 hover:border-[#112250]/30 hover:text-[#112250]"
+            }`}
+          >
+            {f}
+          </button>
+        ))}
       </div>
 
       {/* ── Mentee cards ────────────────────────────────────────── */}
       {filtered.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
-          <p className="text-sm font-semibold text-gray-400">No mentees found.</p>
+          <p className="text-sm font-semibold text-gray-400">
+            No mentees found.
+          </p>
           <p className="text-xs text-gray-300 mt-1">
             Try adjusting your search or filter.
           </p>

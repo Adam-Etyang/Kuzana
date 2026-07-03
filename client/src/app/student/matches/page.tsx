@@ -32,11 +32,7 @@ export default function MatchesPage() {
             title="Your Best Matches"
             subtitle="Mentors ranked by compatibility with your goals, interests, and profile."
           />
-
-          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
-            <Sparkles className="w-3.5 h-3.5 text-[#E0C58F]" />
-            AI-assisted matching based on your onboarding profile
-          </p>
+          
         </div>
 
         {/* Actions */}

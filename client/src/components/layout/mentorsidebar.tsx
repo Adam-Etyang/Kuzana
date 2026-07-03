@@ -6,6 +6,7 @@ import {
   DoorOpen,
   FileText,
   LayoutDashboard,
+  MessageCircle,
   Users,
 } from "lucide-react";
 import {signOutUser} from "@/app/auth";
@@ -29,6 +30,11 @@ export default function MentorSidebar() {
       label: "Requests",
       icon: FileText,
     },
+    {
+          href: "/mentor/messages",
+          label: "Messages",
+          icon: MessageCircle,
+        },
     {
       href: "/mentor/profile",      label: "Profile",
       icon: Users,

@@ -32,10 +32,7 @@ export default function RequestsPage() {
             subtitle="Track, manage, and follow up on your mentorship applications."
           />
 
-          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
-            <Inbox className="w-3.5 h-3.5 text-[#E0C58F]" />
-            This is your mentorship pipeline
-          </p>
+      
         </div>
 
         {/* FILTER */}

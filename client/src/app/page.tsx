@@ -558,7 +558,7 @@ export default function HomePage() {
               <FeatureCard
                 icon={Sparkles}
                 title="Smart Compatibility Matching"
-                desc="Our algorithm weighs your field of study, career goals, mentorship style preferences, and availability to surface mentors who will actually move you forward — not just anyone available."
+                desc="Our algorithm weighs your field of study, career goals, mentorship style preferences, and availability to surface mentors who will actually move you forward not just anyone available."
                 tag="Core Feature"
                 dark
               />
@@ -571,13 +571,13 @@ export default function HomePage() {
             <FeatureCard
               icon={GraduationCap}
               title="Real Industry Mentors"
-              desc="Verified professionals from product, engineering, finance, entrepreneurship, and more — not career coaches."
+              desc="Verified professionals from product, engineering, finance, entrepreneurship, and more, not career coaches."
             />
             <div className="lg:col-span-2">
               <FeatureCard
                 icon={Users}
                 title="Multi-Mentor Support"
-                desc="Career growth is rarely linear. Kuzana lets you build relationships across multiple domains — so as your path evolves, your mentorship network can evolve with it."
+                desc="Career growth is rarely linear. Kuzana lets you build relationships across multiple domains so as your path evolves, your mentorship network can evolve with it."
               />
             </div>
           </div>
@@ -753,7 +753,7 @@ export default function HomePage() {
                 field="Computer Science"
               />
               <TestimonialCard
-                quote="Kuzana made mentorship feel structured and not intimidating at all. I was terrified of reaching out to professionals — this made it completely natural."
+                quote="Kuzana made mentorship feel structured and not intimidating at all. I was terrified of reaching out to professionals this made it completely natural."
                 name="Grace A."
                 role="2nd Year"
                 field="UX Design"
@@ -779,7 +779,7 @@ export default function HomePage() {
                 generation of talent.
               </h2>
               <p className="mt-7 text-[#6B7280] text-[1rem] leading-[1.8] max-w-md">
-                Whether you have one hour a month or one hour a week — your experience is exactly what a student needs to avoid costly career mistakes.
+                Whether you have one hour a month or one hour a week your experience is exactly what a student needs to avoid costly career mistakes.
               </p>
               <Link
                 href="/mentor/apply"
