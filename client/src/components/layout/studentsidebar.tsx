@@ -8,6 +8,7 @@ import {
   Users,
   FileText,
   DoorOpen,
+  MessageCircle,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useProfile } from "@/lib/use-profile";
@@ -36,15 +37,21 @@ export default function StudentSidebar() {
       icon: Search,
     },
     {
-      href: "/student/matches",
-      label: "Matches",
-      icon: Users,
-    },
-    {
       href: "/student/requests",
       label: "Requests",
       icon: FileText,
     },
+    {
+      href: "/student/messages",
+      label: "Messages",
+      icon: MessageCircle,
+    },
+    {
+      href: "/student/matches",
+      label: "Matches",
+      icon: Users,
+    },
+    
     {
   href: "/student/profile",
   label: "Profile",

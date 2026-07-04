@@ -145,9 +145,7 @@ export default function LoginPage() {
           {/* Top: brand */}
           <div className="relative z-10 animate-fade-up">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-[#E0C58F] flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-[#112250]" />
-              </div>
+              
               <span className="text-lg font-bold text-[#E0C58F] tracking-[0.08em]">KUZANA</span>
             </div>
           </div>
@@ -162,7 +160,7 @@ export default function LoginPage() {
                 <span className="text-[#E0C58F]">starts here.</span>
               </h2>
               <p className="mt-4 text-white/65 text-sm leading-relaxed max-w-xs">
-                Sign in to continue your mentorship journey — students, mentors, and admins all in one place.
+                Sign in to continue your mentorship journey. Connect with students, mentors, and admins all in one place.
               </p>
             </div>
 
@@ -181,28 +179,6 @@ export default function LoginPage() {
                   {label}
                 </div>
               ))}
-            </div>
-
-            {/* Floating match card */}
-            <div className="animate-float animate-fade-up delay-300">
-              <div className="bg-white/8 border border-white/15 backdrop-blur-sm rounded-2xl p-4 max-w-xs">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-white/50 font-medium tracking-wide">Your match is ready</span>
-                  <span className="text-xs bg-green-400/20 text-green-300 px-2 py-0.5 rounded-full flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-                    94% fit
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#E0C58F] to-[#c9a96e] flex items-center justify-center text-[#112250] font-bold text-xs flex-shrink-0">
-                    JM
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">James Mutua</p>
-                    <p className="text-white/50 text-xs">Senior PM · Safaricom</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 

@@ -4,34 +4,71 @@ import DashboardShell from "@/components/layout/dashboardshell";
 import MentorSidebar from "@/components/layout/mentorsidebar";
 import Link from "next/link";
 import {
+  User,
   Mail,
+  Phone,
+  MapPin,
   Briefcase,
   Building,
+  Clock,
   Calendar,
+  Star,
   Pencil,
   Award,
-  Loader2,
-  AlertCircle,
-  ArrowRight,
 } from "lucide-react";
-import LogoutButton from "../logout/page";
-import { authClient } from "@/lib/auth-client";
-import { useProfile } from "@/lib/use-profile";
+
+function LogoutButton() {
+  return (
+    <button
+      type="button"
+      className="bg-white border border-gray-200 text-[#112250] px-3 py-1 rounded-lg text-sm font-medium"
+      onClick={() => console.log("logout")}
+    >
+      Logout
+    </button>
+  );
+}
+
+const profile = {
+  name: "James Otieno",
+  role: "Senior Product Manager",
+  company: "Safaricom PLC",
+  email: "james@safaricom.co.ke",
+  phone: "+254 712 345 678",
+  location: "Nairobi, Kenya",
+
+  bio:
+    "Experienced product leader passionate about helping university students navigate careers in technology and product management.",
+
+  expertise: [
+    "Product Management",
+    "Leadership",
+    "Career Growth",
+    "Agile",
+    "UX Strategy",
+  ],
+
+  experience: "8 years",
+
+  availability: [
+    "Monday",
+    "Wednesday",
+    "Friday",
+  ],
+
+  preferredTime: "Evenings (6PM - 9PM)",
+
+  mentorshipAreas: [
+    "Career Guidance",
+    "Internship Preparation",
+    "CV Reviews",
+    "Mock Interviews",
+  ],
+
+  avatarInitials: "JO",
+};
 
 export default function MentorProfilePage() {
-  const { data: session, isPending: sessionLoading } = authClient.useSession();
-  const { profile, loading: profileLoading, error: profileError } = useProfile(session?.user?.id);
-
-  const isLoading = sessionLoading || profileLoading;
-  const name = profile ? `${profile.firstName} ${profile.lastName}` : session?.user?.name ?? "—";
-  const email = session?.user?.email ?? "—";
-  const initials = profile
-    ? `${profile.firstName[0] ?? ""}${profile.lastName[0] ?? ""}`
-    : (session?.user?.name?.split(" ").map((n) => n[0]).join("").slice(0, 2) ?? "M");
-  const bio = profile?.bio ?? "No bio set yet.";
-  const expertise = profile?.skills.map((s) => s.skill.name) ?? [];
-  const availability = profile?.availability ?? [];
-
   return (
     <DashboardShell sidebar={<MentorSidebar />}>
       {/* HEADER */}
@@ -50,7 +87,7 @@ export default function MentorProfilePage() {
           <LogoutButton />
 
           <Link
-            href="/mentor/profileedit"
+            href="/mentor/profile/edit"
             className="flex items-center gap-2 bg-[#112250] hover:bg-[#1B3475] text-white px-4 py-2 rounded-lg text-sm font-medium transition"
           >
             <Pencil className="w-4 h-4" />
@@ -59,45 +96,22 @@ export default function MentorProfilePage() {
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-[#112250]" />
-        </div>
-      ) : profileError ? (
-        <div className="flex items-start gap-2 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
-          <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-          <span>{profileError}</span>
-        </div>
-      ) : !profile ? (
-        <div className="bg-white border border-gray-200 rounded-xl p-8 text-center">
-          <p className="text-sm text-gray-500 mb-4">
-            You haven&apos;t set up your mentor profile yet.
-          </p>
-          <Link
-            href="/mentor/onboarding"
-            className="inline-flex items-center gap-2 bg-[#112250] hover:bg-[#1B3475] text-white px-5 py-2.5 rounded-lg text-sm font-medium transition"
-          >
-            Complete your profile
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      ) : (
       <div className="grid md:grid-cols-3 gap-6">
         {/* LEFT COLUMN */}
         <div className="space-y-4">
           <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center text-center">
             <div className="w-20 h-20 rounded-full bg-[#112250] flex items-center justify-center mb-4">
               <span className="text-2xl font-bold text-[#E0C58F]">
-                {initials}
+                {profile.avatarInitials}
               </span>
             </div>
 
             <h2 className="text-lg font-semibold text-[#112250]">
-              {name}
+              {profile.name}
             </h2>
 
             <p className="text-sm text-gray-500">
-              {profile.department}
+              {profile.role}
             </p>
 
             <span className="mt-2 inline-block px-3 py-1 rounded-full bg-[#F5F0E9] text-[#112250] text-xs font-medium">
@@ -105,7 +119,7 @@ export default function MentorProfilePage() {
             </span>
 
             <p className="mt-4 text-sm text-gray-500 leading-relaxed">
-              {bio}
+              {profile.bio}
             </p>
           </div>
 
@@ -116,7 +130,17 @@ export default function MentorProfilePage() {
 
             <DetailRow
               icon={<Mail className="w-4 h-4" />}
-              value={email}
+              value={profile.email}
+            />
+
+            <DetailRow
+              icon={<Phone className="w-4 h-4" />}
+              value={profile.phone}
+            />
+
+            <DetailRow
+              icon={<MapPin className="w-4 h-4" />}
+              value={profile.location}
             />
           </div>
         </div>
@@ -132,20 +156,20 @@ export default function MentorProfilePage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <DetailRow
                 icon={<Building className="w-4 h-4" />}
-                label="Faculty"
-                value={profile.faculty}
+                label="Organization"
+                value={profile.company}
               />
 
               <DetailRow
                 icon={<Briefcase className="w-4 h-4" />}
-                label="Department"
-                value={profile.department}
+                label="Role"
+                value={profile.role}
               />
 
               <DetailRow
                 icon={<Award className="w-4 h-4" />}
-                label="Max Mentees"
-                value={String(profile.maxMentees ?? "—")}
+                label="Experience"
+                value={profile.experience}
               />
             </div>
           </div>
@@ -156,20 +180,35 @@ export default function MentorProfilePage() {
               Areas of Expertise
             </h3>
 
-            {expertise.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {expertise.map((item) => (
-                  <span
-                    key={item}
-                    className="px-3 py-1 rounded-full bg-[#F5F0E9] text-[#112250] text-xs font-medium"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-400">No expertise areas added yet.</p>
-            )}
+            <div className="flex flex-wrap gap-2">
+              {profile.expertise.map((item) => (
+                <span
+                  key={item}
+                  className="px-3 py-1 rounded-full bg-[#F5F0E9] text-[#112250] text-xs font-medium"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* MENTORSHIP */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">
+              Mentorship Areas
+            </h3>
+
+            <ul className="space-y-2">
+              {profile.mentorshipAreas.map((goal) => (
+                <li
+                  key={goal}
+                  className="flex items-start gap-2 text-sm text-gray-600"
+                >
+                  <Star className="w-4 h-4 text-[#E0C58F] mt-0.5" />
+                  {goal}
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* AVAILABILITY */}
@@ -178,24 +217,22 @@ export default function MentorProfilePage() {
               Availability
             </h3>
 
-            {availability.length > 0 ? (
-              <div className="space-y-3">
-                {availability.map((slot) => (
-                  <DetailRow
-                    key={slot.id}
-                    icon={<Calendar className="w-4 h-4" />}
-                    label={slot.dayOfWeek}
-                    value={`${slot.startTime} – ${slot.endTime}`}
-                  />
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-400">No availability set yet.</p>
-            )}
+            <DetailRow
+              icon={<Calendar className="w-4 h-4" />}
+              label="Available Days"
+              value={profile.availability.join(", ")}
+            />
+
+            <div className="mt-4">
+              <DetailRow
+                icon={<Clock className="w-4 h-4" />}
+                label="Preferred Time"
+                value={profile.preferredTime}
+              />
+            </div>
           </div>
         </div>
       </div>
-      )}
     </DashboardShell>
   );
 }

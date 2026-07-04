@@ -101,9 +101,11 @@ export default function MentorProfilePage() {
 
           {/* CTA */}
           <div className="w-full sm:w-auto">
-            <Button className="w-full sm:w-auto bg-[#112250] hover:bg-[#1B3475] text-white transition">
-              Request Mentorship
-            </Button>
+            <Link href={`/student/requestmentorship/${mentorId}`}>
+              <Button className="w-full sm:w-auto bg-[#112250] hover:bg-[#1B3475] text-white transition">
+                Request Mentorship
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -186,9 +188,11 @@ export default function MentorProfilePage() {
             </div>
 
             <div className="mt-6">
-              <Button className="w-full bg-[#112250] hover:bg-[#1B3475] text-white">
+              <Link href={`/student/requestmentorship/${mentorId}`}>
+              <Button className="w-full sm:w-auto bg-[#112250] hover:bg-[#1B3475] text-white transition">
                 Request Mentorship
               </Button>
+            </Link>
             </div>
           </div>
 
