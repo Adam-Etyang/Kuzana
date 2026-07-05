@@ -30,11 +30,11 @@ export default function MentorSidebar() {
       label: "Requests",
       icon: FileText,
     },
-    {
+    /*{
           href: "/mentor/messages",
           label: "Messages",
           icon: MessageCircle,
-        },
+        },*/
     {
       href: "/mentor/profile",      label: "Profile",
       icon: Users,
