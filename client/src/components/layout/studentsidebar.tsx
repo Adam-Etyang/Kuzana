@@ -41,11 +41,12 @@ export default function StudentSidebar() {
       label: "Requests",
       icon: FileText,
     },
-    {
+    /*{
       href: "/student/messages",
       label: "Messages",
       icon: MessageCircle,
     },
+    */
     {
       href: "/student/matches",
       label: "Matches",

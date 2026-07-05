@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   Users,
   GraduationCap,
-  Sparkles,
   ShieldCheck,
   Star,
   Menu,
@@ -16,6 +16,7 @@ import {
   Award,
   ChevronDown,
   ChevronRight,
+  Fingerprint,
 } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
@@ -310,10 +311,28 @@ export default function HomePage() {
         >
           <div className="max-w-7xl mx-auto px-6 sm:px-10 h-[72px] flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-              <span className="text-base font-black text-[#E0C58F] tracking-[0.12em]">KUZANA</span>
-            </Link>
+<Link href="/" className="group flex items-center flex-shrink-0">
 
+  <span
+    className="
+      text-[1.45rem]
+      font-black
+      tracking-[0.14em]
+      bg-gradient-to-r
+      from-[#D4AA6A]
+      via-[#F5E4B0]
+      to-[#E0C58F]
+      bg-clip-text
+      text-transparent
+      transition-all
+      duration-300
+      group-hover:drop-shadow-[0_0_12px_rgba(224,197,143,0.35)]
+    "
+  >
+    KUZANA
+  </span>
+
+</Link>
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-1">
               {navLinks.map((l) => (
@@ -375,10 +394,10 @@ export default function HomePage() {
               ))}
               <div className="flex flex-col gap-2.5 mt-4 pt-4 border-t border-white/10">
                 <Link
-                  href="/mentor/apply"
+                  href="/login"
                   className="border border-white/25 text-white py-3 px-4 rounded-xl font-semibold text-sm text-center hover:bg-white/10 transition"
                 >
-                  Mentor Portal
+                  Log In
                 </Link>
                 <Link
                   href="/student/signup"
@@ -392,7 +411,8 @@ export default function HomePage() {
         </nav>
 
         {/* ───────────────────── HERO ───────────────────── */}
-        <section className="relative bg-[#112250] text-white overflow-hidden min-h-[85vh] flex items-center">
+        <section className="relative bg-[#112250] text-white overflow-hidden min-h-[90vh] flex items-center">
+
           {/* Background texture */}
           <div className="absolute inset-0 pointer-events-none" aria-hidden>
             <div
@@ -404,119 +424,109 @@ export default function HomePage() {
               }}
             />
             <div className="absolute -top-48 -left-48 w-[700px] h-[700px] rounded-full bg-[#1e3a6e]/50 blur-[140px]" />
-            <div className="absolute top-1/3 -right-48 w-[600px] h-[600px] rounded-full bg-[#E0C58F]/[0.05] blur-[110px] ku-spin-slow" />
+            <div className="absolute top-1/3 -right-48 w-[600px] h-[600px] rounded-full bg-[#E0C58F]/10 blur-[120px] ku-spin-slow" />
             <div className="absolute -bottom-24 left-1/3 w-[400px] h-[280px] rounded-full bg-[#112250]/80 blur-[80px]" />
           </div>
 
           <div className="relative max-w-7xl mx-auto px-6 sm:px-10 py-24 w-full">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-              {/* Left column — copy */}
-              <div className="max-w-[640px]">
-                
-                <h1 className="ku-serif ku-fade-up ku-d2 text-[3.25rem] sm:text-[4rem] xl:text-[4.75rem] font-normal leading-[1.05] tracking-[-0.01em]">
-                  The right mentor
-                  <br />
-                  <em className="ku-gradient bg-gradient-to-r from-[#E0C58F] via-[#f5e4b0] to-[#d4aa6a] bg-clip-text text-transparent not-italic">
-                    changes everything.
-                  </em>
-                </h1>
+            <div className="grid lg:grid-cols-[1fr_520px] gap-20 items-center">
 
-                <p className="ku-fade-up ku-d3 mt-8 text-white/55 text-[1.125rem] leading-[1.8] max-w-[520px]">
-                  Kuzana matches students with verified industry mentors using intelligent compatibility algorithms because the best mentorship is never random.
+              {/* LEFT */}
+              <div className="max-w-[620px]">
+
+                <p className="ku-fade-up text-[#E0C58F] uppercase tracking-[0.25em] text-xs font-semibold mb-6">
+                  Mentorship for the next generation
                 </p>
 
+                <h1 className="ku-serif ku-fade-up ku-d2 text-[3.4rem] sm:text-[4rem] xl:text-[5rem] font-normal leading-[1.02] tracking-[-0.03em]">
+                  The right mentor
+                  <br />
+                  <span className="bg-gradient-to-r from-[#E0C58F] via-[#F7E5B7] to-[#D4AA6A] bg-clip-text text-transparent">
+                    changes everything.
+                  </span>
+                </h1>
+
+                <p className="ku-fade-up ku-d3 mt-8 text-white/65 text-lg leading-8 max-w-[540px]">
+                  Kuzana connects ambitious university students with verified
+                  industry professionals through intelligent mentor matching,
+                  helping every conversation become a step toward a meaningful career.
+                </p>
+
+                {/* Buttons */}
                 <div className="ku-fade-up ku-d4 flex flex-col sm:flex-row gap-4 mt-12">
+
                   <Link
                     href="/student/signup"
-                    className="group bg-[#E0C58F] text-[#112250] px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#f0d89c] hover:shadow-2xl hover:shadow-[#E0C58F]/20 hover:-translate-y-0.5 transition-all duration-200 text-sm"
+                    className="group bg-[#E0C58F] text-[#112250] px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#F3D89A] hover:-translate-y-0.5 transition-all duration-200 shadow-xl shadow-[#E0C58F]/20"
                   >
-                    Find A Mentor
+                    Find a Mentor
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
+
                   <Link
                     href="/mentor/apply"
-                    className="group border border-white/20 bg-white/5 hover:bg-white/[0.09] hover:border-white/35 px-8 py-4 rounded-xl text-sm font-semibold transition-all duration-200 text-center flex items-center justify-center gap-2"
+                    className="group border border-white/20 bg-white/5 hover:bg-white/10 px-8 py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-200"
                   >
                     Become a Mentor
-                    <ChevronRight className="w-4 h-4 opacity-45 group-hover:opacity-80 group-hover:translate-x-0.5 transition-all" />
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
+
+                </div>
+
+                {/* Trust */}
+                <div className="ku-fade-up ku-d4 mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/60">
+
+                  <span className="flex items-center gap-2">
+                    <span className="text-[#E0C58F]">✓</span>
+                    Verified mentors
+                  </span>
+
+                  <span className="flex items-center gap-2">
+                    <span className="text-[#E0C58F]">✓</span>
+                    Smart mentor matching
+                  </span>
+
+                  <span className="flex items-center gap-2">
+                    <span className="text-[#E0C58F]">✓</span>
+                    Career-focused guidance
+                  </span>
+
                 </div>
 
               </div>
-              {/* Right column — mentor match preview (desktop only) */}
-              <div className="hidden lg:block ku-fade-up ku-d3">
-                <div className="relative">
-                  <div className="absolute -inset-6 bg-gradient-to-br from-[#E0C58F]/10 to-transparent rounded-3xl blur-2xl pointer-events-none" />
-                  <div className="relative bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 backdrop-blur-sm">
-                    <div className="flex items-center gap-1.5 mb-6">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
-                      <span className="text-white/25 text-[10px] font-mono ml-2 tracking-tight">
-                        kuzana.app/matches
-                      </span>
-                    </div>
 
-                    <p className="text-white/40 text-[10px] font-black tracking-[0.18em] uppercase mb-4">
-                      Your top matches
-                    </p>
+              {/* RIGHT */}
+              <div className="relative ku-fade-up ku-d4">
 
-                    <div className="space-y-3">
-                      {[
-                        { init: "JM", name: "James Mutua", role: "PM · Safaricom", pct: 94 },
-                        { init: "AM", name: "Aisha Mutuku", role: "Eng · Andela", pct: 89 },
-                        { init: "FN", name: "Faith Njiru", role: "Data · Cellulant", pct: 82 },
-                      ].map((m) => (
-                        <div
-                          key={m.name}
-                          className="flex items-center gap-3 bg-white/[0.04] rounded-xl px-4 py-3.5 hover:bg-white/[0.08] transition-colors cursor-default"
-                        >
-                          <div className="w-8 h-8 rounded-lg bg-[#E0C58F]/15 flex items-center justify-center text-[#E0C58F] text-xs font-bold flex-shrink-0">
-                            {m.init}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-white text-xs font-semibold truncate">{m.name}</p>
-                            <p className="text-white/35 text-[10px] mt-0.5">{m.role}</p>
-                          </div>
-                          <div className="flex items-center gap-2 flex-shrink-0">
-                            <div className="h-1 w-14 bg-white/10 rounded-full overflow-hidden">
-                              <div
-                                className="h-full bg-gradient-to-r from-[#E0C58F]/60 to-[#E0C58F] rounded-full"
-                                style={{ width: `${m.pct}%` }}
-                              />
-                            </div>
-                            <span className="text-[#E0C58F] text-[10px] font-bold tabular-nums">{m.pct}%</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                {/* Glow */}
+                <div className="absolute -inset-8 rounded-[40px] bg-[#E0C58F]/10 blur-3xl" />
 
-                    {/* Platform stats strip */}
-                    <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/[0.08]">
-                      <div className="text-center">
-                        <p className="text-xl font-black text-[#E0C58F] tabular-nums">94%</p>
-                        <p className="text-[9px] text-white/35 font-bold uppercase tracking-wide mt-1.5">
-                          Match score
-                        </p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xl font-black text-[#E0C58F] tabular-nums">24h</p>
-                        <p className="text-[9px] text-white/35 font-bold uppercase tracking-wide mt-1.5">
-                          Avg. match
-                        </p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-xl font-black text-[#E0C58F] tabular-nums">100%</p>
-                        <p className="text-[9px] text-white/35 font-bold uppercase tracking-wide mt-1.5">
-                          Verified
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                
+
+                {/* Image */}
+                <div className="relative overflow-hidden rounded-[32px] border border-white/10 shadow-2xl">
+
+                  <Image
+                    src="/images/strathmorestudentandmentor.jpg"
+                    alt="Student receiving mentorship"
+                    width={900}
+                    height={1000}
+                    priority
+                    className="w-full h-[620px] object-cover object-[58%_center]"
+                  />
+
+                  {/* Bottom gradient */}
+                  <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#112250]/70 to-transparent" />
+
                 </div>
+
+                
+
               </div>
+
             </div>
+
           </div>
 
           {/* Bottom fade */}
@@ -556,7 +566,7 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <div className="lg:col-span-2">
               <FeatureCard
-                icon={Sparkles}
+                icon={Fingerprint}
                 title="Smart Compatibility Matching"
                 desc="Our algorithm weighs your field of study, career goals, mentorship style preferences, and availability to surface mentors who will actually move you forward not just anyone available."
                 tag="Core Feature"
@@ -570,8 +580,8 @@ export default function HomePage() {
             />
             <FeatureCard
               icon={GraduationCap}
-              title="Real Industry Mentors"
-              desc="Verified professionals from product, engineering, finance, entrepreneurship, and more, not career coaches."
+              title="Real Mentors"
+              desc="Verified professionals with backgrounds from product engineering to finance to entrepreneurship, and more, not career coaches."
             />
             <div className="lg:col-span-2">
               <FeatureCard
@@ -734,36 +744,18 @@ export default function HomePage() {
         </section>
 
         {/* ───────────────────── TESTIMONIALS ───────────────────── */}
-        <section id="proof" className="bg-[#F5F0E9] border-t border-[#E0DAD0] py-24">
+         <section id="proof" className="bg-[#EFE8DA] border-t border-[#112250]/10 py-24">
           <div className="max-w-7xl mx-auto px-6 sm:px-10">
-            <div className="text-center mb-14">
-              <Eyebrow>Student stories</Eyebrow>
-              <h2 className="ku-serif text-[2.5rem] sm:text-[3rem] font-normal tracking-tight leading-[1.1]">
-                Students are leveling up
+            <div className="mb-12">
+              <Eyebrow>Testimonials</Eyebrow>
+              <h2 className="ku-serif text-[2.25rem] sm:text-[2.75rem] font-normal tracking-tight leading-[1.1]">
+                What the students are saying about Kuzana
               </h2>
-              <p className="mt-5 text-[#6B7280] text-sm sm:text-base max-w-md mx-auto leading-relaxed">
-                A few of the conversations that started with one good match.
-              </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              <TestimonialCard
-                quote="I finally understood what I want to do in tech after speaking to my mentor. Three sessions in and I have a career plan I actually believe in."
-                name="Brian N."
-                role="3rd Year"
-                field="Computer Science"
-              />
-              <TestimonialCard
-                quote="Kuzana made mentorship feel structured and not intimidating at all. I was terrified of reaching out to professionals this made it completely natural."
-                name="Grace A."
-                role="2nd Year"
-                field="UX Design"
-              />
-              <TestimonialCard
-                quote="The match accuracy is genuinely impressive. My mentor works in exactly the niche I want to enter. It saved me so much time figuring out who to follow."
-                name="Daniel M."
-                role="Final Year"
-                field="Data Science"
-              />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <TestimonialCard quote="I finally understood what I want to do in tech after speaking to my mentor. Three sessions in and I have a plan I actually believe in." name="Brian N." role="3rd Year" field="Computer Science" />
+              <TestimonialCard quote="Kuzana made mentorship feel structured instead of intimidating. I was nervous about reaching out to professionals — this made it natural." name="Grace A." role="2nd Year" field="BBIT" />
+              <TestimonialCard quote="The match accuracy is genuinely good. My mentor works in exactly the niche I want to enter, which saved me months of guessing." name="Daniel M." role="Final Year" field="Data Science" />
             </div>
           </div>
         </section>
@@ -876,9 +868,7 @@ export default function HomePage() {
                 Mentorship that actually aligns with where you&apos;re going.
               </p>
 
-              <p className="text-xs mt-6 text-white/20">
-                Built at Strathmore University · Nairobi, Kenya
-              </p>
+          
             </div>
 
             {[
@@ -893,19 +883,11 @@ export default function HomePage() {
               {
                 title: "Company",
                 links: [
-                  { href: "#", label: "About" },
-                  { href: "#", label: "Careers" },
-                  { href: "#", label: "Contact" },
+                  { href: "/about", label: "About" },
+                  { href: "/contact", label: "Contact" },
                 ],
               },
-              {
-                title: "Legal",
-                links: [
-                  { href: "#", label: "Privacy Policy" },
-                  { href: "#", label: "Terms of Use" },
-                  { href: "#", label: "Help Center" },
-                ],
-              },
+              
             ].map((col) => (
               <div key={col.title}>
                 <p className="font-bold text-white/45 text-[10px] tracking-[0.2em] uppercase mb-5">
@@ -935,7 +917,7 @@ export default function HomePage() {
 
           <div className="border-t border-white/[0.06] px-6 sm:px-10 py-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-white/20">
             <p>© {new Date().getFullYear()} Kuzana. All rights reserved.</p>
-            <p>Strathmore University · School of Computing and Engineering Sciences</p>
+            <p>Strathmore University · Built by Hellen and Adam</p>
           </div>
         </footer>
       </main>

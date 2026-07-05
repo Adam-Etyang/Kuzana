@@ -6,6 +6,8 @@ const PUBLIC_PATHS = [
   "/login",
   "/student/signup",
   "/mentor/apply",
+  "/about",
+  "/contact",
 ];
 
 const SESSION_COOKIE_PREFIX = "better-auth.session_token";
@@ -32,7 +34,7 @@ export default function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+ matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js)$).*)",
   ],
 };

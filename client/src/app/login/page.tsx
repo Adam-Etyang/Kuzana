@@ -125,68 +125,109 @@ export default function LoginPage() {
 
       <main className="min-h-screen flex bg-[#F5F0E9]">
 
-        {/* ── LEFT PANEL ── */}
-        <section className="hidden lg:flex w-[45%] bg-[#112250] text-white relative overflow-hidden flex-col justify-between p-14">
+   {/* ── LEFT PANEL ── */}
+<section className="hidden lg:flex w-[45%] text-white relative overflow-hidden flex-col justify-between p-14">
 
-          {/* Ambient orbs */}
-          <div className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-[#E0C58F]/8 blur-[100px] animate-spin-slow pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-[#1e3a6e]/60 blur-[80px] pointer-events-none" />
+  {/* Background image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center opacity-60"
+    style={{
+      backgroundImage: "url('/images/teamhuddle.jpg')",
+    }}
+  />
 
-          {/* Grid texture */}
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage:
-                "linear-gradient(#E0C58F 1px, transparent 1px), linear-gradient(90deg, #E0C58F 1px, transparent 1px)",
-              backgroundSize: "36px 36px",
-            }}
-          />
+  {/* Dark overlay */}
+  <div className="absolute inset-0 bg-[#112250]/80" />
 
-          {/* Top: brand */}
-          <div className="relative z-10 animate-fade-up">
-            <div className="flex items-center gap-2 mb-2">
-              
-              <span className="text-lg font-bold text-[#E0C58F] tracking-[0.08em]">KUZANA</span>
-            </div>
+  {/* Ambient orbs */}
+  <div className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-[#E0C58F]/8 blur-[100px] animate-spin-slow pointer-events-none" />
+  
+
+
+  {/* Top: Brand */}
+  <div className="relative z-10 animate-fade-up">
+    <div className="flex items-center gap-2 mb-2">
+       {/* Logo */}
+<Link href="/" className="group flex items-center flex-shrink-0">
+
+  <span
+    className="
+      text-[1.45rem]
+      font-black
+      tracking-[0.14em]
+      bg-gradient-to-r
+      from-[#D4AA6A]
+      via-[#F5E4B0]
+      to-[#E0C58F]
+      bg-clip-text
+      text-transparent
+      transition-all
+      duration-300
+      group-hover:drop-shadow-[0_0_12px_rgba(224,197,143,0.35)]
+    "
+  >
+    KUZANA
+  </span>
+
+</Link>
+    </div>
+  </div>
+
+  {/* Middle: Hero copy */}
+  <div className="relative z-10 flex-1 flex flex-col justify-center gap-8">
+
+    <div className="animate-fade-up delay-100">
+      <h2 className="text-3xl font-bold leading-tight tracking-tight">
+        Your Community
+        <br />
+        <span className="text-[#E0C58F]">awaits</span>
+      </h2>
+
+      <p className="mt-4 text-white/75 text-sm leading-relaxed max-w-xs">
+        Whether you're learning, mentoring, or leading, your next
+  conversation starts here. Sign in to continue your mentorship journey. Connect with students,
+        mentors, and admins all in one place.
+      </p>
+    </div>
+
+    {/* Trust list */}
+    <div className="space-y-3.5 animate-fade-up delay-200">
+      {[
+        {
+          icon: Users,
+          label: "1:1 mentorship with verified industry professionals",
+        },
+        {
+          icon: Sparkles,
+          label: "Matched by goal, field, and career direction",
+        },
+        {
+          icon: ShieldCheck,
+          label: "Secure, university-verified community",
+        },
+        {
+          icon: TrendingUp,
+          label: "Track your growth across every session",
+        },
+      ].map(({ icon: Icon, label }) => (
+        <div
+          key={label}
+          className="flex items-start gap-3 text-sm text-white/80"
+        >
+          <div className="w-6 h-6 rounded-md bg-white/10 backdrop-blur-sm flex items-center justify-center flex-shrink-0 mt-0.5">
+            <Icon className="w-3.5 h-3.5 text-[#E0C58F]" />
           </div>
+          {label}
+        </div>
+      ))}
+    </div>
+  </div>
 
-          {/* Middle: hero copy */}
-          <div className="relative z-10 flex-1 flex flex-col justify-center gap-8">
-
-            <div className="animate-fade-up delay-100">
-              <h2 className="text-3xl font-bold leading-tight tracking-tight">
-                Your career clarity
-                <br />
-                <span className="text-[#E0C58F]">starts here.</span>
-              </h2>
-              <p className="mt-4 text-white/65 text-sm leading-relaxed max-w-xs">
-                Sign in to continue your mentorship journey. Connect with students, mentors, and admins all in one place.
-              </p>
-            </div>
-
-            {/* Trust list */}
-            <div className="space-y-3.5 animate-fade-up delay-200">
-              {[
-                { icon: Users, label: "1:1 mentorship with verified industry professionals" },
-                { icon: Sparkles, label: "Matched by goal, field, and career direction" },
-                { icon: ShieldCheck, label: "Secure, university-verified community" },
-                { icon: TrendingUp, label: "Track your growth across every session" },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-start gap-3 text-sm text-white/70">
-                  <div className="w-6 h-6 rounded-md bg-white/8 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icon className="w-3.5 h-3.5 text-[#E0C58F]" />
-                  </div>
-                  {label}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Bottom note */}
-          <p className="relative z-10 text-xs text-white/30 animate-fade-up delay-300">
-            Built for students who want direction, not guesswork.
-          </p>
-        </section>
+  {/* Bottom note */}
+  <p className="relative z-10 text-xs text-white/40 animate-fade-up delay-300">
+    Built for students who want direction, not guesswork.
+  </p>
+</section>
 
         {/* ── RIGHT PANEL (Form) ── */}
         <section className="flex-1 flex items-center justify-center p-6 sm:p-10">
@@ -288,22 +329,26 @@ export default function LoginPage() {
                 </button>
 
                 {/* Footer links */}
-                <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
-                  <Link
-                    href="/student/signup"
-                    className="text-[#112250] font-semibold hover:underline underline-offset-2"
-                  >
-                    Student sign up
-                  </Link>
-                  <span className="text-gray-300">·</span>
-                  <Link
-                    href="/mentor/apply"
-                    className="text-[#112250] font-semibold hover:underline underline-offset-2"
-                  >
-                    Mentor sign up
-                  </Link>
-                </div>
+                <div className="text-center text-sm text-gray-500">
+  New to Kuzana?
+  <div className="mt-2 flex justify-center gap-2">
+    <Link
+      href="/student/signup"
+      className="font-semibold text-[#112250] hover:underline"
+    >
+      Student Registration
+    </Link>
 
+    <span className="text-gray-300">•</span>
+
+    <Link
+      href="/mentor/apply"
+      className="font-semibold text-[#112250] hover:underline"
+    >
+      Mentor Application
+    </Link>
+  </div>
+</div>
                 {/* Resend verification email */}
                 <div className="pt-3 border-t border-gray-100">
                   {!showResend ? (
